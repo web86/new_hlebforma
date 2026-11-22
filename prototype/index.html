@@ -254,6 +254,72 @@
       .cart-item > strong{grid-column:2}
       .cart-item .product-art{height:60px}
     }
+
+    /* Additions v0.2: retention, reviews, offers and trust */
+    .stock-bar{background:#e8f1e6;border-bottom:1px solid #c7d9c5;color:#2c593a;padding:10px 0;font-size:13px}
+    .stock-bar strong{font-weight:800}
+    .stock-bar small{color:#54705a;font-size:11px;margin-left:8px}
+    .quick-link{display:inline-flex;align-items:center;gap:3px;font-size:22px;min-height:38px;color:var(--brand);line-height:1;text-decoration:none}
+    .quick-link span{font-size:10px;font-weight:800;background:var(--wheat);border-radius:30px;min-width:18px;text-align:center;padding:3px}
+    .promo-bar{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;background:linear-gradient(115deg,#f3e2c8,#f8efe1);border:1px solid #e2c7aa;border-radius:20px;padding:30px;margin:20px 0}
+    .promo-bar h2{font-size:30px;margin:8px 0}
+    .promo-art{display:flex;align-items:center;justify-content:center;font-size:85px;opacity:.68}
+    .why-grid,.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px}
+    .why-item,.review-placeholder{padding:24px;border:1px solid var(--border);background:#fff;border-radius:16px}
+    .why-item .big-icon{font-size:30px;display:block;margin-bottom:9px}
+    .why-item strong,.review-placeholder strong{display:block;margin-bottom:7px}
+    .why-item p,.review-placeholder p{font-size:14px;margin:0}
+    .review-placeholder{background:#fefcf8}
+    .review-placeholder .quote-mark{font:700 35px/1 Georgia,serif;color:#b88a64}
+    .explain-block{display:grid;grid-template-columns:.55fr 1fr;gap:28px;align-items:center;background:#fff;border:1px solid var(--border);border-radius:20px;padding:27px}
+    .explain-icon{background:var(--wheat);border-radius:16px;display:grid;place-items:center;font-size:90px;min-height:230px}
+    .extras{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+    .extra-button{border:1px solid var(--border);border-radius:9px;background:#fff;padding:7px 10px;color:var(--brand);font-size:12px;font-weight:700;white-space:nowrap}
+    .extra-button[aria-pressed="true"]{border-color:var(--brand);background:#f7e6d9}
+    .saved-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    .saved-card{border:1px solid var(--border);background:#fff;border-radius:16px;padding:19px}
+    .saved-card h3{margin:5px 0;font-size:16px}
+    .saved-card p{font-size:13px}
+    .compare-table-wrap{overflow:auto;border-radius:15px;border:1px solid var(--border);background:#fff}
+    .compare-table{border-collapse:collapse;min-width:600px;width:100%}
+    .compare-table th,.compare-table td{border-bottom:1px solid var(--border);padding:17px;text-align:left;vertical-align:top;font-size:13px}
+    .compare-table th{background:#f7eee5}
+    .account-grid{display:grid;grid-template-columns:240px 1fr;gap:22px}
+    .account-menu{background:#fff;border:1px solid var(--border);border-radius:16px;padding:15px;align-self:start;display:grid;gap:7px}
+    .account-menu a{padding:10px;border-radius:9px;font-size:14px}
+    .account-menu a:hover{background:var(--wheat)}
+    .account-preview{border-radius:17px;background:#fff;border:1px solid var(--border);padding:27px}
+    .empty-soft{background:#f7eee5;border-radius:13px;padding:22px;margin:14px 0}
+    @media(max-width:1150px){
+      .header-search{display:none}
+      .navigation{gap:10px;margin-left:0}
+      .header-wrap{gap:13px}
+      .navigation a{font-size:13px}
+    }
+    @media(max-width:960px){
+      .menu-button{display:block;margin-left:auto}
+      .navigation{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:15px 20px;flex-direction:column;align-items:stretch;box-shadow:var(--shadow)}
+      .navigation.open{display:flex}
+      .navigation a{font-size:14px;padding:8px}
+      .header-actions{margin-left:0}
+      .promo-bar,.explain-block,.account-grid{grid-template-columns:1fr}
+      .why-grid,.reviews-grid,.saved-grid{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:560px){
+      .quick-link{font-size:19px}
+      .quick-link span{min-width:14px;font-size:9px}
+      .header-wrap{gap:6px}
+      .brand-mark{display:none}
+      .brand-text{font-size:15px}
+      .bag-link{font-size:12px}
+      .stock-bar{font-size:12px}
+      .stock-bar small{display:block;margin:2px 0 0}
+      .promo-bar{padding:20px}
+      .promo-art{display:none}
+      .why-grid,.reviews-grid,.saved-grid{grid-template-columns:1fr}
+      .explain-icon{min-height:135px;font-size:65px}
+      .account-preview{padding:18px}
+    }
   </style>
 </head>
 <body>
@@ -601,5 +667,229 @@
       updateCartCounter();route();
     })();
   </script>
+<script>
+
+  (function(){
+    'use strict';
+    /* Progressive enhancement of the standalone demonstration prototype.
+       Replaces no payment, stock, review, account or backend functionality. */
+    var ids=['bn10','bn01','bn06','bn32','bn28','canvas','blade'];
+    var known={};var favorites=new Set(),compares=new Set(),signedInDemo=false;
+    var root=document.getElementById('app');
+    function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+    function current(){return decodeURIComponent(location.hash.slice(1)||'home');}
+    function notify(t){var n=document.getElementById('toast');n.textContent=t;n.classList.add('show');clearTimeout(notify.timeout);notify.timeout=setTimeout(function(){n.classList.remove('show');},3200);}
+    function updateCounters(){
+      var f=document.getElementById('enh-fav-count'),c=document.getElementById('enh-compare-count');
+      if(f)f.textContent=favorites.size;
+      if(c)c.textContent=compares.size;
+    }
+    function initFrame(){
+      if(!document.querySelector('.stock-bar')){
+        var bar=document.createElement('div');bar.className='stock-bar';
+        bar.innerHTML='<div class="container">📍 <strong>Склад в Москве</strong> · Наличие конкретного товара и сроки отгрузки уточняйте при заказе. <small>Уточнить сведения о складе у владельца перед запуском.</small></div>';
+        document.querySelector('.site-header').after(bar);
+      }
+      var nav=document.getElementById('navigation');
+      if(nav&&!nav.querySelector('a[href="#sale"]')){
+        var link=document.createElement('a');link.href='#sale';link.textContent='Распродажа';
+        nav.querySelector('a[href="#wholesale"]').before(link);
+      }
+      var actions=document.querySelector('.header-actions');
+      if(actions&&!actions.querySelector('#enh-account')){
+        var node=document.createElement('div');node.className='extras';node.style.margin='0';
+        node.innerHTML='<a href="#favorites" class="quick-link" aria-label="Избранное" title="Избранное">♡<span id="enh-fav-count">0</span></a>'+
+        '<a href="#compare" class="quick-link" aria-label="Сравнение" title="Сравнение">⚖<span id="enh-compare-count">0</span></a>'+
+        '<a id="enh-account" href="#account" class="quick-link" aria-label="Личный кабинет" title="Личный кабинет">♙</a>';
+        actions.prepend(node);updateCounters();
+      }
+      var footer=document.querySelector('.footer-grid');
+      if(footer&&!footer.querySelector('a[href="#sale"]')){
+        var col=footer.children[1];
+        if(col){var a=document.createElement('a');a.href='#sale';a.textContent='Распродажа';col.appendChild(a);}
+      }
+    }
+    function enrichCards(){
+      root.querySelectorAll('article.product-card').forEach(function(card){
+        var link=card.querySelector('a[href^="#product-"]');
+        if(!link)return;
+        var id=link.getAttribute('href').replace('#product-','');
+        if(ids.indexOf(id)<0)return;
+        var title=card.querySelector('h3'),price=card.querySelector('.price'),pill=card.querySelector('.meta-pill');
+        var meta=card.querySelector('.small.muted');
+        known[id]={id:id,name:title?title.textContent:id,price:price?price.textContent:'',weight:pill?pill.textContent:'',size:meta?meta.textContent:''};
+        if(!card.querySelector('.extras')){
+          var row=document.createElement('div');row.className='extras';row.style.padding='0 12px 13px';
+          row.innerHTML=actionButtons(id);
+          card.appendChild(row);
+        }
+      });
+    }
+    function enrichDetail(){
+      var summary=root.querySelector('.detail-summary');
+      if(!summary)return;
+      var id=current().replace(/^product-/,'');
+      if(ids.indexOf(id)<0)return;
+      var title=summary.querySelector('h1'),price=summary.querySelector('.detail-price');
+      var feats=summary.querySelectorAll('.detail-features b'),pills=summary.querySelectorAll('.meta-pill');
+      known[id]={id:id,name:title?title.textContent:id,price:price?price.textContent:'',weight:feats[0]?feats[0].textContent:'',size:feats[1]?feats[1].textContent:'',sku:pills[1]?pills[1].textContent:''};
+      if(!summary.querySelector('.extras')){
+        var wrap=document.createElement('div');wrap.className='extras';
+        wrap.innerHTML=actionButtons(id);
+        var buy=summary.querySelector('.btn-row');if(buy)buy.after(wrap);
+      }
+      if(!summary.querySelector('.warehouse-detail')){
+        var box=document.createElement('p');box.className='notice warehouse-detail';
+        box.textContent='📍 Склад в Москве: наличие именно этой модели и сроки отгрузки уточняются при заказе.';
+        summary.appendChild(box);
+      }
+      if(!root.querySelector('#product-reviews')){
+        var r=document.createElement('section');r.id='product-reviews';r.className='section';
+        r.innerHTML=reviewBlock(true);
+        var other=Array.from(root.querySelectorAll('.section')).find(function(el){return (el.querySelector('h2')||{}).textContent==='Другие модели';});
+        if(other)other.before(r);else root.querySelector('.container').appendChild(r);
+      }
+    }
+    function actionButtons(id){
+      return '<button class="extra-button" type="button" data-extra="favorite" data-id="'+esc(id)+'" aria-pressed="'+favorites.has(id)+'">'+(favorites.has(id)?'♥ В избранном':'♡ В избранное')+'</button>'+
+             '<button class="extra-button" type="button" data-extra="compare" data-id="'+esc(id)+'" aria-pressed="'+compares.has(id)+'">'+(compares.has(id)?'✓ Сравнивается':'⚖ Сравнить')+'</button>';
+    }
+    function reviewBlock(product){
+      return '<div class="section-heading"><h2>'+(product?'Отзывы о товаре':'Отзывы покупателей')+'</h2><span class="small muted">Реальные отзывы импортируем из OpenCart</span></div>'+
+      '<div class="reviews-grid">'+
+      '<article class="review-placeholder"><span class="quote-mark">“</span><strong>Отзывы о качестве корзинок</strong><p>Здесь появится реальный текст покупателя с датой и товаром после переноса отзывов.</p></article>'+
+      '<article class="review-placeholder"><span class="quote-mark">“</span><strong>Отзывы об оформлении заказа</strong><p>Переносим подтверждённые отзывы без выдуманных оценок и имён.</p></article>'+
+      '<article class="review-placeholder"><span class="quote-mark">“</span><strong>Опыт домашних пекарей</strong><p>Реальные фотографии выпечки покупателей можно добавить после получения разрешения.</p></article></div>';
+    }
+    function createHomeSections(){
+      if(!root.querySelector('.hero')||root.querySelector('#enh-promo'))return;
+      var container=root.querySelector('.container');
+      var finder=root.querySelector('.finder');
+      var promo=document.createElement('section');promo.className='promo-bar';promo.id='enh-promo';
+      promo.innerHTML='<div><span class="eyebrow">Специальные предложения</span><h2>Акции и распродажа</h2>'+
+        '<p>Отдельный раздел для товаров по специальным ценам. Перед запуском подставим действующие акции и проверенные скидки.</p>'+
+        '<a class="btn btn-primary" href="#sale">Посмотреть распродажу →</a></div><div class="promo-art" aria-hidden="true">✳ ♨</div>';
+      if(finder&&finder.closest('.section'))finder.closest('.section').after(promo);else container.prepend(promo);
+      var sections=root.querySelectorAll('section.section');
+      var popular=Array.from(sections).find(function(s){return (s.querySelector('h2')||{}).textContent==='Часто выбирают';});
+      var info=document.createElement('section');info.className='section';info.id='enh-explainer';
+      info.innerHTML='<div class="explain-block"><div class="explain-icon" aria-hidden="true">♨</div>'+
+        '<div><span class="eyebrow">Для начинающих хлебопеков</span><h2>Что такое корзинки для расстойки теста?</h2>'+
+        '<p>Это формы, в которых тестовая заготовка отдыхает и поднимается перед выпечкой. Корзинка поддерживает форму хлеба и помогает получить аккуратный рисунок на поверхности.</p>'+
+        '<p class="small">После расстойки заготовку перекладывают для выпечки. Корзина сама по себе не является формой для духовки.</p>'+
+        '<a class="btn btn-outline" href="#articles">Подробнее о выборе и уходе →</a></div></div>';
+      if(popular)popular.after(info);else container.appendChild(info);
+      var why=document.createElement('section');why.className='section';why.id='enh-why';
+      why.innerHTML='<div class="section-heading"><h2>Почему покупают у Hleb-Forma</h2></div>'+
+      '<div class="why-grid"><div class="why-item"><span class="big-icon">◎</span><strong>Подбор под вашу задачу</strong><p>Помогаем выбирать не по одному артикулу, а по форме хлеба и весу теста.</p></div>'+
+      '<div class="why-item"><span class="big-icon">♧</span><strong>Для дома и пекарни</strong><p>Можно купить одну корзинку или запросить предложение на партию.</p></div>'+
+      '<div class="why-item"><span class="big-icon">✎</span><strong>Инструкции и поддержка</strong><p>Понятные характеристики, советы по выбору, уходу и прямой контакт с магазином.</p></div></div>';
+      info.after(why);
+      var reviews=document.createElement('section');reviews.className='section';reviews.id='enh-reviews';
+      reviews.innerHTML=reviewBlock(false);
+      var newsletter=root.querySelector('.newsletter');
+      if(newsletter&&newsletter.closest('.section'))newsletter.closest('.section').before(reviews);else container.appendChild(reviews);
+    }
+    function listPage(kind){
+      var selected=kind==='favorites'?favorites:compares;
+      var title=kind==='favorites'?'Избранные товары':'Сравнение товаров';
+      var items=Array.from(selected).map(function(id){return known[id]||{id:id,name:id,price:'',weight:'',size:''};});
+      var h='<div class="container"><div class="page-head"><span class="eyebrow">Сохраняйте интересные модели</span><h1>'+title+'</h1>'+
+        '<p>Списки существуют только в текущем сеансе прототипа. В рабочей версии будут синхронизироваться с личным кабинетом.</p></div>';
+      if(!items.length)return h+'<div class="empty"><h2>Здесь пока пусто</h2><p>Добавляйте корзинки кнопками ♡ и ⚖ из каталога или карточек товаров.</p><a href="#catalog" class="btn btn-primary">В каталог →</a></div></div>';
+      if(kind==='favorites'){
+        h+='<div class="saved-grid">'+items.map(function(p){return '<article class="saved-card"><span class="eyebrow">'+esc(p.id.toUpperCase())+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.weight)+' · '+esc(p.size)+'</p><strong>'+esc(p.price)+'</strong><div class="extras"><a href="#product-'+esc(p.id)+'" class="btn btn-outline btn-sm">Открыть</a><button class="extra-button" data-extra="favorite" data-id="'+esc(p.id)+'">Удалить ♡</button></div></article>';}).join('')+'</div>';
+      }else{
+        var columns=items.map(function(p){return '<th><a href="#product-'+esc(p.id)+'">'+esc(p.name)+'</a><div class="extras"><button class="extra-button" data-extra="compare" data-id="'+esc(p.id)+'">Убрать</button></div></th>';}).join('');
+        h+='<div class="compare-table-wrap"><table class="compare-table"><thead><tr><th>Параметр</th>'+columns+'</tr></thead><tbody>'+
+          '<tr><th>Вес теста</th>'+items.map(function(p){return '<td>'+esc(p.weight||'Не указан')+'</td>';}).join('')+'</tr>'+
+          '<tr><th>Размер / SKU</th>'+items.map(function(p){return '<td>'+esc(p.size||'Уточняется')+'</td>';}).join('')+'</tr>'+
+          '<tr><th>Цена (демо)</th>'+items.map(function(p){return '<td>'+esc(p.price||'Уточняется')+'</td>';}).join('')+'</tr>'+
+          '</tbody></table></div>';
+      }
+      return h+'<div class="section"><a href="#catalog" class="btn btn-primary">Продолжить выбор →</a></div></div>';
+    }
+    function salePage(){
+      return '<div class="container"><div class="page-head"><span class="eyebrow">Специальные предложения</span><h1>Распродажа и акции</h1>'+
+        '<p class="lead">Сохраняем знакомый раздел старого магазина. В рабочей версии товары, старая и новая цена, срок акции и наличие будут подтягиваться из реальных скидок MiniShop3.</p></div>'+
+        '<section class="promo-bar"><div><span class="eyebrow">Блок будущих акций</span><h2>Полезные предложения для хлебопеков</h2>'+
+        '<p>Здесь будут только действующие акции — никаких фиктивных скидок или перечёркнутых цен.</p><a class="btn btn-primary" href="#catalog">Посмотреть весь каталог</a></div><div class="promo-art" aria-hidden="true">%</div></section>'+
+        '<div class="empty-soft"><strong>Акционные товары пока не загружены в прототип.</strong><p class="small">Для запуска понадобятся подтверждённые SKU, актуальные цены и условия. На старом сайте раздел «Распродажа» уже существовал.</p></div></div>';
+    }
+    function accountPage(){
+      var header='<div class="container"><div class="page-head"><span class="eyebrow">Личный кабинет</span><h1>Ваши покупки и любимые товары</h1>'+
+        '<p>Схема личного кабинета MiniShop3. Авторизация, история заказов и данные покупателей пока не подключены.</p></div>';
+      if(!signedInDemo)return header+'<div class="account-preview" style="max-width:630px"><h2>С возвращением!</h2>'+
+        '<p>В рабочем магазине здесь будет безопасный вход с сохранением старых аккаунтов OpenCart. Сейчас можно открыть демонстрационный интерфейс без email или пароля.</p>'+
+        '<button class="btn btn-primary" data-extra="login-demo">Открыть демо-кабинет</button></div></div>';
+      return header+'<div class="account-grid"><nav class="account-menu" aria-label="Разделы кабинета">'+
+        '<a href="#account">Мои заказы</a><a href="#favorites">♡ Избранное ('+favorites.size+')</a><a href="#compare">⚖ Сравнение ('+compares.size+')</a>'+
+        '<a href="#catalog">Каталог</a></nav><section class="account-preview"><h2>Мои заказы</h2>'+
+        '<div class="empty-soft"><strong>История заказов появится после переноса.</strong><p class="small">Здесь будут номер, дата, состав, статус и кнопка повторного заказа.</p></div>'+
+        '<h3>Личные данные и адреса</h3><p>Будут доступны редактирование профиля, адресов и безопасное управление паролем.</p>'+
+        '<h3>Подписка на новости</h3><label class="checkbox-line"><input type="checkbox" id="demo-newsletter"> Получать новинки товаров и статьи блога (демонстрация, без сохранения)</label>'+
+        '<div style="margin-top:23px"><button class="btn btn-outline" data-extra="logout-demo">Закрыть демо-кабинет</button></div>'+
+        '</section></div></div>';
+    }
+    function customPage(slug){
+      return slug==='sale'?salePage():slug==='account'?accountPage():listPage(slug);
+    }
+    var running=false;
+    function enhance(){
+      if(running)return;running=true;
+      try{
+        initFrame();
+        var slug=current();
+        if(['sale','account','favorites','compare'].includes(slug)){
+          if(root.dataset.extraPage!==slug || !root.firstElementChild || root.querySelector('.empty') && slug==='account'){
+            root.innerHTML=customPage(slug);root.dataset.extraPage=slug;
+          }
+        }else{
+          root.dataset.extraPage='';
+          if(slug==='home')createHomeSections();
+          if(slug.indexOf('product-')===0)enrichDetail();
+          enrichCards();
+        }
+        updateCounters();
+      }finally{running=false;}
+    }
+    function rerender(){
+      var slug=current();
+      if(['sale','account','favorites','compare'].includes(slug)){
+        root.innerHTML=customPage(slug);root.dataset.extraPage=slug;
+      }else{
+        root.querySelectorAll('[data-extra="favorite"],[data-extra="compare"]').forEach(function(b){
+          var id=b.getAttribute('data-id'),fav=b.getAttribute('data-extra')==='favorite',checked=fav?favorites.has(id):compares.has(id);
+          b.setAttribute('aria-pressed',String(checked));
+          b.textContent=fav?(checked?'♥ В избранном':'♡ В избранное'):(checked?'✓ Сравнивается':'⚖ Сравнить');
+        });
+      }
+      updateCounters();
+    }
+    document.addEventListener('click',function(e){
+      var btn=e.target.closest('[data-extra]');if(!btn)return;
+      var action=btn.getAttribute('data-extra'),id=btn.getAttribute('data-id');
+      if(action==='favorite'){
+        if(favorites.has(id)){favorites.delete(id);notify('Удалено из избранного');}
+        else{favorites.add(id);notify('Добавлено в избранное');}
+        rerender();
+      }else if(action==='compare'){
+        if(compares.has(id)){compares.delete(id);notify('Удалено из сравнения');}
+        else if(compares.size>=4){notify('Для удобного сравнения выберите до 4 товаров');return;}
+        else{compares.add(id);notify('Добавлено в сравнение');}
+        rerender();
+      }else if(action==='login-demo'){
+        signedInDemo=true;rerender();
+      }else if(action==='logout-demo'){
+        signedInDemo=false;rerender();
+      }
+    });
+    var observer=new MutationObserver(function(){enhance();});
+    observer.observe(root,{childList:true,subtree:true});
+    window.addEventListener('hashchange',function(){setTimeout(enhance,0);});
+    enhance();
+  })();
+
+</script>
 </body>
 </html>
