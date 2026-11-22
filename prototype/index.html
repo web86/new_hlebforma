@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Hleb-Forma 2.0 — кликабельный прототип</title>
+  <meta name="description" content="Кликабельный демонстрационный прототип будущего магазина Hleb-Forma. Не принимает реальные заказы и заявки.">
+  <style>
+    :root {
+      --paper:#faf7f1; --white:#fff; --ink:#30271f; --ink-soft:#6d6054;
+      --brand:#99512f; --brand-dark:#793e24; --wheat:#f1e3d0;
+      --border:#e6dbcb; --green:#326f54; --shadow:0 15px 35px rgba(53,37,19,.075);
+      --radius:18px; --radius-sm:11px; --max:1200px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+    a{color:inherit;text-decoration:none}
+    button,input,select,textarea{font:inherit}
+    button{cursor:pointer}
+    a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #cb9868;outline-offset:3px}
+    .container{width:min(var(--max),calc(100% - 44px));margin:0 auto}
+    .note-bar{background:#372a22;color:#f8ead8;font-size:12px;text-align:center;padding:7px 12px;letter-spacing:.012em}
+    .site-header{background:rgba(250,247,241,.96);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:50;backdrop-filter:blur(12px)}
+    .header-wrap{min-height:78px;display:flex;align-items:center;gap:30px}
+    .brand{display:flex;gap:12px;align-items:center;flex-shrink:0}
+    .brand-mark{width:45px;height:45px;background:var(--brand);color:#fff;border-radius:14px;display:grid;place-items:center;font-size:25px;transform:rotate(-6deg)}
+    .brand-text{font-size:21px;font-weight:800;letter-spacing:-.045em;line-height:1.05}
+    .brand-text small{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-top:5px;color:#846e5b;font-weight:700}
+    .navigation{display:flex;gap:22px;align-items:center;margin-left:14px}
+    .navigation a{font-size:14px;color:#504338;font-weight:650;transition:color .15s}
+    .navigation a:hover,.navigation a[aria-current="page"]{color:var(--brand)}
+    .header-actions{display:flex;gap:11px;align-items:center;margin-left:auto}
+    .header-search{position:relative}
+    .header-search input{width:168px;border:1px solid var(--border);background:white;border-radius:11px;padding:10px 12px;font-size:13px}
+    .bag-link{display:flex;gap:8px;align-items:center;background:var(--wheat);padding:10px 13px;border-radius:11px;font-weight:750;white-space:nowrap;font-size:14px}
+    .bag-link b{background:var(--brand);color:#fff;min-width:21px;height:21px;display:grid;place-items:center;border-radius:50%;font-size:11px}
+    .menu-button{display:none;border:1px solid var(--border);background:#fff;border-radius:10px;padding:9px 12px}
+    .eyebrow{color:var(--brand);text-transform:uppercase;letter-spacing:.13em;font-weight:800;font-size:11px}
+    h1,h2,h3,p{margin-top:0}
+    h1{font:700 clamp(34px,4.2vw,61px)/1.1 Georgia,serif;letter-spacing:-.032em}
+    h2{font:700 clamp(26px,3vw,38px)/1.2 Georgia,serif;letter-spacing:-.025em}
+    h3{font-size:20px;line-height:1.3}
+    p{color:var(--ink-soft)}
+    .lead{font-size:18px;line-height:1.65;max-width:575px}
+    .muted{color:var(--ink-soft)}
+    .small{font-size:13px}
+    .btn{display:inline-flex;align-items:center;justify-content:center;border:1px solid transparent;border-radius:11px;min-height:46px;padding:12px 20px;font-weight:750;font-size:14px;gap:8px;transition:transform .15s,background .15s}
+    .btn:hover{transform:translateY(-1px)}
+    .btn-primary{background:var(--brand);color:#fff}
+    .btn-primary:hover{background:var(--brand-dark)}
+    .btn-outline{background:#fff;color:var(--brand);border-color:#d5b79d}
+    .btn-light{background:#fff;color:var(--ink)}
+    .btn-sm{min-height:38px;padding:9px 13px}
+    .btn:disabled{opacity:.55;cursor:not-allowed}
+    .btn-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .section{margin:72px 0}
+    .section-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:23px}
+    .section-heading h2{margin:0}
+    .section-heading a{color:var(--brand);font-weight:700}
+    .hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:stretch;gap:32px;min-height:466px;padding:35px 0 12px}
+    .hero-copy{padding:45px 0 35px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+    .hero-copy h1{margin:15px 0 19px;max-width:610px}
+    .hero-art{position:relative;border-radius:26px;min-height:420px;background:radial-gradient(circle at 78% 28%,#fff9ed,transparent 42%),linear-gradient(135deg,#edd9bb,#d7b693 90%);overflow:hidden;display:grid;place-items:center}
+    .hero-art:before{content:"";position:absolute;width:300px;height:300px;right:-110px;top:-110px;border:32px solid rgba(255,255,255,.2);border-radius:50%}
+    .hero-art:after{content:"";position:absolute;width:500px;height:130px;left:-70px;bottom:-55px;background:#96775630;border-radius:50%;filter:blur(15px)}
+    .art-label{position:absolute;left:20px;bottom:20px;z-index:2;background:rgba(255,255,255,.85);padding:9px 12px;font-size:11px;border-radius:10px;color:#6b5442}
+    .baskets{display:flex;align-items:flex-end;gap:4px;transform:rotate(-10deg);filter:drop-shadow(0 19px 16px rgba(92,57,22,.18));z-index:1}
+    .basket{--basket-width:180px;position:relative;width:var(--basket-width);height:120px;border:16px solid #a97745;border-radius:50%;background:repeating-radial-gradient(ellipse at center,#dcb078 0 7px,#a87745 8px 11px,#d7a16c 12px 16px);box-shadow:inset 0 4px 11px #6d482a77,0 18px 0 -7px #c48c52,0 28px 0 -12px #d8a36c;transform:rotate(-4deg)}
+    .basket.big{--basket-width:240px;height:155px;margin-left:-45px;transform:rotate(12deg)}
+    .basket.small{--basket-width:120px;height:110px;margin-right:-20px;transform:rotate(-20deg)}
+    .trust-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:25px 0 48px}
+    .trust-item{background:#fff;border:1px solid var(--border);border-radius:14px;padding:17px 20px;display:flex;gap:13px;align-items:center}
+    .trust-item span:first-child{font-size:25px}
+    .trust-item strong{font-size:14px}
+    .trust-item small{font-size:12px;color:var(--ink-soft);display:block}
+    .finder{background:var(--white);border:1px solid var(--border);box-shadow:var(--shadow);border-radius:20px;padding:25px 28px;display:grid;grid-template-columns:1.25fr 1fr 1fr auto;gap:17px;align-items:end}
+    .finder h3{margin:5px 0 0}
+    .field{display:flex;flex-direction:column;gap:7px;min-width:0}
+    .field label{font-size:13px;font-weight:750;color:#493e34}
+    .field input,.field select,.field textarea{background:#fff;border:1px solid #daccbd;border-radius:10px;padding:12px;min-height:46px;width:100%;color:var(--ink)}
+    .field textarea{min-height:110px;resize:vertical}
+    .category-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+    .category-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:17px;transition:transform .15s,border-color .15s}
+    .category-card:hover{transform:translateY(-2px);border-color:#d0a782}
+    .category-icon{background:#f3e8d9;border-radius:13px;height:105px;display:grid;place-items:center;font-size:44px;margin-bottom:14px}
+    .category-card strong{display:block;font-size:15px}
+    .category-card small{color:var(--ink-soft);font-size:12px}
+    .products-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+    .product-card{background:#fff;border:1px solid var(--border);border-radius:16px;overflow:hidden;display:flex;flex-direction:column}
+    .product-card-content{padding:15px;display:flex;flex-direction:column;gap:9px;flex:1}
+    .product-card h3{font-size:15px;line-height:1.4;margin:0}
+    .product-card .price{font-size:21px;font-weight:800;color:var(--ink)}
+    .product-card .btn{margin-top:auto}
+    .meta-pill{display:inline-flex;align-items:center;gap:4px;border-radius:100px;background:#f3e6d6;color:#79533b;font-weight:750;padding:3px 8px;font-size:11px;width:max-content;max-width:100%}
+    .product-art{height:196px;background:linear-gradient(145deg,#f7eedf,#e6d0b1);position:relative;display:grid;place-items:center;overflow:hidden}
+    .product-art.large{height:420px;border-radius:20px}
+    .product-art .woven{position:relative;width:138px;height:102px;border-radius:50%;border:14px solid #ad7744;background:repeating-radial-gradient(ellipse at center,#dbb17c 0 6px,#a97949 7px 9px,#ddb37a 10px 13px);box-shadow:inset 0 3px 12px #83502f88,0 14px 0 -5px #c89461,0 20px 0 -7px #aa7547;transform:rotate(-14deg)}
+    .product-art .woven.oval{width:165px;height:96px}
+    .product-art .woven.round{width:120px;height:120px;border-radius:50%}
+    .product-art .woven.baguette{width:175px;height:70px}
+    .product-art .woven.heart{width:138px;height:120px;border-radius:44% 44% 55% 55%;transform:rotate(-18deg)}
+    .product-art .woven.tool{width:160px;height:32px;background:linear-gradient(#b87941,#e4ae70);border:5px solid #965c33;border-radius:8px;transform:rotate(-24deg)}
+    .product-art .woven.cloth{width:140px;height:125px;background:repeating-linear-gradient(30deg,#cbb797 0 5px,#e3cfab 6px 12px);border:2px solid #b09a75;border-radius:9px;transform:rotate(-14deg)}
+    .product-art.large .woven{transform:scale(1.75) rotate(-12deg)}
+    .product-art:after{content:"Схематичное изображение";position:absolute;bottom:10px;left:12px;font-size:10px;color:#86715b}
+    .feature-band{border-radius:22px;background:#4a3526;color:#fff;display:grid;grid-template-columns:1.2fr .8fr;gap:25px;padding:44px 50px;overflow:hidden;align-items:center}
+    .feature-band p{color:#e7d7c5}
+    .feature-band .eyebrow{color:#f4c69c}
+    .feature-band h2{max-width:610px}
+    .feature-art{font:700 110px/1 Georgia,serif;color:#a7805c;text-align:center;transform:rotate(8deg)}
+    .editorial-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .editorial{padding:26px;border:1px solid var(--border);border-radius:18px;background:#fff;min-height:185px}
+    .editorial .eyebrow{margin-bottom:12px}
+    .editorial h3{font:700 20px/1.3 Georgia,serif}
+    .newsletter{background:#eaddca;border-radius:20px;padding:33px;display:flex;justify-content:space-between;align-items:center;gap:32px}
+    .newsletter h2{margin:5px 0 9px;font-size:29px}
+    .newsletter form{display:flex;gap:8px;max-width:465px;width:100%}
+    .newsletter input{flex:1;min-width:0;padding:12px;border:1px solid #d6c2ab;border-radius:10px}
+    .page-head{padding:42px 0 25px}
+    .page-head h1{font-size:clamp(33px,3.5vw,49px);margin:10px 0 15px}
+    .breadcrumb{font-size:12px;color:#897968;margin:20px 0}
+    .breadcrumb a{text-decoration:underline;text-underline-offset:3px}
+    .catalog-layout{display:grid;grid-template-columns:235px 1fr;gap:25px;margin:14px 0 60px}
+    .filter-pane{background:#fff;border:1px solid var(--border);padding:20px;border-radius:17px;height:max-content;display:grid;gap:18px}
+    .filter-pane .field label{font-size:13px}
+    .catalog-main .products-grid{grid-template-columns:repeat(3,1fr)}
+    .catalog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:17px;gap:15px}
+    .results{color:var(--ink-soft);font-size:13px}
+    .empty{padding:40px;text-align:center;background:#fff;border:1px solid var(--border);border-radius:16px}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;margin:22px 0 45px}
+    .detail-summary{padding:8px 0}
+    .detail-summary h1{font-size:clamp(32px,3.5vw,49px);margin:10px 0}
+    .detail-price{font-size:32px;font-weight:800;margin:23px 0 18px}
+    .detail-badges{display:flex;gap:8px;flex-wrap:wrap}
+    .detail-features{padding:17px 0;margin:18px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);display:grid;gap:10px}
+    .detail-features div{display:flex;justify-content:space-between;gap:20px;font-size:14px}
+    .detail-features b{text-align:right}
+    .quantity{width:95px;border:1px solid var(--border);padding:11px 12px;border-radius:11px}
+    .details-row{display:grid;grid-template-columns:2fr 1fr;gap:24px;margin:26px 0 70px}
+    .panel{background:#fff;border:1px solid var(--border);border-radius:18px;padding:27px}
+    .panel h2{font-size:27px}
+    details{padding:15px 0;border-bottom:1px solid var(--border)}
+    details:last-child{border:0}
+    summary{font-weight:750;cursor:pointer}
+    details p{margin:10px 0}
+    .wholesale-hero{padding:58px 0 32px;display:grid;grid-template-columns:1.1fr .9fr;gap:35px;align-items:center}
+    .wholesale-hero h1{margin:14px 0}
+    .quote-card{background:#fff;border:1px solid var(--border);border-radius:22px;padding:29px;box-shadow:var(--shadow)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .step{background:#fff;border:1px solid var(--border);border-radius:16px;padding:26px}
+    .step strong{display:block;font-size:24px;color:var(--brand)}
+    .step h3{margin:12px 0}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .form-grid .wide{grid-column:1/-1}
+    .checkbox-line{display:flex;gap:9px;align-items:flex-start;font-size:12px;color:var(--ink-soft)}
+    .checkbox-line input{margin-top:4px}
+    .cart-layout{display:grid;grid-template-columns:1.4fr .8fr;gap:25px;margin:20px 0 70px;align-items:start}
+    .cart-item{display:grid;grid-template-columns:74px 1fr auto;gap:13px;padding:18px 0;border-bottom:1px solid var(--border)}
+    .cart-item:last-child{border:0}
+    .cart-item .product-art{height:70px;border-radius:8px}
+    .cart-item .woven{transform:scale(.42) rotate(-14deg);flex-shrink:0}
+    .cart-item h3{font-size:14px;margin:0 0 5px}
+    .cart-item .cart-item-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .cart-item-actions button{border:1px solid var(--border);background:#fff;border-radius:8px;padding:4px 9px}
+    .checkout-summary .total{display:flex;justify-content:space-between;font-size:20px;font-weight:800;margin:18px 0}
+    .notice{padding:15px 18px;background:#f1e6d8;border:1px solid #d8c3ab;border-radius:12px;color:#5c4533;font-size:13px}
+    .site-footer{border-top:1px solid var(--border);background:#f5efe7;margin-top:80px}
+    .footer-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr 1fr;gap:25px;padding:40px 0}
+    .footer-grid h4{margin:0 0 11px}
+    .footer-grid p,.footer-grid a{font-size:13px;display:block;margin-bottom:8px}
+    .copyright{font-size:12px;border-top:1px solid var(--border);padding:16px 0;color:#8a7765}
+    .toast{position:fixed;right:18px;bottom:20px;background:#372b22;color:#fff;border-radius:12px;box-shadow:var(--shadow);padding:14px 18px;z-index:90;max-width:365px;display:none}
+    .toast.show{display:block}
+    .result-box{background:#e4f1e8;border:1px solid #b9d8c2;border-radius:12px;padding:15px;color:#27533d;font-size:13px;margin-top:14px}
+    .main-space{min-height:53vh}
+    @media(max-width:1080px){
+      .header-wrap{gap:14px}
+      .navigation{gap:12px;margin-left:0}
+      .header-search input{width:115px}
+      .products-grid{grid-template-columns:repeat(3,1fr)}
+      .finder{grid-template-columns:1fr 1fr}
+      .finder .btn{width:100%}
+      .category-grid{grid-template-columns:repeat(3,1fr)}
+    }
+    @media(max-width:780px){
+      .container{width:calc(100% - 28px)}
+      .header-wrap{min-height:68px;gap:11px}
+      .brand-text{font-size:17px}
+      .brand-mark{height:39px;width:39px;font-size:21px}
+      .menu-button{display:block;margin-left:auto}
+      .navigation{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;border-bottom:1px solid var(--border);padding:15px 20px;flex-direction:column;align-items:stretch;box-shadow:var(--shadow)}
+      .navigation.open{display:flex}
+      .navigation a{padding:8px}
+      .header-actions{margin-left:0;gap:5px}
+      .header-search{display:none}
+      .bag-link{padding:9px 11px}
+      .bag-link span{display:none}
+      .hero{grid-template-columns:1fr;gap:4px;padding:10px 0}
+      .hero-copy{padding:30px 0 18px}
+      .hero-art{min-height:290px}
+      .basket.big{--basket-width:195px;height:120px}
+      .basket.small{--basket-width:95px;height:85px}
+      .trust-strip{grid-template-columns:1fr 1fr;margin:15px 0 35px}
+      .trust-strip .trust-item:last-child{grid-column:1/-1}
+      .section{margin:49px 0}
+      .products-grid{grid-template-columns:repeat(2,1fr)}
+      .catalog-main .products-grid{grid-template-columns:repeat(2,1fr)}
+      .catalog-layout{display:block}
+      .filter-pane{grid-template-columns:repeat(2,1fr);margin-bottom:18px}
+      .filter-pane h3{grid-column:1/-1}
+      .detail-grid,.details-row,.wholesale-hero,.cart-layout,.feature-band{grid-template-columns:1fr}
+      .detail-grid{gap:15px}
+      .feature-art{display:none}
+      .category-grid{grid-template-columns:repeat(3,1fr)}
+      .editorial-grid,.steps{grid-template-columns:1fr 1fr}
+      .newsletter{display:block}
+      .newsletter form{max-width:unset}
+      .footer-grid{grid-template-columns:1fr 1fr}
+    }
+    @media(max-width:500px){
+      .note-bar{font-size:11px}
+      .brand-text small{display:none}
+      .brand-mark{height:36px;width:36px}
+      .hero-art{min-height:220px}
+      .basket{--basket-width:135px;height:90px}
+      .basket.big{--basket-width:150px;height:105px}
+      .hero .btn-row .btn{width:100%}
+      .trust-strip{grid-template-columns:1fr}
+      .trust-strip .trust-item:last-child{grid-column:auto}
+      .finder{grid-template-columns:1fr;padding:20px}
+      .category-grid{grid-template-columns:repeat(2,1fr)}
+      .category-icon{height:85px}
+      .products-grid,.catalog-main .products-grid{gap:10px}
+      .product-card-content{padding:11px}
+      .product-card h3{font-size:13px}
+      .product-card .price{font-size:17px}
+      .product-art{height:132px}
+      .product-art .woven{transform:scale(.75) rotate(-14deg)}
+      .catalog-layout{margin-top:0}
+      .filter-pane{grid-template-columns:1fr 1fr;padding:15px;gap:10px}
+      .filter-pane .field{min-width:0}
+      .filter-pane .field input,.filter-pane .field select{font-size:12px}
+      .product-art.large{height:290px}
+      .product-art.large .woven{transform:scale(1.18) rotate(-12deg)}
+      .detail-summary .btn-row .btn{flex:1}
+      .form-grid{grid-template-columns:1fr}
+      .editorial-grid,.steps{grid-template-columns:1fr}
+      .newsletter form{flex-direction:column}
+      .feature-band{padding:29px}
+      .footer-grid{grid-template-columns:1fr 1fr}
+      .cart-item{grid-template-columns:58px 1fr}
+      .cart-item > strong{grid-column:2}
+      .cart-item .product-art{height:60px}
+    }
+  </style>
+</head>
+<body>
+  <div class="note-bar">КЛИКАБЕЛЬНЫЙ ПРОТОТИП · данные и цены демонстрационные · заказы, оплата и заявки не отправляются</div>
+  <header class="site-header">
+    <div class="container header-wrap">
+      <a class="brand" href="#home" aria-label="Hleb-Forma — главная">
+        <span class="brand-mark" aria-hidden="true">♨</span>
+        <span class="brand-text">HLEB-FORMA <small>корзинки и инструменты пекаря</small></span>
+      </a>
+      <nav id="navigation" class="navigation" aria-label="Главное меню">
+        <a href="#catalog">Каталог</a>
+        <a href="#wholesale">Оптовикам</a>
+        <a href="#articles">Статьи</a>
+        <a href="#delivery">Доставка</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <button id="menu-toggle" class="menu-button" aria-label="Открыть меню" aria-expanded="false">☰</button>
+      <div class="header-actions">
+        <form class="header-search" id="header-search" role="search">
+          <input type="search" name="q" id="header-query" placeholder="Поиск по каталогу" aria-label="Поиск по каталогу">
+        </form>
+        <a href="#checkout" class="bag-link" aria-label="Корзина"><span>Корзина</span> 🛒 <b id="cart-count">0</b></a>
+      </div>
+    </div>
+  </header>
+  <main id="app" class="main-space" tabindex="-1"></main>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div><a href="#home" class="brand"><span class="brand-text">HLEB-FORMA</span></a><p>Специализированный магазин для домашних хлебопеков и профессиональных пекарен.</p><p class="small">Прототип. Логотип здесь условный — заменить оригиналом.</p></div>
+      <div><h4>Покупателям</h4><a href="#catalog">Каталог</a><a href="#delivery">Доставка и оплата</a><a href="#checkout">Корзина</a></div>
+      <div><h4>Для пекарен</h4><a href="#wholesale">Оптовые закупки</a><a href="#articles">Полезные статьи</a><a href="#contacts">Контакты</a></div>
+      <div><h4>Информация</h4><p>Здесь будут актуальные реквизиты, контакты, условия возврата и политика обработки данных.</p></div>
+    </div>
+    <div class="container copyright">© Hleb-Forma · UX-прототип новой версии · Не является действующим интернет-магазином</div>
+  </footer>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script>
+    (function(){
+      "use strict";
+      var products=[
+        {id:"bn10",sku:"BN 10",title:"Корзинка овальная 25 × 15 × 8 см",shape:"oval",weight:550,weightText:"500–550 г",size:"25 × 15 × 8 см",price:690,kind:"Овальные корзинки"},
+        {id:"bn01",sku:"BN 01",title:"Корзинка круглая 22 × 8,5 см",shape:"round",weight:800,weightText:"700–800 г",size:"22 × 8,5 см",price:760,kind:"Круглые корзинки"},
+        {id:"bn06",sku:"BN 06",title:"Корзинка багетная 55 × 10 × 7 см",shape:"baguette",weight:550,weightText:"500–550 г",size:"55 × 10 × 7 см",price:850,kind:"Багетные корзинки"},
+        {id:"bn32",sku:"BN 32",title:"Корзинка овальная 30 × 15 × 8 см",shape:"oval",weight:900,weightText:"около 900 г",size:"30 × 15 × 8 см",price:880,kind:"Овальные корзинки"},
+        {id:"bn28",sku:"BN 28",title:"Корзинка в форме сердца 20 × 17 × 7,5 см",shape:"heart",weight:500,weightText:"около 500 г",size:"20 × 17 × 7,5 см",price:890,kind:"Фигурные корзинки"},
+        {id:"canvas",sku:"Аксессуар",title:"Холст для расстойки багетов",shape:"cloth",weight:0,weightText:"Для пекарни",size:"Уточняется",price:950,kind:"Инструменты пекаря"},
+        {id:"blade",sku:"Аксессуар",title:"Держатель лезвия для надрезов теста",shape:"tool",weight:0,weightText:"Для пекарни",size:"Комплект уточняется",price:490,kind:"Инструменты пекаря"}
+      ];
+      var categories=[
+        {label:"Круглые",shape:"round",icon:"◯",desc:"Формы для круглого хлеба"},
+        {label:"Овальные",shape:"oval",icon:"⬭",desc:"Формы для батонов"},
+        {label:"Багетные",shape:"baguette",icon:"▭",desc:"Для длинных заготовок"},
+        {label:"Фигурные",shape:"heart",icon:"♡",desc:"Необычная выпечка"},
+        {label:"Инструменты",shape:"tools",icon:"♧",desc:"Аксессуары пекаря"}
+      ];
+      var filters={shape:"all",weight:"all",q:""};
+      var cart={};
+      var chosenWholesaleSku="";
+      var app=document.getElementById("app");
+      var fmt=function(v){return Number(v).toLocaleString("ru-RU")+" ₽";};
+      var safe=function(v){return String(v).replace(/[&<>"']/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];});};
+      function toast(message){
+        var node=document.getElementById("toast");
+        node.textContent=message;node.classList.add("show");
+        clearTimeout(toast.timer);
+        toast.timer=setTimeout(function(){node.classList.remove("show");},4000);
+      }
+      function art(p,large){
+        return '<div class="product-art'+(large?' large':'')+'" aria-label="Схематичное изображение, заменить реальной фотографией"><div class="woven '+safe(p.shape)+'"></div></div>';
+      }
+      function productCard(p){
+        return '<article class="product-card">'+
+          '<a href="#product-'+p.id+'" aria-label="Подробнее о товаре '+safe(p.title)+'">'+art(p,false)+'</a>'+
+          '<div class="product-card-content"><span class="meta-pill">'+safe(p.weightText)+'</span>'+
+          '<a href="#product-'+p.id+'"><h3>'+safe(p.title)+'</h3></a>'+
+          '<div class="small muted">'+safe(p.sku)+' · '+safe(p.size)+'</div>'+
+          '<div class="price">'+fmt(p.price)+'</div>'+
+          '<button class="btn btn-primary btn-sm" data-action="add" data-id="'+p.id+'">В корзину</button></div></article>';
+      }
+      function productById(id){return products.find(function(p){return p.id===id;});}
+      function crumbs(nodes){return '<div class="breadcrumb"><a href="#home">Главная</a> / '+nodes+'</div>';}
+      function home(){
+        return '<div class="container">'+
+          '<section class="hero"><div class="hero-copy">'+
+          '<span class="eyebrow">Для тех, кто печёт хлеб</span>'+
+          '<h1>Корзинки для расстойки хлеба — подберите форму под ваше тесто</h1>'+
+          '<p class="lead">Натуральный ротанг, разные формы и размеры. Помогаем выбрать корзинку для домашней выпечки или подобрать партию для пекарни.</p>'+
+          '<div class="btn-row"><a class="btn btn-primary" href="#catalog">Подобрать корзинку →</a><a class="btn btn-outline" href="#wholesale">Для пекарен и оптовиков</a></div>'+
+          '</div><div class="hero-art" role="img" aria-label="Схематичное изображение корзинок из ротанга">'+
+          '<div class="baskets"><div class="basket small"></div><div class="basket big"></div><div class="basket"></div></div>'+
+          '<div class="art-label">Место для настоящего фото товаров / хлеба</div></div></section>'+
+          '<div class="trust-strip">'+
+          '<div class="trust-item"><span>◎</span><div><strong>Выбор по весу теста</strong><small>Подскажем подходящий размер</small></div></div>'+
+          '<div class="trust-item"><span>♧</span><div><strong>Для дома и пекарен</strong><small>Розничные и оптовые запросы</small></div></div>'+
+          '<div class="trust-item"><span>✉</span><div><strong>Помощь с заказом</strong><small>Подбор и консультация</small></div></div></div>'+
+          '<section class="section" style="margin-top:15px"><div class="finder">'+
+          '<div><span class="eyebrow">Не знаете размер?</span><h3>Подберите корзинку</h3></div>'+
+          '<div class="field"><label for="home-weight">Вес тестовой заготовки</label>'+weightSelect("home-weight")+'</div>'+
+          '<div class="field"><label for="home-shape">Форма хлеба</label>'+shapeSelect("home-shape")+'</div>'+
+          '<button class="btn btn-primary" data-action="find-home">Показать товары →</button></div></section>'+
+          '<section class="section"><div class="section-heading"><h2>Выберите категорию</h2><a href="#catalog">Весь каталог →</a></div><div class="category-grid">'+
+          categories.map(function(c){return '<a href="#catalog" class="category-card" data-shape="'+c.shape+'"><div class="category-icon">'+c.icon+'</div><strong>'+c.label+'</strong><small>'+c.desc+'</small></a>';}).join("")+
+          '</div></section>'+
+          '<section class="section"><div class="section-heading"><h2>Часто выбирают</h2><a href="#catalog">Смотреть всё →</a></div>'+
+          '<div class="products-grid">'+products.slice(0,4).map(productCard).join("")+'</div></section>'+
+          '<section class="section feature-band"><div><span class="eyebrow">Для профессиональных пекарен</span><h2>Нужна партия корзинок и инструментов?</h2>'+
+          '<p>Поможем определить нужные формы и подготовить предложение по вашему ассортименту. Оставьте запрос с артикулами и количеством.</p>'+
+          '<a class="btn btn-light" href="#wholesale">Получить оптовое предложение →</a></div><div class="feature-art" aria-hidden="true">✳</div></section>'+
+          '<section class="section"><div class="section-heading"><h2>Советы по хлебопечению</h2><a href="#articles">Все статьи →</a></div>'+articleTiles()+'</section>'+
+          '<section class="section"><div class="newsletter"><div><span class="eyebrow">Полезное — без лишних писем</span><h2>Новинки и советы для пекарей</h2><p class="small">Подписка появится в рабочем магазине с подтверждением email.</p></div>'+
+          '<form id="newsletter-form"><input type="email" required placeholder="Ваш email" aria-label="Email для подписки"><button class="btn btn-primary">Подписаться</button></form></div></section>'+
+          '</div>';
+      }
+      function weightSelect(id){
+        return '<select id="'+id+'"><option value="all">Любой вес</option><option value="small">До 400 г</option><option value="mid">400–600 г</option><option value="large">600–850 г</option><option value="xl">От 850 г</option></select>';
+      }
+      function shapeSelect(id){
+        return '<select id="'+id+'"><option value="all">Любая форма</option><option value="round">Круглая</option><option value="oval">Овальная</option><option value="baguette">Багетная</option><option value="heart">Фигурная</option><option value="tools">Инструменты</option></select>';
+      }
+      function catalog(){
+        return '<div class="container">'+crumbs('Каталог')+
+          '<div class="page-head"><span class="eyebrow">Подберите форму под свою выпечку</span>'+
+          '<h1>Каталог корзинок и инструментов</h1><p class="lead">Укажите вес тестовой заготовки или форму, чтобы быстрее найти подходящий товар. В демонстрации представлены только несколько моделей.</p></div>'+
+          '<div class="catalog-layout"><aside class="filter-pane" aria-label="Фильтр каталога">'+
+          '<h3 style="margin:0">Быстрый подбор</h3><div class="field"><label for="filter-weight">Вес теста</label>'+weightSelect('filter-weight')+'</div>'+
+          '<div class="field"><label for="filter-shape">Форма</label>'+shapeSelect('filter-shape')+'</div>'+
+          '<div class="field"><label for="filter-query">Поиск / артикул</label><input type="search" id="filter-query" placeholder="Например, BN 10"></div>'+
+          '<button class="btn btn-outline btn-sm" data-action="reset-filters">Сбросить фильтры</button>'+
+          '<div class="notice small">Подбор демонстрационный. При разработке данные будут поступать из каталога MiniShop3.</div></aside>'+
+          '<div class="catalog-main"><div class="catalog-top"><span id="results-counter" class="results"></span><span class="small muted">Фото и цены для прототипа</span></div><div id="catalog-results" class="products-grid"></div></div></div></div>';
+      }
+      function matches(p){
+        if(filters.shape!=="all" && !(filters.shape==="tools" && ["tool","cloth"].includes(p.shape)) && p.shape!==filters.shape){return false;}
+        if(filters.weight!=="all"){
+          if(p.weight===0){return false;}
+          if(filters.weight==="small" && p.weight>400){return false;}
+          if(filters.weight==="mid" && (p.weight<=400 || p.weight>600)){return false;}
+          if(filters.weight==="large" && (p.weight<=600 || p.weight>850)){return false;}
+          if(filters.weight==="xl" && p.weight<=850){return false;}
+        }
+        var query=filters.q.trim().toLowerCase();
+        return !query || (p.title+" "+p.sku+" "+p.kind).toLowerCase().includes(query);
+      }
+      function updateCatalog(){
+        var area=document.getElementById("catalog-results");
+        if(!area)return;
+        var found=products.filter(matches);
+        area.innerHTML=found.length?found.map(productCard).join(""):'<div class="empty" style="grid-column:1/-1"><h3>Пока нет подходящих образцов</h3><p>Попробуйте изменить вес или форму.</p><button class="btn btn-outline" data-action="reset-filters">Сбросить подбор</button></div>';
+        document.getElementById("results-counter").textContent="Найдено моделей в прототипе: "+found.length;
+      }
+      function productPage(id){
+        var p=productById(id);if(!p)return notFound();
+        return '<div class="container">'+crumbs('<a href="#catalog">Каталог</a> / '+safe(p.sku))+
+          '<div class="detail-grid">'+art(p,true)+
+          '<div class="detail-summary"><span class="eyebrow">'+safe(p.kind)+'</span><h1>'+safe(p.title)+'</h1>'+
+          '<div class="detail-badges"><span class="meta-pill">'+safe(p.weightText)+'</span><span class="meta-pill">'+safe(p.sku)+'</span></div>'+
+          '<div class="detail-features"><div><span>Вес тестовой заготовки</span><b>'+safe(p.weightText)+'</b></div>'+
+          '<div><span>Размеры</span><b>'+safe(p.size)+'</b></div>'+
+          '<div><span>Назначение</span><b>'+safe(p.kind)+'</b></div></div>'+
+          '<p class="small muted">Характеристики и цену перед запуском нужно сверить с актуальным каталогом. Статус наличия здесь не моделируется.</p>'+
+          '<div class="detail-price">'+fmt(p.price)+' <span class="small muted" style="font-weight:400">· цена в примере</span></div>'+
+          '<div class="btn-row"><input class="quantity" type="number" id="detail-qty" min="1" max="99" value="1" aria-label="Количество товара">'+
+          '<button class="btn btn-primary" data-action="add" data-id="'+p.id+'">В корзину</button></div>'+
+          '<div style="margin-top:13px"><button class="btn btn-outline" data-action="quote" data-id="'+p.id+'">Нужна партия? Запросить оптовую цену →</button></div>'+
+          '<p class="small muted" style="margin-top:21px">Доставка СДЭК и оплата ЮKassa будут доступны в рабочем магазине. Реальный тариф рассчитывается при оформлении.</p></div></div>'+
+          '<div class="details-row"><div class="panel"><h2>Информация о товаре</h2>'+
+          '<details open><summary>Как выбрать размер?</summary><p>Начните с веса тестовой заготовки и желаемой формы хлеба. Подтвердите вместимость конкретной корзинки перед покупкой.</p></details>'+
+          '<details><summary>Материал и уход</summary><p>Для корзинок из ротанга используйте инструкции производителя. Расстоечные корзины не являются формами для выпечки: не ставьте их в духовку, если производитель не допускает это.</p></details>'+
+          '<details><summary>Доставка и оплата</summary><p>Способы доставки и оплаты будут показаны по актуальным условиям магазина. Сейчас это схема интерфейса.</p></details></div>'+
+          '<aside class="panel"><h2>Покупаете для пекарни?</h2><p>Запросите предложение на нужное количество одинаковых форм или набор разных размеров.</p>'+
+          '<button class="btn btn-primary" data-action="quote" data-id="'+p.id+'">Запросить партию</button></aside></div>'+
+          '<section class="section"><div class="section-heading"><h2>Другие модели</h2><a href="#catalog">В каталог →</a></div><div class="products-grid">'+products.filter(function(item){return item.id!==p.id;}).slice(0,4).map(productCard).join("")+'</div></section></div>';
+      }
+      function wholesale(){
+        var opts='<option value="">Выберите товар (необязательно)</option>'+products.map(function(p){return '<option value="'+p.id+'"'+(chosenWholesaleSku===p.id?' selected':'')+'>'+safe(p.sku)+' — '+safe(p.title)+'</option>';}).join("");
+        return '<div class="container">'+crumbs('Оптовым покупателям')+
+          '<section class="wholesale-hero"><div><span class="eyebrow">Для пекарен и профессионалов</span>'+
+          '<h1>Корзинки для расстойки хлеба оптом</h1><p class="lead">Подберём формы и инструменты под ваш ассортимент и объёмы выпечки. Укажите модели и количество — подготовим индивидуальное предложение.</p>'+
+          '<a href="#quote-form" class="btn btn-primary">Запросить предложение →</a></div>'+
+          '<div class="hero-art" style="min-height:315px"><div class="baskets"><div class="basket small"></div><div class="basket big"></div></div><div class="art-label">Место для фото партии / пекарни</div></div></section>'+
+          '<section class="section"><h2>Как организуем закупку</h2><div class="steps">'+
+          '<div class="step"><strong>01</strong><h3>Расскажите о задаче</h3><p>Укажите нужные формы, вес теста, артикулы и количество.</p></div>'+
+          '<div class="step"><strong>02</strong><h3>Уточним ассортимент</h3><p>Согласуем наличие, размеры и варианты комплектации.</p></div>'+
+          '<div class="step"><strong>03</strong><h3>Подготовим предложение</h3><p>Предложим реальные условия и согласуем доставку.</p></div></div></section>'+
+          '<section id="quote-form" class="section" style="max-width:790px;margin-left:auto;margin-right:auto"><div class="quote-card">'+
+          '<span class="eyebrow">Запрос оптовой закупки</span><h2 style="margin:10px 0">Расскажите, что вам нужно</h2>'+
+          '<p class="small">Демонстрационная форма: данные не передаются и не сохраняются.</p>'+
+          '<form id="wholesale-form" class="form-grid">'+
+          '<div class="field wide"><label for="quote-item">Товар / артикул</label><select id="quote-item" name="product">'+opts+'</select></div>'+
+          '<div class="field"><label for="quote-qty">Количество, шт.</label><input id="quote-qty" type="number" min="1" value="10" required></div>'+
+          '<div class="field"><label for="quote-org">Организация (по желанию)</label><input id="quote-org" autocomplete="organization"></div>'+
+          '<div class="field"><label for="quote-name">Ваше имя</label><input id="quote-name" autocomplete="name" required></div>'+
+          '<div class="field"><label for="quote-contact">Телефон или email</label><input id="quote-contact" required placeholder="+7... или email"></div>'+
+          '<div class="field wide"><label for="quote-comment">Комментарий</label><textarea id="quote-comment" placeholder="Нужные размеры, дополнительные инструменты, регион доставки"></textarea></div>'+
+          '<label class="checkbox-line wide"><input type="checkbox" required> Согласен на обработку данных для ответа на запрос. В рабочем сайте здесь будет ссылка на политику.</label>'+
+          '<div class="wide"><button class="btn btn-primary" type="submit">Проверить форму заявки</button><div id="lead-success"></div></div></form></div></section>'+
+          '<div class="section"><div class="notice">Условия опта, минимальная партия, скидки и сроки будут опубликованы только после согласования с Евгением. На Ozon тоже существуют оптовые заказы; наше отличие — помощь в подборе и персональный контакт.</div></div></div>';
+      }
+      function cartCount(){return Object.values(cart).reduce(function(s,n){return s+n;},0);}
+      function cartTotal(){return products.reduce(function(s,p){return s+p.price*(cart[p.id]||0);},0);}
+      function updateCartCounter(){document.getElementById("cart-count").textContent=cartCount();}
+      function checkout(){
+        var inCart=products.filter(function(p){return cart[p.id]>0;});
+        var rows=inCart.map(function(p){
+          return '<div class="cart-item">'+art(p,false)+
+            '<div><h3><a href="#product-'+p.id+'">'+safe(p.title)+'</a></h3><div class="small muted">'+safe(p.sku)+' · '+safe(p.weightText)+'</div>'+
+            '<div class="cart-item-actions"><button data-action="dec" data-id="'+p.id+'" aria-label="Уменьшить количество">−</button>'+
+            '<strong>'+cart[p.id]+' шт.</strong><button data-action="inc" data-id="'+p.id+'" aria-label="Увеличить количество">+</button>'+
+            '<button data-action="remove" data-id="'+p.id+'">Удалить</button></div></div><strong>'+fmt(p.price*cart[p.id])+'</strong></div>';
+        }).join("");
+        return '<div class="container">'+crumbs('Корзина / оформление')+
+          '<div class="page-head"><span class="eyebrow">Покупка без лишних шагов</span><h1>Корзина и оформление</h1>'+
+          '<p>Демонстрация интерфейса. СДЭК и ЮKassa не подключены, реальные заказы и платежи не принимаются.</p></div>'+
+          (inCart.length?'<div class="cart-layout"><div><div class="panel"><h2>Ваши товары</h2>'+rows+'</div>'+
+          '<div class="panel" style="margin-top:20px"><h2>Контакты и доставка</h2>'+
+          '<form id="checkout-demo" class="form-grid">'+
+          '<div class="field"><label for="buyer-name">Имя</label><input required id="buyer-name" autocomplete="name"></div>'+
+          '<div class="field"><label for="buyer-email">Email</label><input type="email" required id="buyer-email" autocomplete="email"></div>'+
+          '<div class="field wide"><label for="buyer-city">Город / населённый пункт</label><input required id="buyer-city" autocomplete="address-level2"></div>'+
+          '<div class="field wide"><label>Способ доставки</label><select><option>СДЭК — тариф и ПВЗ будут рассчитаны сервером</option></select></div>'+
+          '<div class="field wide"><label>Оплата</label><select><option>ЮKassa — онлайн-оплата в рабочем магазине</option></select></div>'+
+          '<label class="checkbox-line wide"><input type="checkbox" required> Согласен с обработкой данных для оформления заказа (в рабочей версии — ссылка на политику)</label>'+
+          '<div class="wide"><button class="btn btn-primary" type="submit">Проверить демонстрационное оформление</button><div id="checkout-result"></div></div>'+
+          '</form></div></div>'+
+          '<aside class="panel checkout-summary"><h2>Ваш заказ</h2><div class="small muted">Товаров: '+cartCount()+'</div>'+
+          '<div class="total"><span>Товары</span><span>'+fmt(cartTotal())+'</span></div>'+
+          '<div class="notice">Стоимость доставки не рассчитана. Финальный итог появится после запроса тарифа СДЭК на сервере.</div>'+
+          '<a class="btn btn-outline" style="width:100%;margin-top:16px" href="#catalog">Продолжить покупки</a></aside></div>':
+          '<div class="empty" style="margin:20px 0 70px"><h2>Корзина пока пуста</h2><p>Подберите корзинку по весу теста или посмотрите популярные модели.</p><a class="btn btn-primary" href="#catalog">Перейти в каталог</a></div>')+
+          '</div>';
+      }
+      function articleTiles(){
+        var a=[
+          {t:"Как выбрать корзинку по весу теста",s:"Гайд по формам и вместимости; ссылки на подходящие товары."},
+          {t:"Круглая или овальная?",s:"Как форма влияет на внешний вид будущего хлеба."},
+          {t:"Уход за ротанговой корзинкой",s:"Безопасная подготовка, хранение и чистка."}
+        ];
+        return '<div class="editorial-grid">'+a.map(function(item,i){
+          return '<article class="editorial"><span class="eyebrow">Руководство 0'+(i+1)+'</span><h3>'+item.t+'</h3><p class="small">'+item.s+'</p><a href="#catalog" class="small" style="font-weight:750;color:var(--brand)">К товарам →</a></article>';
+        }).join("")+'</div>';
+      }
+      function infoPage(kind){
+        var articles=kind==="articles";
+        var contacts=kind==="contacts";
+        return '<div class="container">'+crumbs(articles?'Статьи':contacts?'Контакты':'Доставка и оплата')+
+          '<div class="page-head"><span class="eyebrow">Информационный раздел</span>'+
+          '<h1>'+(articles?'Полезные статьи о хлебопечении':contacts?'Контакты Hleb-Forma':'Доставка и оплата')+'</h1>'+
+          '<p class="lead">'+(articles?'Статьи помогут выбрать корзинки и научиться ими пользоваться. В рабочей версии сохраняем прежние URL и переносим содержимое блога.':
+          contacts?'Здесь будут проверенные контакты, адрес и реквизиты. Данные действующего сайта требуют сверки перед переносом.':
+          'Здесь будут актуальные условия СДЭК, способы оплаты ЮKassa, возврата и доставки. Противоречивые старые тексты не переносим.')+'</p></div>'+
+          (articles?'<section class="section">'+articleTiles()+'</section>':'<div class="panel" style="max-width:760px"><h2>Что покажем здесь</h2><p>Достоверную информацию, согласованную с владельцем магазина, без устаревших обещаний о сроках или скидках.</p></div>')+
+          '<div style="margin:45px 0 90px"><a class="btn btn-primary" href="#catalog">Перейти в каталог</a></div></div>';
+      }
+      function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>В этом прототипе доступны основные экраны.</p><a class="btn btn-primary" href="#home">На главную</a></section></div>';}
+      function route(){
+        var slug=decodeURIComponent(location.hash.replace(/^#/,"")||"home");
+        var selected=slug.split("-")[0];
+        document.querySelectorAll(".navigation a").forEach(function(a){
+          a.removeAttribute("aria-current");
+          if(a.getAttribute("href")==="#"+selected)a.setAttribute("aria-current","page");
+        });
+        if(slug==="home"){app.innerHTML=home();}
+        else if(slug==="catalog"){app.innerHTML=catalog();syncFilters();updateCatalog();}
+        else if(slug.indexOf("product-")===0){app.innerHTML=productPage(slug.slice(8));}
+        else if(slug==="wholesale"){app.innerHTML=wholesale();}
+        else if(slug==="checkout"){app.innerHTML=checkout();}
+        else if(["articles","delivery","contacts"].includes(slug)){app.innerHTML=infoPage(slug);}
+        else{app.innerHTML=notFound();}
+        var n=document.getElementById("navigation");
+        n.classList.remove("open");
+        document.getElementById("menu-toggle").setAttribute("aria-expanded","false");
+        var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?"Товар":"Раздел";
+        document.title=selectedTitle+" — Hleb-Forma 2.0, прототип";
+        window.scrollTo(0,0);
+      }
+      function syncFilters(){
+        var weight=document.getElementById("filter-weight"),shape=document.getElementById("filter-shape"),q=document.getElementById("filter-query");
+        if(weight)weight.value=filters.weight;
+        if(shape)shape.value=filters.shape;
+        if(q)q.value=filters.q;
+      }
+      document.addEventListener("click",function(e){
+        var menu=e.target.closest("#menu-toggle");
+        if(menu){
+          var nav=document.getElementById("navigation");
+          var opened=nav.classList.toggle("open");
+          menu.setAttribute("aria-expanded",String(opened));
+          return;
+        }
+        var cat=e.target.closest(".category-card[data-shape]");
+        if(cat){filters.shape=cat.getAttribute("data-shape");filters.weight="all";filters.q="";}
+        var btn=e.target.closest("[data-action]");if(!btn)return;
+        var action=btn.dataset.action,id=btn.dataset.id;
+        if(action==="add"){
+          var qty=document.getElementById("detail-qty");
+          var n=qty?Math.max(1,Math.min(99,parseInt(qty.value,10)||1)):1;
+          cart[id]=(cart[id]||0)+n;updateCartCounter();toast("Добавлено в демо-корзину: "+productById(id).sku);
+        }
+        if(action==="quote"){
+          chosenWholesaleSku=id;
+          location.hash="#wholesale";
+          if(location.hash==="#wholesale" && document.getElementById("quote-item"))document.getElementById("quote-item").value=id;
+        }
+        if(action==="find-home"){
+          filters.weight=document.getElementById("home-weight").value;
+          filters.shape=document.getElementById("home-shape").value;filters.q="";
+          location.hash="#catalog";
+        }
+        if(action==="reset-filters"){
+          filters={shape:"all",weight:"all",q:""};syncFilters();updateCatalog();
+        }
+        if(action==="inc"||action==="dec"||action==="remove"){
+          if(action==="remove")delete cart[id];
+          if(action==="inc")cart[id]=(cart[id]||0)+1;
+          if(action==="dec"){cart[id]=Math.max(0,(cart[id]||0)-1);if(!cart[id])delete cart[id];}
+          updateCartCounter();app.innerHTML=checkout();
+        }
+      });
+      document.addEventListener("change",function(e){
+        if(e.target.id==="filter-weight"){filters.weight=e.target.value;updateCatalog();}
+        if(e.target.id==="filter-shape"){filters.shape=e.target.value;updateCatalog();}
+      });
+      document.addEventListener("input",function(e){
+        if(e.target.id==="filter-query"){filters.q=e.target.value;updateCatalog();}
+      });
+      document.addEventListener("submit",function(e){
+        if(e.target.id==="header-search"){
+          e.preventDefault();filters={shape:"all",weight:"all",q:document.getElementById("header-query").value};location.hash="#catalog";if(location.hash==="#catalog"){route();}return;
+        }
+        if(e.target.id==="newsletter-form"){
+          e.preventDefault();toast("Демонстрация: подписка не оформлена. В рабочей версии — подтверждение email.");return;
+        }
+        if(e.target.id==="wholesale-form"){
+          e.preventDefault();
+          var success=document.getElementById("lead-success");
+          success.innerHTML='<div class="result-box"><strong>Форма заполнена!</strong> Это только прототип: заявка не отправлялась и не сохранена. В рабочем магазине здесь появится номер заявки.</div>';return;
+        }
+        if(e.target.id==="checkout-demo"){
+          e.preventDefault();
+          document.getElementById("checkout-result").innerHTML='<div class="result-box">Поля заполнены для демонстрации. Реальные тариф СДЭК, оплата ЮKassa и создание заказа сейчас отключены.</div>';return;
+        }
+      });
+      window.addEventListener("hashchange",route);
+      updateCartCounter();route();
+    })();
+  </script>
+</body>
+</html>
