@@ -320,7 +320,125 @@
       .explain-icon{min-height:135px;font-size:65px}
       .account-preview{padding:18px}
     }
-  </style>
+  
+/* ---------- UI redesign v0.3: craft retail ---------- */
+:root {--paper:#fffdfa;--white:#fff;--ink:#321d13;--ink-soft:#725e50;--brand:#4b1d07;--brand-dark:#321307;--wheat:#fff1d3;--border:#eddfce;--green:#366e48;--shadow:0 12px 38px rgba(80,38,7,.07);--radius:15px;}
+body{background:var(--paper);color:var(--ink)}
+.site-header{background:rgba(255,253,250,.98)}
+.header-wrap{min-height:68px;gap:15px}
+.brand-mark{width:61px;height:61px;min-width:61px;background:transparent;border-radius:0;transform:none;overflow:visible}
+.brand-logo-img{width:61px;height:61px;display:block;object-fit:contain}
+.brand-text{font-weight:850;letter-spacing:-.045em;font-size:21px}
+.brand-text small{letter-spacing:.075em;font-weight:600;font-size:10px;color:#88634d}
+.header-actions{display:flex;flex-direction:row;align-items:center;gap:12px;flex-wrap:nowrap;margin-left:auto}
+.header-actions .extras{display:flex!important;flex-direction:row!important;align-items:center!important;gap:13px!important;flex-wrap:nowrap!important;margin:0!important}
+.header-actions .quick-link{display:inline-flex;align-items:center;justify-content:center;gap:3px;white-space:nowrap;font-size:21px;min-width:24px;min-height:34px}
+.header-actions .quick-link span{background:#f5e1c0;color:#5b2e11}
+.header-search{display:none!important}
+.search-trigger{width:36px;height:37px;border:0;background:transparent;font-size:23px;color:var(--brand);display:grid;place-items:center;border-radius:9px;flex:0 0 auto}
+.search-trigger:hover{background:#fff1db}
+.bag-link{background:var(--brand);color:#fff;padding:10px 12px;border-radius:11px}
+.bag-link b{background:#f0b341;color:#4b1d07}
+.stock-bar{padding:7px 0;background:#f9efdb;border-color:#e7d4b3;color:#6a3e1f}
+.stock-bar small{color:#936e4e}
+.container{width:min(1210px,calc(100% - 44px))}
+h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
+.btn-primary{background:var(--brand);color:#fff}
+.btn-primary:hover{background:#683010}
+.btn-outline{border-color:#d6b890;color:#4b1d07}
+.eyebrow{color:#8d531f}
+.hero{grid-template-columns:1fr .98fr;gap:14px;min-height:510px;padding:18px 0 8px}
+.hero-copy{padding:52px 27px 52px 0}
+.hero-copy h1{font-size:clamp(39px,4.3vw,63px);max-width:650px;line-height:1.1}
+.hero-copy .lead{max-width:570px;font-size:17px}
+.hero-art{min-height:480px;background:radial-gradient(circle at 90% 15%,#f7cc70,transparent 44%),linear-gradient(145deg,#ffe6ac,#edbd6c);border-radius:11px 80px 14px 90px}
+.hero-art:before{border:38px solid rgba(255,255,255,.2)}
+.hero-art:after{background:#924f1e3b}
+.hero-art .art-label{background:rgba(255,253,247,.88);box-shadow:0 8px 25px #65412717;border:1px solid #ffffffb0}
+.hero-photos{width:100%;height:100%;position:absolute;inset:0}
+.hero-photo{position:absolute;width:48%;height:43%;object-fit:contain;background:#fff9ec;border:8px solid rgba(255,255,255,.85);border-radius:12px;box-shadow:0 18px 36px #59321838;transition:transform .3s}
+.hero-photo:first-child{top:11%;left:7%;transform:rotate(-11deg)}
+.hero-photo:nth-child(2){top:24%;right:6%;transform:rotate(12deg)}
+.hero-photo:nth-child(3){width:33%;height:29%;bottom:13%;left:27%;transform:rotate(-3deg)}
+.hero-photo:hover:first-child{transform:rotate(-6deg) translateY(-5px)}
+.hero-photo:hover:nth-child(2){transform:rotate(7deg) translateY(-5px)}
+.hero-photo:hover:nth-child(3){transform:rotate(0deg) translateY(-5px)}
+.hero-picture-caption{position:absolute;left:25px;bottom:20px;border-radius:7px;background:var(--white);padding:11px 14px;font-size:12px;font-weight:750;color:#5d300e}
+.section{margin:75px 0}
+.trust-strip{display:flex;gap:0;border-block:1px solid #ebdaca;padding:13px 0;background:transparent;margin-top:24px;margin-bottom:55px}
+.trust-item{flex:1;border:0;border-right:1px solid #e3d4c1;border-radius:0;background:transparent;padding:8px 18px}
+.trust-item:last-child{border:0}
+.trust-item span:first-child{color:#a96a28}
+.trust-item strong{font-size:13px}
+.finder{background:#f9f1e4;box-shadow:none;border-color:#ead4af}
+.finder h3{font:700 25px/1.2 Georgia,serif}
+.category-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.category-card{grid-column:span 1;padding:9px;background:#fff;border-radius:12px;display:flex;flex-direction:column}
+.category-card:first-child{grid-column:span 2;background:#f5e0c0}
+.category-icon{height:150px;margin:0 0 12px;border-radius:9px;background:#f4ece2;font-size:37px;overflow:hidden;position:relative}
+.category-card:first-child .category-icon{background:#eed1a6}
+.category-card strong{font-size:13px;padding:0 7px}
+.category-card small{padding:0 7px 10px;font-size:11px}
+.category-icon img{max-width:95%;max-height:94%;width:auto;height:auto;object-fit:contain;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 7px 7px #8f542329)}
+.category-card:hover .category-icon img{transform:translate(-50%,-50%) scale(1.045);transition:transform .25s}
+.product-card{box-shadow:0 2px 0 #58321b05;border-color:#e9ded1;border-radius:11px}
+.product-card .product-art{background:#f9f4ed;height:215px}
+.product-card .product-art:after{content:""}
+.product-card:hover{border-color:#d0b08b;box-shadow:0 15px 32px #593e1b0f;transform:translateY(-3px);transition:transform .2s,box-shadow .2s}
+.real-photo{display:block;max-width:100%;width:100%;height:100%;object-fit:contain;mix-blend-mode:multiply;position:absolute;inset:0;padding:12px}
+.product-art .woven:has(+.real-photo){opacity:0}
+.product-art .woven{transition:opacity .2s}
+.product-card .price{color:#481d0d}
+.product-card .meta-pill{background:#fff0d3;color:#784b16}
+#enh-promo.promo-bar{margin:70px 0 34px;padding:39px 40px;border-radius:14px;background:radial-gradient(circle at 88% 10%,#ffe5af,transparent 48%),linear-gradient(115deg,#f5c96e,#f8dc9d);border:0;grid-template-columns:1.15fr .85fr;position:relative;overflow:hidden}
+#enh-promo h2{font-size:clamp(30px,3vw,43px);color:#48210e}
+#enh-promo .promo-art{font-size:124px;color:#73390c;opacity:.32}
+#enh-promo .btn{background:#50200a;color:white}
+.explain-block{border:0;background:#faf0e1;grid-template-columns:.67fr 1fr;padding:24px 44px 24px 25px;gap:45px;border-radius:16px}
+.explain-icon{background:#f3ddaf;min-height:295px;font-size:118px;border-radius:12px}
+#enh-why .why-grid{grid-template-columns:repeat(3,1fr);gap:12px}
+#enh-why .why-item{border:0;border-radius:11px;min-height:215px;padding:27px;background:#f7e7d0}
+#enh-why .why-item:first-child{grid-column:span 2;background:#4b1d07;color:white;display:flex;flex-direction:column;justify-content:end;position:relative;overflow:hidden}
+#enh-why .why-item:first-child:after{content:"✳";position:absolute;font-size:245px;right:20px;top:-125px;opacity:.13}
+#enh-why .why-item:first-child p{color:#eed9b9;max-width:430px}
+#enh-why .why-item:nth-child(2){background:#f4d9ad}
+#enh-why .why-item:nth-child(3){background:#f3eee7}
+#enh-why .why-item strong{font-size:20px}
+#enh-why .why-item p{font-size:14px}
+.feature-band{border-radius:13px;background:linear-gradient(110deg,#4b1d07,#783d16)}
+#enh-reviews .reviews-grid,#product-reviews .reviews-grid{grid-template-columns:1.25fr 1fr 1fr;gap:13px}
+#enh-reviews .review-placeholder,#product-reviews .review-placeholder{background:#fff;padding:28px;border:1px solid #e9daca;border-radius:12px}
+#enh-reviews .review-placeholder:first-child,#product-reviews .review-placeholder:first-child{background:#f8eddc}
+#enh-reviews .review-placeholder strong,#product-reviews .review-placeholder strong{font:700 19px/1.25 Georgia,serif}
+.editorial-grid{gap:14px}
+.editorial{background:#f7f0e9;border:0;border-radius:11px}
+.editorial:nth-child(2){background:#f2e2cc}
+.editorial:nth-child(3){background:#f7e7cf}
+.newsletter{border-radius:14px;background:#efdbbc}
+.site-footer{background:#f4ebdf}
+#search-overlay{position:fixed;inset:0;z-index:120;background:rgba(255,253,249,.98);display:none;overflow:auto;padding:60px 24px 40px;backdrop-filter:blur(18px)}
+#search-overlay.open{display:block}
+.search-stage{max-width:960px;margin:0 auto}
+.search-stage .top{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:32px}
+.search-close{background:#f4e3c6;color:#512408;border:0;border-radius:50%;height:44px;width:44px;font-size:25px}
+.search-title{font:700 clamp(32px,4vw,50px)/1.15 Georgia,serif;margin:0}
+.search-input{border:0;border-bottom:2px solid #9c784e;border-radius:0;background:transparent;font:500 clamp(23px,3vw,36px)/1.3 Georgia,serif;width:100%;outline:none;padding:17px 0;color:var(--ink)}
+.search-input:focus{border-color:#4b1d07}
+.search-caption{display:flex;justify-content:space-between;margin:12px 0 28px;color:#7b6756;font-size:13px}
+.live-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.live-result{display:flex;gap:13px;align-items:center;min-height:97px;padding:12px;border:1px solid #eadcc9;background:#fff;border-radius:12px}
+.live-result:hover{border-color:#bd8f55;background:#fff9ef}
+.live-result .thumb{height:72px;width:77px;flex:0 0 77px;object-fit:contain;background:#f5ecdf;border-radius:9px}
+.live-result strong{display:block;font-size:14px}
+.live-result small{display:block;color:#806b59}
+.search-group{font:700 23px Georgia,serif;margin:29px 0 15px}
+.results-none{font-size:16px;color:#795e4d;padding:25px 0}
+@media(max-width:1160px){.navigation{gap:11px}.header-wrap{gap:12px}.brand-text{font-size:17px}.header-actions .extras{gap:9px!important}}
+@media(max-width:960px){.header-wrap{min-height:62px}.brand-mark,.brand-logo-img{width:51px;height:51px;min-width:51px}.hero{grid-template-columns:1fr}.hero-art{min-height:340px}.hero-copy{padding:35px 0 10px}.category-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.category-card:first-child{grid-column:span 2}.category-card{grid-column:span 1}}
+@media(max-width:700px){.header-actions{gap:7px}.header-actions .extras{gap:7px!important}.header-actions .quick-link{font-size:19px}.brand-text{font-size:15px}.search-trigger{width:28px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.category-card:first-child{grid-column:span 2}.category-icon{height:130px}.trust-strip{flex-direction:column}.trust-item{border-right:0;border-bottom:1px solid #e7d8c5;padding:12px}.trust-item:last-child{border-bottom:0}#enh-promo.promo-bar{grid-template-columns:1fr;padding:26px 24px}#enh-why .why-grid{grid-template-columns:1fr 1fr}#enh-why .why-item:first-child{grid-column:span 2}#enh-reviews .reviews-grid,#product-reviews .reviews-grid{grid-template-columns:1fr}.explain-block{grid-template-columns:1fr;padding:20px;gap:20px}.explain-icon{min-height:170px}.live-grid{grid-template-columns:1fr}}
+@media(max-width:480px){.brand-mark,.brand-logo-img{width:44px;height:44px;min-width:44px}.brand-text{font-size:13px}.brand-text small{display:none}.header-wrap{gap:6px}.header-actions .extras{gap:4px!important}.header-actions .quick-link{font-size:17px}.quick-link span{font-size:8px;min-width:12px}.bag-link{padding:7px 8px}.menu-button{padding:7px}.search-trigger{font-size:20px;width:26px}.hero-art{min-height:265px;border-radius:11px 48px 14px 48px}.hero-photo{border-width:5px}.hero-copy h1{font-size:36px}.category-grid{gap:9px}#enh-why .why-grid{grid-template-columns:1fr}#enh-why .why-item:first-child{grid-column:1}.search-stage .top{margin-bottom:20px}#search-overlay{padding:34px 16px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
   <div class="note-bar">КЛИКАБЕЛЬНЫЙ ПРОТОТИП · данные и цены демонстрационные · заказы, оплата и заявки не отправляются</div>
@@ -891,5 +1009,121 @@
   })();
 
 </script>
-</body>
+<script>
+(function(){
+  "use strict";
+  var imgs={
+    bn10:"https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalunay-razmer-25-15-8-bn-10-65-260x210_0.jpg",
+    bn01:"https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-kruglay-razmer-22-8-5-bn-01-52-260x210_0.jpg",
+    bn06:"https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-bagetnay-razmer-55-10-7-bn-06-51-260x210_0.jpg",
+    bn28:"https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-v-forme-serdta-razmer-20-17-7-5bn-28-78-260x210_0.jpg",
+    canvas:"https://hleb-forma.ru/image/cache/catalog/001/holst2-907x680_0-260x210_0.jpg",
+    blade:"https://hleb-forma.ru/image/cache/catalog/bakery-nife-260x210_0.jpg"
+  };
+  var root=document.getElementById("app");
+  var nav=document.getElementById("navigation");
+  var articles=[["Что такое корзинки для расстойки","Что это, как выбрать и использовать"],["Как подобрать корзинку по весу теста","Вместимость от 350 до 900 граммов"],["Круглая или овальная корзинка","Форма выпечки и особенности расстойки"],["Уход за ротанговой корзинкой","Подготовка к использованию и чистка"]];
+  var itemNames={bn10:"Овальная корзинка BN 10, 25 × 15 × 8 см",bn01:"Круглая корзинка BN 01, 22 × 8,5 см",bn06:"Багетная корзинка BN 06, 55 × 10 × 7 см",bn28:"Корзинка сердечко BN 28",bn32:"Овальная корзинка BN 32",canvas:"Холст для расстойки",blade:"Держатель лезвия"};
+  function safe(s){return String(s||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
+  var brand=document.querySelector(".brand-mark");
+  if(brand){brand.innerHTML='<img class="brand-logo-img" src="data:image/png;base64,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" alt="Логотип Hleb-Forma">';}
+  if(document.querySelector(".brand-text")){document.querySelector(".brand-text").innerHTML="HLEB-FORMA<small>Всё для расстойки хлеба</small>";}
+  function addImg(host,url,classname){
+    if(!host||!url||host.querySelector("."+classname))return;
+    var pic=document.createElement("img");pic.className=classname;pic.src=url;pic.alt="Фотография товара Hleb-Forma";pic.loading="lazy";pic.decoding="async";
+    pic.addEventListener("error",function(){pic.remove();});
+    host.appendChild(pic);
+  }
+  function photoProducts(){
+    root.querySelectorAll(".product-card").forEach(function(card){
+      var link=card.querySelector('a[href^="#product-"]'),art=card.querySelector(".product-art");
+      if(link&&art){var id=link.hash.replace("#product-","");addImg(art,imgs[id],"real-photo");}
+    });
+    var detail=root.querySelector(".detail-grid"),slug=location.hash.slice(1);
+    if(detail&&slug.indexOf("product-")===0){
+      addImg(detail.querySelector(".product-art"),imgs[slug.slice(8)],"real-photo");
+    }
+    root.querySelectorAll(".category-card").forEach(function(cat){
+      var map={round:"bn01",oval:"bn10",baguette:"bn06",heart:"bn28",tools:"blade"};
+      var id=map[cat.dataset.shape];
+      var host=cat.querySelector(".category-icon");
+      if(host&&id)addImg(host,imgs[id],"category-photo");
+    });
+  }
+  function heroRefresh(){
+    var hero=root.querySelector(".hero-art");
+    if(!hero||hero.dataset.editorial)return;
+    hero.dataset.editorial="true";
+    hero.innerHTML='<div class="hero-photos">'+
+      '<img class="hero-photo" alt="Овальная корзинка для расстойки" src="'+imgs.bn10+'">'+
+      '<img class="hero-photo" alt="Круглая корзинка для расстойки" src="'+imgs.bn01+'">'+
+      '<img class="hero-photo" alt="Багетная корзинка для расстойки" src="'+imgs.bn06+'">'+
+      '</div><span class="hero-picture-caption">Корзинки из ротанга · реальные товары магазина</span>';
+    hero.querySelectorAll("img").forEach(function(img){
+      img.addEventListener("error",function(){img.style.display="none";});
+    });
+  }
+  function compose(){
+    photoProducts();heroRefresh();
+    var promo=root.querySelector("#enh-promo");
+    if(promo&&!promo.dataset.photo){
+      promo.dataset.photo="1";
+      var art=promo.querySelector(".promo-art");
+      if(art){
+        art.innerHTML='<span aria-hidden="true">✳</span>';
+        art.style.transform="rotate(12deg)";
+      }
+    }
+    var catalogHeading=Array.from(root.querySelectorAll(".section-heading h2")).find(function(n){return n.textContent==="Часто выбирают";});
+    if(catalogHeading)catalogHeading.textContent="Выбор пекарей";
+  }
+  var observer=new MutationObserver(function(){compose();});
+  observer.observe(root,{childList:true,subtree:true});
+  compose();
+  var btn=document.createElement("button");
+  btn.className="search-trigger";btn.type="button";btn.setAttribute("aria-label","Открыть поиск");btn.setAttribute("title","Поиск по сайту");btn.textContent="⌕";
+  var head=document.querySelector(".header-actions");
+  if(head)head.prepend(btn);
+  var overlay=document.createElement("div");overlay.id="search-overlay";
+  overlay.setAttribute("role","dialog");overlay.setAttribute("aria-modal","true");overlay.setAttribute("aria-label","Поиск по сайту");
+  overlay.innerHTML='<div class="search-stage"><div class="top"><div><span class="eyebrow">HLEB-FORMA</span>'+
+    '<h2 class="search-title">Что вы хотите найти?</h2></div><button class="search-close" type="button" aria-label="Закрыть поиск">×</button></div>'+
+    '<input class="search-input" type="search" id="search-live" placeholder="Название, артикул или вопрос..." autocomplete="off" aria-label="Поиск товаров и статей">'+
+    '<div class="search-caption"><span>Ищем по товарам и статьям</span><span>ESC — закрыть</span></div>'+
+    '<div id="search-live-results" aria-live="polite"></div></div>';
+  document.body.appendChild(overlay);
+  var input=overlay.querySelector("#search-live"),results=overlay.querySelector("#search-live-results"),lastFocus=null;
+  function show(){lastFocus=document.activeElement;overlay.classList.add("open");document.body.style.overflow="hidden";input.value="";render("");input.focus();}
+  function hide(){overlay.classList.remove("open");document.body.style.overflow="";if(lastFocus&&lastFocus.focus)lastFocus.focus();}
+  function imgUrl(id){return imgs[id]||"";}
+  function render(q){
+    var query=q.trim().toLocaleLowerCase("ru-RU");
+    var matched=Object.keys(itemNames).filter(function(id){return (itemNames[id]+" "+id).toLocaleLowerCase("ru-RU").includes(query);});
+    var foundArticles=articles.filter(function(a){return (a[0]+" "+a[1]).toLocaleLowerCase("ru-RU").includes(query);});
+    var html='<h3 class="search-group">Товары <small style="font:400 13px Arial;color:#806b59">('+matched.length+')</small></h3>';
+    html+=matched.length?'<div class="live-grid">'+matched.slice(0,8).map(function(id){
+      return '<a class="live-result" href="#product-'+id+'">'+(imgUrl(id)?'<img class="thumb" src="'+imgUrl(id)+'" alt="">':'<span class="thumb"></span>')+
+       '<span><strong>'+safe(itemNames[id])+'</strong><small>Артикул: '+safe(id.toUpperCase())+'</small></span></a>';
+    }).join("")+'</div>':'<p class="results-none">По такому запросу товары не найдены. Попробуйте другой размер или название.</p>';
+    html+='<h3 class="search-group">Статьи <small style="font:400 13px Arial;color:#806b59">('+foundArticles.length+')</small></h3>';
+    html+=foundArticles.length?'<div class="live-grid">'+foundArticles.map(function(a){
+      return '<a class="live-result" href="#articles"><span style="background:#f5e5c9;padding:18px;border-radius:10px;font-size:22px">✎</span>'+
+      '<span><strong>'+safe(a[0])+'</strong><small>'+safe(a[1])+'</small></span></a>';
+    }).join("")+'</div>':'<p class="results-none">Статей по этому запросу нет.</p>';
+    results.innerHTML=html;
+  }
+  btn.addEventListener("click",show);
+  overlay.querySelector(".search-close").addEventListener("click",hide);
+  input.addEventListener("input",function(){render(input.value);});
+  overlay.addEventListener("click",function(e){if(e.target===overlay)hide();if(e.target.closest('a[href^="#"]'))hide();});
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape"&&overlay.classList.contains("open")){hide();return;}
+    if((e.key.toLowerCase()==="k")&&(e.metaKey||e.ctrlKey)){e.preventDefault();overlay.classList.contains("open")?hide():show();}
+    if(e.key==="Tab"&&overlay.classList.contains("open")){
+      var controls=[overlay.querySelector(".search-close"),input];
+      if(!overlay.contains(document.activeElement)){e.preventDefault();input.focus();}
+    }
+  });
+})();
+</script></body>
 </html>
