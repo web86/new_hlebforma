@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hleb-Forma — новая главная · v3.3</title>
+<title>Hleb-Forma — новая главная · v3.4</title>
 <meta name="description" content="Новая визуальная концепция Hleb-Forma: магазин корзинок для расстойки хлеба с подбором, каталогом и оптовыми заказами.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -224,6 +224,28 @@ main h1,main h2,.wide-copy h1,.catalog-intro h2{
  .v3-prices .old-price{font-size:11px}
 }
 @media(max-width:380px){.catalog-intro .handwritten{font-size:27px}}
+
+/* v3.4 — consistent calligraphic section captions */
+main .eyebrow{
+  display:block;
+  font-family:"Great Vibes","Segoe Script","Marck Script",cursive;
+  font-size:clamp(26px,2.4vw,35px);
+  font-weight:400;
+  font-style:normal;
+  font-synthesis:none;
+  line-height:1.28;
+  letter-spacing:0;
+  text-transform:none;
+  color:#b46835;
+}
+main .guide-copy .eyebrow{color:#b46835}
+main .wholesale-copy .eyebrow{color:#e2b381}
+main .journal .eyebrow{font-size:clamp(23px,2vw,29px)}
+main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
+@media(max-width:640px){
+ main .eyebrow{font-size:29px}
+ main .journal .eyebrow{font-size:25px}
+}
 </style>
 </head>
 <body>
@@ -292,7 +314,7 @@ main h1,main h2,.wide-copy h1,.catalog-intro h2{
 </div>
 <section class="catalog-v3 container" id="catalog">
  <div class="sticky-catalog-layout">
-  <div class="catalog-intro"><span class="eyebrow">Каталог Hleb-Forma</span>
+  <div class="catalog-intro">
    <h2>Корзинки для<br>твоего хлеба</h2>
    <div class="handwritten">Форма имеет значение</div>
    <p>От маленькой круглой буханки до большого овального хлеба. Найди корзинку под вес теста и форму, которую хочешь получить.</p>
@@ -423,9 +445,8 @@ description.classList.add('changing');
 textTimer=setTimeout(()=>{description.textContent=descriptions[active];description.classList.remove('changing');},220);
 }
 function stop(){if(timer){clearInterval(timer);timer=null;}}
-function play(){stop();if(!paused&&!reducedMotion.matches&&!document.hidden&&!host.matches(':hover')&&!host.contains(document.activeElement))timer=setInterval(()=>show(active+1),7000);}
+function play(){stop();if(!paused&&!reducedMotion.matches&&!document.hidden&&!host.contains(document.activeElement))timer=setInterval(()=>show(active+1),7000);}
 dots.forEach((b,i)=>{b.setAttribute('aria-label',`Показать слайд ${i+1} и остановить автопереключение`);b.addEventListener('click',()=>{paused=true;stop();show(i);});});
-host.addEventListener('mouseenter',stop);host.addEventListener('mouseleave',play);
 host.addEventListener('focusin',stop);host.addEventListener('focusout',e=>{if(!host.contains(e.relatedTarget))play();});
 document.addEventListener('visibilitychange',play);
 document.addEventListener('click',e=>{const b=e.target.closest('[data-flip]');if(!b)return;const c=b.closest('.v3-card'),state=c.classList.toggle('show-bread');b.setAttribute('aria-pressed',String(state));b.textContent=state?'Показать корзинку ↔':'Показать хлеб ↔';});
