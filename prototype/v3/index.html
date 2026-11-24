@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hleb-Forma — новая главная · v3.15</title>
+<title>Hleb-Forma — новая главная · v3.16</title>
 <meta name="description" content="Новая визуальная концепция Hleb-Forma: магазин корзинок для расстойки хлеба с подбором, каталогом и оптовыми заказами.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -469,6 +469,23 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
   #reviews .review{min-height:0;padding:24px}
 }
 
+
+/* v3.16 — bespoke linked benefits with compact editorial styling */
+.benefits-band{--benefit-bg:#faf6f0;background:var(--benefit-bg);border-bottom:1px solid #eee5da}
+.benefits-band .clear-benefits{background:transparent;min-height:100px;padding:18px 0;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2.2vw,30px);align-items:stretch}
+.benefit-link{display:flex;align-items:center;gap:13px;min-width:0;text-decoration:none;color:#403328;border-radius:6px}
+.benefit-icon{display:block;flex:0 0 52px;width:52px;height:52px;color:#a36c42;transition:transform .25s ease,color .25s ease}
+.benefit-copy{display:block;min-width:0}
+.benefit-copy strong{display:block;font-size:14px;font-weight:720;line-height:1.4;transition:color .2s ease}
+.benefits-band .benefit-copy small{display:block;margin-top:4px;font-size:11.5px;line-height:1.45;font-weight:450;color:#796b5c}
+.benefit-link:hover .benefit-icon,.benefit-link:focus-visible .benefit-icon{transform:scale(1.07);color:#b46835}
+.benefit-link:hover strong,.benefit-link:focus-visible strong{color:#a35629;text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+.benefit-link:focus-visible{outline:2px solid #a36c42;outline-offset:4px}
+@media(max-width:1100px){.benefit-icon{flex-basis:46px;width:46px;height:46px}.benefit-link{gap:10px}.benefit-copy strong{font-size:13px}}
+@media(max-width:880px){.benefits-band .clear-benefits{grid-template-columns:repeat(2,minmax(0,1fr));padding:16px 0;gap:18px 24px}}
+@media(max-width:640px){.benefits-band .clear-benefits{gap:16px 12px;padding:15px 0}.benefit-icon{flex-basis:36px;width:36px;height:36px}.benefit-link{gap:8px}.benefit-copy strong{font-size:12px}.benefits-band .benefit-copy small{font-size:10.5px}}
+@media(prefers-reduced-motion:reduce){.benefit-icon,.benefit-copy strong{transition:none}.benefit-link:hover .benefit-icon,.benefit-link:focus-visible .benefit-icon{transform:none}}
+
 </style>
 </head>
 <body id="page-top">
@@ -529,11 +546,13 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
   </div>
   <div class="wide-scene-caption">Для красивого домашнего хлеба</div>
 </section>
-<div class="container clear-benefits" aria-label="Преимущества магазина">
-  <div><b>✧</b><span>Натуральный ротанг<small>Природный материал</small></span></div>
-  <div><b>◌</b><span>Подбор по весу теста<small>Выбирайте подходящую форму</small></span></div>
-  <div><b>↗</b><span>Для дома и пекарен<small>Розница и оптовые партии</small></span></div>
-  <div><b>◇</b><span>Помощь с выбором<small>Статьи и консультации</small></span></div>
+<div class="benefits-band" aria-label="Преимущества магазина">
+  <div class="container clear-benefits">
+    <a class="benefit-link" href="#guides"><svg class="benefit-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="30" cy="29" rx="25" ry="19"/><ellipse cx="30" cy="29" rx="20" ry="15.2"/><ellipse cx="30" cy="29" rx="15" ry="11.4"/><ellipse cx="30" cy="29" rx="10" ry="7.6"/><ellipse cx="30" cy="29" rx="5" ry="3.8"/><path d="M6 34 Q9 54 30 55 Q51 54 54 34 M9 42 Q30 61 51 42 M13 48 Q30 59 47 48 M46 16 Q45 4 61 3 Q62 16 46 16 M46 16 L56 8"/></svg><span class="benefit-copy"><strong>100% натуральный ротанг</strong><small>Природная фактура и традиции хлебопечения</small></span></a>
+    <a class="benefit-link" href="#shapes"><svg class="benefit-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="27" width="46" height="30" rx="6"/><circle cx="32" cy="41" r="9"/><path d="M32 41 L37 35 M19 47 H21 M43 47 H45 M8 23 H56 M15 23 C15 3 49 3 49 23 M25 10 L30 16 M35 9 L40 15"/></svg><span class="benefit-copy"><strong>Под любой рецепт</strong><small>Разные формы, размеры и вес теста</small></span></a>
+    <a class="benefit-link" href="../index.html#delivery"><svg class="benefit-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M5 23 L24 13 L43 23 L24 34 Z M5 23 V45 L24 56 L43 45 V23 M24 34 V56 M14 18 L33 29 V37 M43 27 H52 L60 36 V46 H43 M52 27 V37 H60"/><circle cx="49" cy="48" r="4" fill="var(--benefit-bg)"/><circle cx="12" cy="49" r="4" fill="var(--benefit-bg)"/></svg><span class="benefit-copy"><strong>Доставка по России</strong><small>От одной корзинки до оптовой партии</small></span></a>
+    <a class="benefit-link" href="#contacts"><svg class="benefit-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M7 23 Q7 7 28 7 Q49 7 49 23 Q49 39 28 39 H19 L8 47 L11 32 Q7 28 7 23Z M52 23 Q61 28 61 40 Q61 49 54 53 L56 61 L44 56 Q30 57 25 45 M20 23 L26 29 L37 17"/></svg><span class="benefit-copy"><strong>Знаем своё дело</strong><small>Поможем подобрать подходящую корзинку</small></span></a>
+  </div>
 </div>
 <section class="catalog-v3 container" id="catalog">
  <div class="sticky-catalog-layout">
