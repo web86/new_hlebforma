@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hleb-Forma — новая главная · v3.12</title>
+<title>Hleb-Forma — новая главная · v3.13</title>
 <meta name="description" content="Новая визуальная концепция Hleb-Forma: магазин корзинок для расстойки хлеба с подбором, каталогом и оптовыми заказами.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -443,6 +443,11 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
   #guides .rattan-ornament{width:90%}
 }
 
+/* v3.13 — dedicated botanical rattan photograph */
+#guides .editorial-mosaic .guide-nature img{object-position:72% center;filter:none}
+#guides .guide-nature::after{background:linear-gradient(180deg,transparent 32%,rgba(25,30,18,.09) 55%,rgba(21,25,14,.47) 100%)}
+#guides .guide-nature-copy h2{text-shadow:0 2px 14px #1a20124d}
+@media(max-width:640px){#guides .editorial-mosaic .guide-nature img{object-position:73% center}}
 </style>
 </head>
 <body id="page-top">
@@ -540,7 +545,7 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
   <section class="container section" id="guides" aria-label="Натуральный ротанг, расстойка теста и оптовые поставки">
   <div class="guide-grid editorial-mosaic">
     <article class="guide-image guide-nature">
-      <img src="assets/hero-rattan.webp" alt="" loading="lazy" decoding="async">
+      <img src="assets/rattan-nature.webp" alt="" width="1200" height="900" loading="lazy" decoding="async">
       <div class="guide-nature-copy">
         <h2>Натуральный ротанг — форма, которую создаёт природа</h2>
         <a href="../index.html#articles" class="guide-nature-link">Подробнее <span aria-hidden="true">↗</span></a>
