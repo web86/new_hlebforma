@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hleb-Forma — новая главная · v3.9</title>
+<title>Hleb-Forma — новая главная · v3.10</title>
 <meta name="description" content="Новая визуальная концепция Hleb-Forma: магазин корзинок для расстойки хлеба с подбором, каталогом и оптовыми заказами.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -368,6 +368,26 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
 .shape-card:hover .shape-picture-oval .shape-bread,.shape-card:hover .shape-picture-baguette .shape-bread,.shape-card:hover .shape-picture-rectangle .shape-bread{transform:scale(1.28)}
 .shape-card:hover .shape-outline{transform:none}
 @media(prefers-reduced-motion:reduce){.shape-picture-photo .shape-bread{transition:none}}
+
+/* v3.10 — material story and practical proofing guide */
+#guides .guide-grid{grid-template-columns:repeat(2,minmax(0,1fr));background:#edf0e7;min-height:490px}
+#guides .guide-nature{min-height:490px;isolation:isolate;display:flex;align-items:flex-end;background:#4e5641}
+#guides .guide-nature img{z-index:-2;object-position:71% center;filter:saturate(.86)}
+#guides .guide-nature::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(25,27,17,.06) 4%,rgba(25,28,18,.26) 40%,rgba(25,28,18,.86) 100%),linear-gradient(90deg,rgba(30,34,23,.25),transparent 80%);pointer-events:none}
+.guide-nature-copy{padding:clamp(30px,4.3vw,62px);max-width:100%;color:#fff}
+#guides .guide-nature-copy .eyebrow{color:#f8dfbc;font-size:26px}
+#guides .guide-nature-copy h2{color:#fff;font-size:clamp(30px,3vw,44px);line-height:1.2;margin:12px 0 25px;max-width:490px;text-wrap:balance}
+.guide-nature-link{display:inline-flex;align-items:center;gap:14px;border:1px solid #ffffff9e;border-radius:6px;color:#fff;font-size:14px;font-weight:650;padding:11px 20px;transition:background .2s,color .2s}
+.guide-nature-link:hover{background:#fff;color:#393c2d}
+#guides .guide-copy{padding:clamp(32px,4.7vw,65px)}
+#guides .guide-copy .eyebrow{color:#a96031}
+#guides .guide-copy h2{font-size:clamp(31px,3.1vw,44px);line-height:1.2;text-wrap:balance}
+#guides .guide-copy p{max-width:460px;line-height:1.8;margin-bottom:17px}
+#guides .guide-copy .text-link{margin-top:10px}
+@media(max-width:880px){#guides .guide-grid{grid-template-columns:1fr}#guides .guide-nature{min-height:400px}#guides .guide-nature img{object-position:68% center}#guides .guide-copy{padding:35px}}
+@media(max-width:640px){#guides .guide-nature{min-height:350px}#guides .guide-nature-copy{padding:27px 24px 30px}#guides .guide-nature-copy h2{font-size:32px}#guides .guide-copy{padding:32px 24px 35px}#guides .guide-copy h2{font-size:31px}}
+@media(prefers-reduced-motion:reduce){.guide-nature-link{transition:none}}
+
 </style>
 </head>
 <body id="page-top">
@@ -462,7 +482,25 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
     </div>
     </div>
   </section>
-  <section class="container section" id="guides"><div class="guide-grid"><div class="guide-image"><img src="https://www.oefferl.bio/uploads/_1500xAUTO_crop_center-center_none/meister-wenzel-teigsturz.jpg" alt="Тесто на расстойке в корзинках"></div><div class="guide-copy"><span class="eyebrow">Природные материалы</span><h2>Натуральный ротанг — форма, которую создаёт природа</h2><p>Для расстойки используют плетёные корзинки из натурального ротанга. Они поддерживают тестовую заготовку, пока она поднимается, и помогают получить характерный рисунок на готовой буханке.</p><p>Ротанг ценят за природную фактуру и привычный для пекарского дела материал. Корзинку используют для расстойки, а не для выпекания в духовке.</p><a href="../index.html#articles" class="text-link">Как выбрать и пользоваться ↗</a></div></div></section>
+  <section class="container section" id="guides" aria-label="О ротанге и корзинках для расстойки">
+  <div class="guide-grid">
+    <div class="guide-image guide-nature">
+      <img src="assets/hero-rattan.webp" alt="" loading="lazy" decoding="async">
+      <div class="guide-nature-copy">
+        <span class="eyebrow">Природные материалы</span>
+        <h2>Натуральный ротанг — форма, которую создаёт природа</h2>
+        <a href="../index.html#articles" class="guide-nature-link">Подробнее <span aria-hidden="true">↗</span></a>
+      </div>
+    </div>
+    <div class="guide-copy">
+      <span class="eyebrow">От теста к красивому хлебу</span>
+      <h2>Хороший хлеб начинается с правильной формы</h2>
+      <p>Во время финальной расстойки тесто поднимается и может терять форму. Корзинка поддерживает заготовку, помогает ей сохранить очертания и подготовиться к выпечке.</p>
+      <p>Круглая, овальная или фигурная — у каждого хлеба своя форма. А фактура ротангового плетения помогает создавать характерный рисунок на поверхности буханки.</p>
+      <a href="../index.html#articles" class="text-link">Как выбрать и пользоваться ↗</a>
+    </div>
+  </div>
+</section>
   <section class="container section"><div class="wholesale"><div class="wholesale-copy"><span class="eyebrow">Для профессиональных пекарен</span><h2>Когда хлеба нужно больше</h2><p>Укомплектуем рабочий процесс нужными формами. Скажи, какие модели и в каком количестве тебе нужны, — обсудим ассортимент и условия поставки.</p><a class="button button-light" href="../index.html#wholesale">Оптовым покупателям ↗</a></div><div class="wholesale-image"><img src="https://www.oefferl.bio/uploads/_1500xAUTO_crop_center-center_none/meister-wenzel-teigsturz.jpg" alt="Корзинки с тестовыми заготовками в профессиональной пекарне"><span class="photo-caption">Иллюстративное фото · заменить собственной съёмкой</span></div></div></section>
   <section class="container section" id="reviews"><div class="title-row"><div><span class="eyebrow">Покупатели рассказывают</span><h2>Знакомо. Проверено. Любимо.</h2></div><a class="text-link" href="https://hleb-forma.ru/index.php?route=testimonial/testimonial" target="_blank" rel="noopener noreferrer">Все отзывы ↗</a></div><div class="reviews-row"><article class="review"><span class="review-mark">“</span><p>«Ровные, без постороннего запаха». Покупательница отмечает качество изготовления.</p><footer><strong>Людмила</strong><span>04.05.2022</span></footer></article><article class="review"><span class="review-mark">“</span><p>«Получила продукцию в целости и сохранности». Заказ доехал благополучно, хлеб уже испечён.</p><footer><strong>Людмила Мамонтова</strong><span>29.04.2022</span></footer></article><article class="review"><span class="review-mark">“</span><p>«Очень довольна покупкой». В отзыве отмечены упаковка и скорость доставки.</p><footer><strong>Светлана Овчинникова</strong><span>16.02.2022</span></footer></article></div><p class="note">Краткие выдержки из опубликованных отзывов старого магазина; перед запуском сверить полный текст, источник и разрешение на фотографии.</p></section>
   <section class="container section"><div class="title-row"><div><span class="eyebrow">В мире домашнего хлеба</span><h2>Печь легче, когда знаешь как</h2></div><a class="text-link" href="../index.html#articles">Все статьи ↗</a></div><div class="journal"><a href="../index.html#articles"><div class="thumb"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80" alt="Ремесленный хлеб"></div><span class="eyebrow">Подбор размера</span><h3>Как выбрать корзинку по весу теста</h3><p>Простая логика подбора для начинающих и опытных хлебопеков.</p></a><a href="../index.html#articles"><div class="thumb"><img src="https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-kruglay-razmer-22-8-5-bn-01-52-260x210_0.jpg" alt="Круглая корзинка"></div><span class="eyebrow">Выбор формы</span><h3>Круглая или овальная?</h3><p>Разбираемся, какая корзинка подойдёт твоему хлебу.</p></a><a href="../index.html#articles"><div class="thumb"><img src="https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalunay-razmer-25-15-8-bn-10-65-260x210_0.jpg" alt="Овальная корзинка"></div><span class="eyebrow">Уход и хранение</span><h3>Как обращаться с ротангом</h3><p>Несложные правила, чтобы корзинки служили долго.</p></a></div></section>
