@@ -170,6 +170,12 @@ body{background:white}
 }
 @media(max-width:380px){.header-v3 .brand-name small{font-size:15px}.handwritten{font-size:36px}}
 
+
+/* Stable hero heading and slide-specific copy */
+.wide-copy #wide-description{min-height:3.4em;transition:opacity .22s ease}
+.wide-copy #wide-description.changing{opacity:0}
+@media(max-width:640px){.wide-copy #wide-description{min-height:5.1em}}
+@media(prefers-reduced-motion:reduce){.wide-copy #wide-description{transition:none}}
 </style>
 </head>
 <body>
@@ -222,7 +228,7 @@ body{background:white}
   <div class="wide-scene" role="img" aria-label="Корзинки с тестом в пекарне" style="background-image:url('assets/hero-bakery.webp')"></div>
   <div class="container wide-hero-inner"><div class="wide-copy">
     <h1>Натуральные корзинки<br>для красивого хлеба</h1>
-    <p>Корзинки из ротанга для расстойки теста. Подберём размер для домашней выпечки или партию для профессиональной пекарни.</p>
+    <p id="wide-description">От круглой буханки до ароматного батона — подберите ротанговую корзинку под форму и вес вашего теста.</p>
     <div class="wide-links"><a class="button button-light" href="#catalog">Выбрать корзинку ↗</a><a class="button wide-outline" href="#wholesale">Оптовым покупателям</a></div>
   </div></div>
   <div class="wide-slide-tools" aria-label="Управление слайдшоу">
@@ -231,7 +237,7 @@ body{background:white}
     <button id="wide-next" type="button" aria-label="Следующий слайд">›</button>
     <button id="wide-pause" type="button" aria-label="Остановить автопереключение" aria-pressed="false">Ⅱ</button>
   </div>
-  <div class="wide-scene-caption">Хлеб и ремесленная выпечка</div>
+  <div class="wide-scene-caption">Для красивого домашнего хлеба</div>
 </section>
 <div class="container clear-benefits" aria-label="Преимущества магазина">
   <div><b>✧</b><span>Натуральный ротанг<small>Природный материал</small></span></div>
@@ -361,7 +367,17 @@ const host=document.querySelector('.wide-hero');
 if(!host)return;
 const scenes=[...host.querySelectorAll('.wide-scene')],dots=[...host.querySelectorAll('[data-wide-dot]')];
 let active=0,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matches,timer=null;
-function show(i){active=(i+scenes.length)%scenes.length;scenes.forEach((el,j)=>el.classList.toggle('current',j===active));dots.forEach((el,j)=>{el.classList.toggle('current',j===active);el.setAttribute('aria-current',String(j===active));});}
+const descriptions=["От круглой буханки до ароматного батона — подберите ротанговую корзинку под форму и вес вашего теста.","Природная красота ротанга, выразительная фактура плетения и традиции ремесленного хлебопечения.","Для домашней выпечки и профессиональных пекарен. Подберём нужные формы, размеры и количество корзинок."],captions=["Для красивого домашнего хлеба","Натуральный ротанг","Для профессиональных пекарен"];
+const description=host.querySelector('#wide-description'),caption=host.querySelector('.wide-scene-caption');
+const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+let textTimer=null;
+function show(i){active=(i+scenes.length)%scenes.length;scenes.forEach((el,j)=>{el.classList.toggle('current',j===active);el.setAttribute('aria-hidden',String(j!==active));});dots.forEach((el,j)=>{el.classList.toggle('current',j===active);el.setAttribute('aria-current',String(j===active));});
+clearTimeout(textTimer);
+if(caption)caption.textContent=captions[active];
+if(description.textContent===descriptions[active]||reducedMotion.matches){description.textContent=descriptions[active];description.classList.remove('changing');return;}
+description.classList.add('changing');
+textTimer=setTimeout(()=>{description.textContent=descriptions[active];description.classList.remove('changing');},220);
+}
 function stop(){if(timer){clearInterval(timer);timer=null;}}
 function play(){stop();if(!paused&&!document.hidden)timer=setInterval(()=>show(active+1),7000);}
 document.querySelector('#wide-prev').addEventListener('click',()=>{show(active-1);play();});
