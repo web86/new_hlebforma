@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hleb-Forma — новая главная · v3.5</title>
+<title>Hleb-Forma — новая главная · v3.6</title>
 <meta name="description" content="Новая визуальная концепция Hleb-Forma: магазин корзинок для расстойки хлеба с подбором, каталогом и оптовыми заказами.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -274,9 +274,60 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
 @media(max-width:880px){.faq-layout{grid-template-columns:1fr;gap:32px}.faq-intro>p{max-width:650px}.faq-contact{margin-top:18px}.faq-section{padding:60px 0 70px}}
 @media(max-width:640px){.faq-section{padding:48px 0 55px}.faq-item summary{font-size:15px;min-height:64px;gap:15px;padding:17px 0}.faq-answer{padding-right:10px}.faq-plus{width:29px;height:29px;flex-basis:29px}}
 @media(prefers-reduced-motion:reduce){.faq-plus,.faq-plus::before,.faq-plus::after{transition:none}}
+
+/* v3.6 — sticky FAQ, soft newsletter transition and white editorial footer */
+.faq-layout{align-items:start}
+.faq-intro{position:sticky;top:110px;align-self:start}
+.faq-section{padding-bottom:54px}
+.newsletter-section{background:linear-gradient(180deg,#f6f1e9 0%,#faf7f3 40%,#fff 100%);padding:0 0 74px}
+.faq-newsletter-divider{height:0;border:0;border-top:1px solid #dcd2c5;margin:0 0 54px}
+.newsletter-section .newsletter{background:transparent;border:0;border-radius:0;box-shadow:none;padding:0;gap:50px;align-items:center}
+.newsletter-copy{max-width:610px}
+.newsletter-section .newsletter h2{font-size:clamp(27px,2.9vw,40px);line-height:1.2;margin:8px 0 15px}
+.newsletter-section .newsletter p{font-size:14px;line-height:1.75;max-width:480px}
+.newsletter-section .newsletter form{max-width:460px;flex-shrink:0;align-items:stretch}
+.newsletter-section .newsletter input{border:1px solid #d9cfc4;border-radius:6px;min-height:51px}
+.newsletter-section .newsletter button{background:#a96031;min-height:51px;border-radius:6px;font-size:13px;padding:12px 19px;white-space:nowrap}
+.newsletter-section .newsletter button:hover{background:#884a25}
+.footer{background:#fff;color:var(--ink);margin-top:0}
+.footer .footer-inner{grid-template-columns:minmax(0,1.3fr) minmax(0,.75fr) minmax(0,.85fr) minmax(0,1.12fr);gap:clamp(24px,3.4vw,48px);padding:64px 0 52px;align-items:start}
+.footer .footer-inner>div,.footer .footer-inner>nav{min-width:0}
+.footer h4{font-size:14px;font-weight:750;letter-spacing:0;margin:8px 0 20px;color:#30251e}
+.footer a{color:#655b53;font-size:14px;line-height:1.5;margin:0 0 12px;display:block}
+.footer a:hover{color:#a96031}
+.footer p{font-size:13px;line-height:1.85;color:#80746b;max-width:290px}
+.footer .footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.footer-brand img{height:68px;width:68px;object-fit:contain;flex:0 0 68px}
+.footer-brand-text{display:flex;flex-direction:column;min-width:0}
+.footer-brand-text strong{font-size:21px;color:#43291e;letter-spacing:.015em;line-height:1.2;font-weight:800;white-space:nowrap}
+.footer-brand-text small{font-family:"Great Vibes","Segoe Script","Marck Script",cursive;font-size:20px;line-height:1.3;color:#b46835;white-space:nowrap;margin-top:4px}
+.footer .footer-phone{font-family:var(--display-font);font-size:clamp(20px,1.95vw,28px);font-weight:700;color:#33241d;line-height:1.3;white-space:nowrap;margin-bottom:12px}
+.footer .footer-email{font-size:15px;color:#6f6258;margin-bottom:18px;overflow-wrap:anywhere}
+.footer .footer-contact-link{font-size:13px;color:#a96031;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.footer .footer-legal{border-top:1px solid #ebe6e1;padding:24px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:28px;font-size:12px;color:#877970;line-height:1.8}
+.footer-legal-identity{display:flex;flex-direction:column;gap:3px}
+.footer-legal-identity strong{font-weight:650;color:#52443a}
+.footer-bank{flex:0 1 330px;min-width:0;font-size:12px}
+.footer-bank summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;color:#6c5b4d;font-weight:650}
+.footer-bank summary::-webkit-details-marker{display:none}
+.footer-bank summary::marker{content:""}
+.footer-bank summary span{font-size:17px;font-weight:400;color:#a96031}
+.footer-bank[open] summary span{transform:rotate(45deg)}
+.footer-bank div{margin-top:8px;overflow-wrap:anywhere}
+.footer .footer-bottom{border-top:1px solid #ebe6e1;color:#8d8178;padding:19px 0 24px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:18px;font-size:12px}
+.footer-bottom-right{display:flex;align-items:center;gap:24px}
+.footer .footer-credit{font-size:12px;margin:0;color:#80746a}
+.footer-credit strong{color:#49372a;font-weight:800}
+.footer .footer-up{width:43px;height:43px;display:grid;place-items:center;margin:0;border:1px solid #d9cbbf;border-radius:50%;color:#a96031;transition:background .2s,color .2s}
+.footer .footer-up:hover{background:#a96031;color:#fff;border-color:#a96031}
+.footer-up svg{width:19px;height:19px}
+@media(max-width:1150px){.footer .footer-inner{gap:24px;grid-template-columns:1.15fr .8fr .85fr 1.2fr}.footer-brand img{width:53px;height:53px;flex-basis:53px}.footer-brand-text strong{font-size:17px}.footer-brand-text small{font-size:17px}.newsletter-section .newsletter form{max-width:370px}}
+@media(max-width:980px){.footer .footer-inner{grid-template-columns:1fr 1fr;gap:35px;padding:44px 0 40px}.footer .footer-inner>div:first-child{grid-column:auto}.footer .footer-phone{font-size:25px}.footer-brand img{width:64px;height:64px;flex-basis:64px}.footer-brand-text strong{font-size:21px}.footer-brand-text small{font-size:20px}}
+@media(max-width:880px){.faq-intro{position:static}.newsletter-section .newsletter{gap:25px}.newsletter-section .newsletter form{max-width:320px}.faq-section{padding-bottom:40px}.faq-newsletter-divider{margin-bottom:40px}}
+@media(max-width:640px){.newsletter-section{padding-bottom:40px}.newsletter-section .newsletter{display:block}.newsletter-section .newsletter form{max-width:none;margin-top:25px}.footer .footer-inner{gap:30px 18px;padding:36px 0}.footer .footer-about,.footer .footer-contact{grid-column:1/-1}.footer .footer-legal{flex-direction:column;gap:15px}.footer-bank{flex:auto}.footer .footer-bottom{flex-wrap:wrap}.footer-bottom-right{margin-left:auto;gap:15px}.footer .footer-phone{font-size:27px}.faq-section{padding-bottom:30px}.faq-newsletter-divider{margin-bottom:30px}}
 </style>
 </head>
-<body>
+<body id="page-top">
 <header class="header header-v3"><div class="container header-content">
   <a class="brand" href="./index.html" aria-label="Hleb-Forma — главная"><span class="brand-svg"><svg aria-hidden="true" focusable="false" width="106" height="106" viewBox="0 0 106 106" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M1.32538 41.0753C0.908374 41.744 0.530384 42.9303 0.530384 42.9303C0.530384 42.9303 0.465716 45.9228 1.06038 47.7003C1.86199 50.0962 4.77038 53.0003 4.77038 53.0003L11.9254 59.6253C11.9254 59.6253 11.5169 64.225 12.1904 67.0453C12.6546 68.9893 14.0454 71.8153 14.0454 71.8153L13.7804 72.6103L6.62538 76.0553L4.77038 77.6453L4.50538 78.9703L11.1304 85.0653L14.0454 90.1003L15.3704 91.1603H16.9604L24.3804 88.2453L26.7654 87.9803L31.0054 89.8353L35.2454 93.2803L38.4254 94.8703L46.9054 95.6653L53.5304 97.2553L58.8304 95.6653L67.0454 94.8703L71.0204 92.7503L74.4654 89.8353L78.9704 87.9803H80.2954L88.7754 91.1603H90.3654L91.6904 90.1003L94.0754 85.5953L100.965 79.5003L101.23 78.4403L100.17 76.8503L91.4254 72.0803L93.5454 66.2503L93.8104 59.6253L103.615 49.5553C103.615 49.5553 105.015 47.2413 105.205 45.5803C105.347 44.3422 105.346 43.5784 104.94 42.4003C104.435 40.9326 103.799 40.1493 102.555 39.2203C101.478 38.4151 99.3754 37.8953 99.3754 37.8953C99.3754 37.8953 96.6109 37.6385 94.8704 37.8953C92.4737 38.2488 89.0404 40.0153 89.0404 40.0153L85.8604 35.2453L82.9454 32.0653L84.5354 29.4153L85.0654 27.2953V24.1153L84.2704 21.2003L82.9454 18.8153C82.9454 18.8153 81.6017 17.2369 80.5604 16.4303C79.1695 15.3529 78.2628 14.8409 76.5854 14.3103C74.7984 13.745 73.6877 13.6954 71.8154 13.7803C70.1324 13.8565 67.5754 14.5753 67.5754 14.5753C67.5754 14.5753 65.3013 11.4746 63.3354 10.0703C61.2234 8.56161 59.7672 8.01348 57.2404 7.42026C54.5183 6.78118 52.8548 6.76977 50.0854 7.15526C48.3949 7.39056 47.4357 7.5957 45.8454 8.21526C44.0752 8.90489 41.6054 10.6003 41.6054 10.6003L38.1604 14.5753C38.1604 14.5753 35.441 13.8362 33.6554 13.7803C32.3067 13.738 31.5294 13.7609 30.2104 14.0453C28.576 14.3975 27.6668 14.7714 26.2354 15.6353C24.9761 16.3952 24.2932 16.9171 23.3204 18.0203C22.0638 19.4451 20.9354 22.2603 20.9354 22.2603C20.9354 22.2603 20.4306 24.1815 20.4054 25.4403C20.3845 26.4801 20.6704 28.0903 20.6704 28.0903L22.5254 32.0653L19.8754 34.9803L16.6954 40.0153C16.6954 40.0153 13.2603 38.2606 10.8654 37.8953C9.02388 37.6143 6.09538 37.8953 6.09538 37.8953C6.09538 37.8953 4.37899 38.3464 3.44538 38.9553C2.46467 39.5949 1.94488 40.0817 1.32538 41.0753Z" fill-rule="evenodd" clip-rule="evenodd" fill="#4B1D07"/>
@@ -355,7 +406,7 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
   <section class="container section"><div class="wholesale"><div class="wholesale-copy"><span class="eyebrow">Для профессиональных пекарен</span><h2>Когда хлеба нужно больше</h2><p>Укомплектуем рабочий процесс нужными формами. Скажи, какие модели и в каком количестве тебе нужны, — обсудим ассортимент и условия поставки.</p><a class="button button-light" href="../index.html#wholesale">Оптовым покупателям ↗</a></div><div class="wholesale-image"><img src="https://www.oefferl.bio/uploads/_1500xAUTO_crop_center-center_none/meister-wenzel-teigsturz.jpg" alt="Корзинки с тестовыми заготовками в профессиональной пекарне"><span class="photo-caption">Иллюстративное фото · заменить собственной съёмкой</span></div></div></section>
   <section class="container section" id="reviews"><div class="title-row"><div><span class="eyebrow">Покупатели рассказывают</span><h2>Знакомо. Проверено. Любимо.</h2></div><a class="text-link" href="https://hleb-forma.ru/index.php?route=testimonial/testimonial" target="_blank" rel="noopener noreferrer">Все отзывы ↗</a></div><div class="reviews-row"><article class="review"><span class="review-mark">“</span><p>«Ровные, без постороннего запаха». Покупательница отмечает качество изготовления.</p><footer><strong>Людмила</strong><span>04.05.2022</span></footer></article><article class="review"><span class="review-mark">“</span><p>«Получила продукцию в целости и сохранности». Заказ доехал благополучно, хлеб уже испечён.</p><footer><strong>Людмила Мамонтова</strong><span>29.04.2022</span></footer></article><article class="review"><span class="review-mark">“</span><p>«Очень довольна покупкой». В отзыве отмечены упаковка и скорость доставки.</p><footer><strong>Светлана Овчинникова</strong><span>16.02.2022</span></footer></article></div><p class="note">Краткие выдержки из опубликованных отзывов старого магазина; перед запуском сверить полный текст, источник и разрешение на фотографии.</p></section>
   <section class="container section"><div class="title-row"><div><span class="eyebrow">В мире домашнего хлеба</span><h2>Печь легче, когда знаешь как</h2></div><a class="text-link" href="../index.html#articles">Все статьи ↗</a></div><div class="journal"><a href="../index.html#articles"><div class="thumb"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80" alt="Ремесленный хлеб"></div><span class="eyebrow">Подбор размера</span><h3>Как выбрать корзинку по весу теста</h3><p>Простая логика подбора для начинающих и опытных хлебопеков.</p></a><a href="../index.html#articles"><div class="thumb"><img src="https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-kruglay-razmer-22-8-5-bn-01-52-260x210_0.jpg" alt="Круглая корзинка"></div><span class="eyebrow">Выбор формы</span><h3>Круглая или овальная?</h3><p>Разбираемся, какая корзинка подойдёт твоему хлебу.</p></a><a href="../index.html#articles"><div class="thumb"><img src="https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalunay-razmer-25-15-8-bn-10-65-260x210_0.jpg" alt="Овальная корзинка"></div><span class="eyebrow">Уход и хранение</span><h3>Как обращаться с ротангом</h3><p>Несложные правила, чтобы корзинки служили долго.</p></a></div></section>
-  <section class="container section"><div class="newsletter"><div><span class="eyebrow">Письма только по делу</span><h2>Новинки и советы для пекарей</h2><p>В будущем магазине — подписка с подтверждением адреса. Сейчас форма демонстрационная.</p></div><form id="subscribe"><input type="email" required aria-label="Email для подписки" placeholder="Твой email"><button type="submit">Подписаться ↗</button></form></div></section>
+  
   <section class="faq-section" id="faq" aria-labelledby="faq-title">
     <div class="container faq-layout">
       <div class="faq-intro">
@@ -364,7 +415,7 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
         <p>Всё, что полезно знать перед выбором корзинки: от размера и материала до ухода и заказа.</p>
         <div class="faq-contact">
           <p>Не нашли свой ответ?</p>
-          <a class="text-link" href="../index.html#contacts">Связаться с нами ↗</a>
+          <a class="text-link" href="#contacts">Связаться с нами ↗</a>
         </div>
       </div>
       <div class="faq-list">
@@ -381,8 +432,68 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
       </div>
     </div>
   </section>
+  <section class="newsletter-section" aria-labelledby="newsletter-title">
+    <div class="container"><hr class="faq-newsletter-divider"></div>
+    <div class="container newsletter">
+      <div class="newsletter-copy">
+        <span class="eyebrow">Письма только по делу</span>
+        <h2 id="newsletter-title">Новинки и советы для пекарей</h2>
+        <p>Узнавайте о новых формах, специальных предложениях и полезных советах по хлебопечению.</p>
+      </div>
+      <form id="subscribe"><input type="email" required aria-label="Email для подписки" placeholder="Ваш email" autocomplete="email"><button type="submit">Подписаться ↗</button></form>
+    </div>
+  </section>
 </main>
-<footer class="footer"><div class="container footer-inner"><div><div class="brand-name">HLEB-FORMA</div><p style="margin-top:14px">Корзинки и инструменты для тех, кто любит печь хлеб. Розничные и оптовые заказы.</p></div><div><h4>Покупателям</h4><a href="../index.html#catalog">Каталог</a><a href="../index.html#sale">Распродажа</a><a href="../index.html#checkout">Корзина</a><a href="../index.html#delivery">Доставка и оплата</a></div><div><h4>Полезное</h4><a href="../index.html#articles">Как выбрать корзинку</a><a href="#reviews">Отзывы</a><a href="#faq">Частые вопросы</a><a href="../index.html#wholesale">Для пекарен</a></div><div><h4>Магазин</h4><a href="../index.html#contacts">Контакты</a><a href="../index.html#account">Личный кабинет</a><p>Контакты, документы и условия доставки сверяются перед запуском.</p></div></div><div class="container footer-bottom"><span>© Hleb-Forma · дизайн-концепция 02 · прототип, не магазин</span><span>Изображения: hleb-forma.ru и иллюстративные фото из открытых источников. Не для коммерческой публикации.</span></div></footer>
+<footer class="footer" id="contacts">
+  <div class="container footer-inner">
+    <div class="footer-about">
+      <a class="footer-brand" href="#page-top" aria-label="Hleb-Forma — на главную">
+        <img src="../v2/assets/logo.svg" width="76" height="76" alt="">
+        <span class="footer-brand-text"><strong>HLEB-FORMA</strong><small>Для тех, кто печёт хлеб</small></span>
+      </a>
+      <p>Корзинки и формы для расстойки теста, инструменты для домашнего и профессионального хлебопечения.</p>
+    </div>
+    <nav class="footer-nav" aria-label="Покупателям">
+      <h4>Покупателям</h4>
+      <a href="../index.html#catalog">Каталог</a>
+      <a href="../index.html#sale">Распродажа</a>
+      <a href="../index.html#delivery">Доставка и оплата</a>
+      <a href="../index.html#account">Личный кабинет</a>
+    </nav>
+    <nav class="footer-nav" aria-label="О магазине">
+      <h4>О магазине</h4>
+      <a href="../index.html#wholesale">Оптовым покупателям</a>
+      <a href="../index.html#articles">Статьи о хлебе</a>
+      <a href="#reviews">Отзывы покупателей</a>
+      <a href="#faq">Частые вопросы</a>
+      <a href="https://hleb-forma.ru/contact">Контакты</a>
+    </nav>
+    <div class="footer-contact">
+      <h4>Свяжитесь с нами</h4>
+      <a class="footer-phone" href="tel:+79612211283">+7 (961) 221-12-83</a>
+      <a class="footer-email" href="mailto:hleb-forma@bk.ru">hleb-forma@bk.ru</a>
+      <a class="footer-contact-link" href="https://hleb-forma.ru/contact">Написать нам ↗</a>
+    </div>
+  </div>
+  <div class="container footer-legal">
+    <div class="footer-legal-identity">
+      <strong>ИП Вичканов Евгений Николаевич</strong>
+      <span>ИНН 421800977810 · ОГРНИП 315547600090951</span>
+      <span>Адрес по реквизитам: 630099, г. Новосибирск, ул. Семьи Шамшиных, 12</span>
+    </div>
+    <details class="footer-bank">
+      <summary>Банковские реквизиты <span aria-hidden="true">+</span></summary>
+      <div>ПАО «Сбербанк России», Новосибирское отделение № 8047/0338<br>Р/с 40802810344050009182<br>К/с 30101810500000000641<br>БИК 045004641</div>
+    </details>
+  </div>
+  <div class="container footer-bottom">
+    <span>© Hleb-Forma, 2026. Все права защищены.</span>
+    <div class="footer-bottom-right">
+      <a class="footer-credit" href="https://web86.site/" target="_blank" rel="noopener noreferrer">Разработка сайта — <strong>web86.site</strong></a>
+      <a class="footer-up" href="#page-top" aria-label="Вернуться наверх" title="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+    </div>
+  </div>
+</footer>
 <div class="dialog" id="search-dialog" role="dialog" aria-modal="true" aria-label="Поиск по сайту"><div class="dialog-content"><div class="dialog-top"><div><span class="eyebrow">Найди нужное</span><h2>Поиск по сайту</h2></div><button class="close-dialog" id="close-search" aria-label="Закрыть поиск">×</button></div><input class="search-input" id="search-input" type="search" placeholder="Название, размер, артикул, вопрос…" autocomplete="off"><div class="search-sub">Начни печатать — результаты по товарам и статьям появятся сразу · Esc — закрыть</div><div class="search-columns"><section><h3>Товары</h3><div id="search-products"></div></section><section><h3>Статьи и советы</h3><div id="search-articles"></div></section></div></div></div>
 <div class="drawer-shade" id="drawer-shade"></div><aside class="drawer" id="drawer" aria-label="Покупки"><div class="drawer-header"><h2 id="drawer-title">Корзина</h2><button class="drawer-close" id="drawer-close" aria-label="Закрыть">×</button></div><div id="drawer-body"></div></aside><div class="toast" id="toast" role="status" aria-live="polite"></div>
 <script>
