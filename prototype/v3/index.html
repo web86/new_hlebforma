@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hleb-Forma — новая главная · v3.13</title>
+<title>Hleb-Forma — новая главная · v3.14</title>
 <meta name="description" content="Новая визуальная концепция Hleb-Forma: магазин корзинок для расстойки хлеба с подбором, каталогом и оптовыми заказами.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -448,6 +448,27 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
 #guides .guide-nature::after{background:linear-gradient(180deg,transparent 32%,rgba(25,30,18,.09) 55%,rgba(21,25,14,.47) 100%)}
 #guides .guide-nature-copy h2{text-shadow:0 2px 14px #1a20124d}
 @media(max-width:640px){#guides .editorial-mosaic .guide-nature img{object-position:73% center}}
+
+/* v3.14 — testimonial excerpts with distinct quotation and attribution */
+#reviews .reviews-row{grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+#reviews .review{background:#f8f3ec;border:1px solid #eee3d7;border-radius:12px;padding:clamp(24px,2.6vw,34px);min-height:255px}
+#reviews .review-mark{color:#b46835;font:52px/.85 Georgia,serif;display:block;height:38px}
+#reviews .review-quote{margin:12px 0 10px;font:600 clamp(20px,1.9vw,25px)/1.35 Georgia,serif;color:#3e3027;text-wrap:pretty}
+#reviews .review-summary{font-family:inherit;font-size:14px;line-height:1.65;color:#79695b;margin:0 0 23px;flex:1}
+#reviews .review footer{display:flex;align-items:center;justify-content:flex-start;gap:12px;border-top:1px solid #e7d9ca;padding:15px 0 0;background:transparent;color:#4d392a;font-size:13px}
+#reviews .review-avatar{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;background:#ecdbc6;border-radius:50%;font-size:12px;font-weight:700;color:#946038;letter-spacing:.04em}
+#reviews .review footer strong{line-height:1.4}
+@media(max-width:880px){
+  #reviews .reviews-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+  #reviews .review:first-child{grid-column:auto}
+  #reviews .review:last-child{grid-column:1/-1}
+}
+@media(max-width:640px){
+  #reviews .reviews-row{grid-template-columns:1fr;gap:12px}
+  #reviews .review:last-child{grid-column:auto}
+  #reviews .review{min-height:0;padding:24px}
+}
+
 </style>
 </head>
 <body id="page-top">
@@ -575,7 +596,7 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
     </div>
   </div>
 </section>
-  <section class="container section" id="reviews"><div class="title-row"><div><span class="eyebrow">Покупатели рассказывают</span><h2>Знакомо. Проверено. Любимо.</h2></div><a class="text-link" href="https://hleb-forma.ru/index.php?route=testimonial/testimonial" target="_blank" rel="noopener noreferrer">Все отзывы ↗</a></div><div class="reviews-row"><article class="review"><span class="review-mark">“</span><p>«Ровные, без постороннего запаха». Покупательница отмечает качество изготовления.</p><footer><strong>Людмила</strong><span>04.05.2022</span></footer></article><article class="review"><span class="review-mark">“</span><p>«Получила продукцию в целости и сохранности». Заказ доехал благополучно, хлеб уже испечён.</p><footer><strong>Людмила Мамонтова</strong><span>29.04.2022</span></footer></article><article class="review"><span class="review-mark">“</span><p>«Очень довольна покупкой». В отзыве отмечены упаковка и скорость доставки.</p><footer><strong>Светлана Овчинникова</strong><span>16.02.2022</span></footer></article></div><p class="note">Краткие выдержки из опубликованных отзывов старого магазина; перед запуском сверить полный текст, источник и разрешение на фотографии.</p></section>
+  <section class="container section" id="reviews"><div class="title-row"><div><span class="eyebrow">Покупатели рассказывают</span><h2>Знакомо. Проверено. Любимо.</h2></div><a class="text-link" href="https://hleb-forma.ru/index.php?route=testimonial/testimonial" target="_blank" rel="noopener noreferrer">Все отзывы ↗</a></div><div class="reviews-row"><article class="review"><span class="review-mark" aria-hidden="true">“</span><blockquote class="review-quote">«Ровные, без постороннего запаха»</blockquote><p class="review-summary">Покупательница отмечает качество изготовления.</p><footer><span class="review-avatar" aria-hidden="true">Л</span><strong>Людмила</strong></footer></article><article class="review"><span class="review-mark" aria-hidden="true">“</span><blockquote class="review-quote">«Получила продукцию в целости и сохранности»</blockquote><p class="review-summary">Заказ доехал благополучно, хлеб уже испечён.</p><footer><span class="review-avatar" aria-hidden="true">ЛМ</span><strong>Людмила Мамонтова</strong></footer></article><article class="review"><span class="review-mark" aria-hidden="true">“</span><blockquote class="review-quote">«Очень довольна покупкой»</blockquote><p class="review-summary">В отзыве отмечены упаковка и скорость доставки.</p><footer><span class="review-avatar" aria-hidden="true">СО</span><strong>Светлана Овчинникова</strong></footer></article></div><!-- Перед запуском сверить выдержки с полными оригиналами отзывов и источник. --></section>
   <section class="container section"><div class="title-row"><div><span class="eyebrow">В мире домашнего хлеба</span><h2>Печь легче, когда знаешь как</h2></div><a class="text-link" href="../index.html#articles">Все статьи ↗</a></div><div class="journal"><a href="../index.html#articles"><div class="thumb"><img src="https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=900&q=80" alt="Ремесленный хлеб"></div><span class="eyebrow">Подбор размера</span><h3>Как выбрать корзинку по весу теста</h3><p>Простая логика подбора для начинающих и опытных хлебопеков.</p></a><a href="../index.html#articles"><div class="thumb"><img src="https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-kruglay-razmer-22-8-5-bn-01-52-260x210_0.jpg" alt="Круглая корзинка"></div><span class="eyebrow">Выбор формы</span><h3>Круглая или овальная?</h3><p>Разбираемся, какая корзинка подойдёт твоему хлебу.</p></a><a href="../index.html#articles"><div class="thumb"><img src="https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalunay-razmer-25-15-8-bn-10-65-260x210_0.jpg" alt="Овальная корзинка"></div><span class="eyebrow">Уход и хранение</span><h3>Как обращаться с ротангом</h3><p>Несложные правила, чтобы корзинки служили долго.</p></a></div></section>
   
   <section class="faq-section" id="faq" aria-labelledby="faq-title">
