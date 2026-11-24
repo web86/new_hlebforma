@@ -9,36 +9,82 @@ on:
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
   group: github-pages
   cancel-in-progress: true
 
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      artifact_id: ${{ steps.upload.outputs.artifact_id }}
+      artifact_name: ${{ steps.artifact.outputs.name }}
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
       - name: Prepare preview-only site
         run: |
           mkdir -p _site
           cp index.html _site/index.html
           cp -R prototype _site/prototype
           touch _site/.nojekyll
+      - name: Choose artifact name for this attempt
+        id: artifact
+        run: echo "name=github-pages-${GITHUB_RUN_ATTEMPT}" >> "$GITHUB_OUTPUT"
       - name: Upload only public prototype assets
-        uses: actions/upload-pages-artifact@v4
+        id: upload
+        uses: actions/upload-pages-artifact@v5
         with:
+          name: ${{ steps.artifact.outputs.name }}
           path: _site
+          include-hidden-files: true
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # GitHub can finalize an upload before it becomes visible to the listing API.
+      # See https://github.com/actions/deploy-pages/issues/451
+      - name: Wait until the uploaded artifact is visible
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ARTIFACT_ID: ${{ needs.build.outputs.artifact_id }}
+          ARTIFACT_NAME: ${{ needs.build.outputs.artifact_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ ! "$ARTIFACT_ID" =~ ^[0-9]+$ || -z "$ARTIFACT_NAME" ]]; then
+            echo "::error::Missing artifact metadata from build job"
+            exit 1
+          fi
+          for attempt in {1..12}; do
+            if ids=$(gh api --method GET "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts" -f name="$ARTIFACT_NAME" --jq '.artifacts[] | select(.expired == false) | .id'); then
+              if grep -Fxq "$ARTIFACT_ID" <<< "$ids"; then
+                echo "Artifact $ARTIFACT_ID is visible."
+                exit 0
+              fi
+            fi
+            echo "Artifact not yet visible (attempt $attempt/12)."
+            sleep 5
+          done
+          echo "::error::Uploaded Pages artifact did not become visible via the API"
+          exit 1
       - name: Deploy Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+        with:
+          artifact_name: ${{ needs.build.outputs.artifact_name }}
