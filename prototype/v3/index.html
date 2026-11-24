@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hleb-Forma — новая главная · v3.16</title>
+<title>Hleb-Forma — новая главная · v3.17</title>
 <meta name="description" content="Новая визуальная концепция Hleb-Forma: магазин корзинок для расстойки хлеба с подбором, каталогом и оптовыми заказами.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -216,7 +216,7 @@ main h1,main h2,.wide-copy h1,.catalog-intro h2{
 .v3-prices .old-price{font-size:12px;color:#938981;text-decoration-thickness:1px;text-decoration-color:#938981;white-space:nowrap}
 .v3-prices .price{white-space:nowrap}
 .v3-prices.on-sale .price{color:#aa552d}
-.demo-sale-note{font-size:10px;font-weight:400;line-height:1.3;flex-basis:100%;color:#86766b}
+
 .v3-buy{align-items:center;flex-wrap:wrap;row-gap:8px}
 @media(max-width:640px){
  .catalog-intro .handwritten{font-size:30px}
@@ -471,7 +471,7 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
 
 
 /* v3.16 — bespoke linked benefits with compact editorial styling */
-.benefits-band{--benefit-bg:#faf6f0;background:var(--benefit-bg);border-bottom:1px solid #eee5da}
+.benefits-band{--benefit-bg:#fff;background:var(--benefit-bg);border-bottom:1px solid #eee5da}
 .benefits-band .clear-benefits{background:transparent;min-height:100px;padding:18px 0;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(14px,2.2vw,30px);align-items:stretch}
 .benefit-link{display:flex;align-items:center;gap:13px;min-width:0;text-decoration:none;color:#403328;border-radius:6px}
 .benefit-icon{display:block;flex:0 0 52px;width:52px;height:52px;color:#a36c42;transition:transform .25s ease,color .25s ease}
@@ -485,6 +485,24 @@ main .title-row .eyebrow,main .newsletter .eyebrow{margin-bottom:8px}
 @media(max-width:880px){.benefits-band .clear-benefits{grid-template-columns:repeat(2,minmax(0,1fr));padding:16px 0;gap:18px 24px}}
 @media(max-width:640px){.benefits-band .clear-benefits{gap:16px 12px;padding:15px 0}.benefit-icon{flex-basis:36px;width:36px;height:36px}.benefit-link{gap:8px}.benefit-copy strong{font-size:12px}.benefits-band .benefit-copy small{font-size:10.5px}}
 @media(prefers-reduced-motion:reduce){.benefit-icon,.benefit-copy strong{transition:none}.benefit-link:hover .benefit-icon,.benefit-link:focus-visible .benefit-icon{transform:none}}
+
+
+/* v3.17 — reserve viewport space for the complete benefits band */
+.wide-hero{height:clamp(420px,calc(100vh - 190px),620px);height:clamp(420px,calc(100svh - 190px),620px)}
+.benefits-band .clear-benefits{min-height:100px}
+.v3-product-body h3{margin-top:0}
+.v3-product-body .photo-analogue{font-size:10px;line-height:1.4;color:#86766b;margin-top:4px}
+@media(max-width:880px){
+  .wide-hero{height:clamp(390px,calc(100svh - 245px),580px)}
+}
+@media(max-width:640px){
+  .wide-hero{height:clamp(390px,calc(100svh - 235px),510px)}
+  .wide-copy{padding:20px 0 48px}
+  .wide-copy p{margin:16px 0 20px}
+}
+@media(max-width:380px){
+  .wide-hero{min-height:410px}
+}
 
 </style>
 </head>
@@ -732,10 +750,10 @@ function refreshCounters(){badge('fav-count',favorites.size);badge('compare-coun
 const card=p=>'<article class="product-card v3-card" data-id="'+p.id+'">'+
 '<button type="button" class="wish" data-id="'+p.id+'" aria-label="В избранное: '+escapeHTML(p.name)+'" aria-pressed="false">♡</button>'+
 '<a class="v3-visual" href="'+p.url+'"><img class="basket-shot" src="'+p.image+'" alt="'+escapeHTML(p.name)+'" loading="lazy"><img class="bread-shot" src="'+p.bread+'" alt="Пример готового хлеба, иллюстративная фотография" loading="lazy"><span class="baked-hint">Пример готового хлеба · иллюстрация</span></a>'+
-'<div class="v3-product-body"><span class="sku">'+escapeHTML(p.sku)+(p.exact?'':' · фото аналога')+'</span><h3><a href="'+p.url+'">'+escapeHTML(p.name)+'</a></h3>'+
-'<p class="spec">Для '+escapeHTML(p.weight)+' теста</p>'+
+'<div class="v3-product-body"> <h3><a href="'+p.url+'">'+escapeHTML(p.name)+'</a></h3>'+
+'<p class="spec">Для '+escapeHTML(p.weight)+' теста</p>'+(p.exact?'':'<small class="photo-analogue">Фото аналога</small>')+
 '<button class="v3-flip" type="button" data-flip="'+p.id+'" aria-pressed="false">Показать хлеб ↔</button>'+
-'<div class="v3-buy"><div class="v3-prices'+(p.oldPrice?' on-sale':'')+'">'+(p.oldPrice?'<del class="old-price" aria-label="Прежняя демонстрационная цена">'+format(p.oldPrice)+'</del>':'')+'<strong class="price">'+format(p.price)+'</strong>'+(p.oldPrice?'<small class="demo-sale-note">Демо-акция</small>':'')+'</div><button class="buy" type="button" data-buy="'+p.id+'">В корзину ↗</button></div></div></article>'
+'<div class="v3-buy"><div class="v3-prices'+(p.oldPrice?' on-sale':'')+'">'+(p.oldPrice?'<del class="old-price" aria-label="Прежняя демонстрационная цена">'+format(p.oldPrice)+'</del>':'')+'<strong class="price">'+format(p.price)+'</strong>'+'</div><button class="buy" type="button" data-buy="'+p.id+'">В корзину ↗</button></div></div></article>'
 $('#products').innerHTML=productData.map(card).join('');
 $$('.wish').forEach(b=>b.addEventListener('click',()=>{favorites.has(b.dataset.id)?favorites.delete(b.dataset.id):favorites.add(b.dataset.id);refreshCounters();toast(favorites.has(b.dataset.id)?'Добавлено в избранное':'Удалено из избранного')}));
 $$('[data-buy]').forEach(b=>b.addEventListener('click',()=>{cart.set(b.dataset.buy,(cart.get(b.dataset.buy)||0)+1);refreshCounters();toast('Добавлено в демо-корзину');openDrawer('cart')}));
