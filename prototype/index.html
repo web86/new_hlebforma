@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
-  <title>Hleb-Forma 2.0 — кликабельный прототип</title>
+  <title>Hleb-Forma — каталог и внутренние страницы · v3.19</title>
   <meta name="description" content="Кликабельный демонстрационный прототип будущего магазина Hleb-Forma. Не принимает реальные заказы и заявки.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Lora:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
   <style>
     :root {
       --paper:#faf7f1; --white:#fff; --ink:#30271f; --ink-soft:#6d6054;
@@ -438,55 +441,266 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
 @media(max-width:700px){.header-actions{gap:7px}.header-actions .extras{gap:7px!important}.header-actions .quick-link{font-size:19px}.brand-text{font-size:15px}.search-trigger{width:28px}.category-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.category-card:first-child{grid-column:span 2}.category-icon{height:130px}.trust-strip{flex-direction:column}.trust-item{border-right:0;border-bottom:1px solid #e7d8c5;padding:12px}.trust-item:last-child{border-bottom:0}#enh-promo.promo-bar{grid-template-columns:1fr;padding:26px 24px}#enh-why .why-grid{grid-template-columns:1fr 1fr}#enh-why .why-item:first-child{grid-column:span 2}#enh-reviews .reviews-grid,#product-reviews .reviews-grid{grid-template-columns:1fr}.explain-block{grid-template-columns:1fr;padding:20px;gap:20px}.explain-icon{min-height:170px}.live-grid{grid-template-columns:1fr}}
 @media(max-width:480px){.brand-mark,.brand-logo-img{width:44px;height:44px;min-width:44px}.brand-text{font-size:13px}.brand-text small{display:none}.header-wrap{gap:6px}.header-actions .extras{gap:4px!important}.header-actions .quick-link{font-size:17px}.quick-link span{font-size:8px;min-width:12px}.bag-link{padding:7px 8px}.menu-button{padding:7px}.search-trigger{font-size:20px;width:26px}.hero-art{min-height:265px;border-radius:11px 48px 14px 48px}.hero-photo{border-width:5px}.hero-copy h1{font-size:36px}.category-grid{gap:9px}#enh-why .why-grid{grid-template-columns:1fr}#enh-why .why-item:first-child{grid-column:1}.search-stage .top{margin-bottom:20px}#search-overlay{padding:34px 16px}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{transition:none!important;scroll-behavior:auto!important}}
+
+/* v3.19 — interior pages aligned with v3 home */
+:root{--paper:#fff;--white:#fff;--ink:#29231f;--ink-soft:#6d625a;--brand:#a96031;--brand-dark:#884a25;--wheat:#f7efe3;--border:#e5e3de;--green:#34462f;--shadow:0 15px 40px rgba(39,23,12,.09);--radius:12px;--max:1300px;--display-font:"Lora",Georgia,"Times New Roman",serif;--line:#e5e3de}
+*,*::before,*::after{box-sizing:border-box}
+body{background:#fff;color:var(--ink);font-size:15px}
+img{max-width:100%;display:block}
+.container{width:min(var(--max),calc(100% - 56px));margin-inline:auto;padding-inline:0}
+h1,h2{font-family:var(--display-font);font-weight:700;letter-spacing:0;line-height:1.2}
+a:hover{color:var(--brand)}
+.eyebrow{font-family:"Great Vibes","Segoe Script",cursive;font-weight:400;font-size:26px;letter-spacing:0;text-transform:none;color:#b46835;display:block;line-height:1.3}
+.header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.94);backdrop-filter:blur(18px)}
+.header-content{height:77px;display:flex;align-items:center;gap:24px}
+.header .brand{gap:9px;flex-shrink:0}
+.brand-svg{flex:0 0 54px;width:54px;height:54px}
+.brand-svg img{width:100%;height:100%;object-fit:contain}
+.brand-name{font-size:20px;font-weight:850;line-height:1.05;letter-spacing:-.045em;color:#29231f}
+.brand-name small{display:block;font-family:"Great Vibes","Segoe Script",cursive;font-size:22px;font-weight:400;color:#b46835;line-height:1.2;margin-top:3px;white-space:nowrap;letter-spacing:0}
+.header .nav{display:flex;align-items:center;gap:25px;margin:auto}
+.header .nav a{font-size:13px;font-weight:650;white-space:nowrap}
+.header .nav a.sale-link,.header .nav a[aria-current="page"]{color:#b25d2e}
+.header .header-actions{display:flex;align-items:center;gap:7px;flex-shrink:0;margin-left:auto}
+.header .icon-btn{position:relative;width:37px;height:39px;border:0;background:transparent;color:var(--ink);display:grid;place-items:center;border-radius:8px;padding:0}
+.header .icon-btn:hover{background:#f7f3ed}
+.header .icon-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.header .count{position:absolute;right:-3px;top:-3px;min-width:16px;height:16px;padding:0 3px;display:grid;place-items:center;background:#a65330;color:#fff;font-size:9px;border-radius:50%}
+.header .count[hidden]{display:none}
+.header .hamburger{display:none}
+.main-space{min-height:55vh;padding-bottom:64px}
+.breadcrumb{margin:24px 0;color:#85786e;font-size:12px}
+.page-head{padding:28px 0 35px}
+.page-head h1{font-size:clamp(34px,3.6vw,52px);margin:9px 0 16px;max-width:960px}
+.page-head p{max-width:690px;line-height:1.75}
+.lead{font-size:16px}
+.btn{border-radius:6px;font-size:13px;font-weight:750;min-height:46px}
+.btn-primary{background:#a96031;color:white}
+.btn-primary:hover{background:#884a25;color:white}
+.btn-outline{background:transparent;border-color:#d9cec3;color:#78583f}
+.btn-outline:hover{border-color:#a96031;color:#884a25}
+.btn-light:hover{color:#a96031}
+.catalog-layout{grid-template-columns:220px minmax(0,1fr);gap:30px}
+.filter-pane{border-radius:10px;padding:22px;background:#f8f3ec;box-shadow:none;border:1px solid #eee3d7}
+.filter-pane h3{font-family:var(--display-font);font-size:21px}
+.field input,.field select,.field textarea,.quantity{border:1px solid #d9cfc4;border-radius:6px;background:#fff;min-width:0}
+.catalog-main{min-width:0}
+.products-grid,.catalog-main .products-grid{gap:13px;grid-template-columns:repeat(3,minmax(0,1fr))}
+.product-card{position:relative;min-width:0;border:1px solid #dedbd7;border-radius:0;box-shadow:none;overflow:hidden}
+.product-card:hover{transform:none;box-shadow:none;border-color:#bda48e}
+.product-card .product-art{height:230px;background:#fff}
+.product-card .product-art:not(:has(.real-photo)):after{content:"Схематичное изображение"}
+.real-photo{mix-blend-mode:normal;padding:19px}
+.product-art:has(.real-photo):after{content:""}
+.bread-preview{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .3s;pointer-events:none}
+@media(hover:hover){.product-card:hover .bread-preview,.product-card:focus-within .bread-preview{opacity:1}}
+.product-card-content{padding:15px 16px 18px;gap:6px}
+.product-card h3{font-size:14px;line-height:1.45;min-height:40px;font-weight:700}
+.card-weight,.photo-analogue{font-size:11px;color:#86766b}
+.card-buy{margin-top:auto;padding-top:10px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.card-prices{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px}
+.card-prices del{font-size:12px;color:#938981}
+.product-card .price{font-size:20px;font-weight:840;color:#29231f}
+.card-prices.on-sale .price{color:#aa552d}
+.card-buy .btn{margin:0;min-height:37px;border-radius:5px;background:#292521;padding:9px 11px;font-size:11px}
+.card-buy .btn:hover{background:#a96031}
+.card-tools{position:absolute;top:12px;right:12px;display:flex;gap:5px}
+.card-tools .extra-button{width:32px;height:32px;border:0;border-radius:50%;padding:0;display:grid;place-items:center;font-size:18px;background:#fff;color:#746355;box-shadow:0 2px 7px #30221d10}
+.card-tools .extra-button[aria-pressed="true"]{color:#aa552d;background:#f7efe3}
+.detail-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,4vw,58px)}
+.product-art.large{height:clamp(330px,39vw,520px);border:1px solid var(--border);border-radius:12px;background:#fff}
+.product-art.large .real-photo{padding:28px}
+.detail-summary h1{font-size:clamp(30px,3.1vw,46px)}
+.detail-badges .meta-pill{background:#f7efe3;color:#79533b}
+.detail-price{color:#a96031;font-size:32px}
+.detail-old-price{font-size:17px;color:#938981;font-weight:500}
+.panel,.quote-card,.account-preview,.account-menu,.saved-card,.empty,.compare-table-wrap{border-radius:10px;border-color:#e5e3de;box-shadow:none}
+.panel h2,.quote-card h2{font-family:var(--display-font);font-size:28px}
+.details-row{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.details-row aside.panel{background:#edf0e7;border-color:#e0e6d9}
+.notice,.empty-soft{background:#f7f3ed;border-color:#ece3d8;border-radius:8px}
+.wholesale-hero{padding:20px 0 30px;gap:45px;grid-template-columns:1fr 1fr}
+.wholesale-hero h1{font-size:clamp(34px,3.8vw,54px)}
+.wholesale-photo{border-radius:12px;overflow:hidden;min-width:0;background:#30221d}
+.wholesale-photo img{width:100%;height:100%;min-height:340px;object-fit:cover}
+.steps{gap:15px;margin-top:25px}
+.step{border:0;background:#f7efe3;border-radius:12px}
+.step strong{font:700 32px var(--display-font);color:#a96031}
+.step:nth-child(2){background:#edf0e7}
+.step:nth-child(3){background:#30221d;color:white}
+.step:nth-child(3) p{color:#e0d2c8}
+.step:nth-child(3) strong{color:#e2b381}
+#quote-form{scroll-margin-top:100px}
+.quote-card{background:#f8f3ec;border-color:#eee3d7;padding:35px}
+.sale-banner{display:grid;grid-template-columns:1fr 1fr;background:#30221d;border-radius:12px;overflow:hidden;color:white;min-height:295px}
+.sale-banner>div{padding:44px;align-self:center}
+.sale-banner h1{margin:8px 0 16px;font-size:clamp(36px,4vw,54px)}
+.sale-banner .eyebrow{color:#e2b381}
+.sale-banner p{color:#e0d2c8}
+.sale-banner img{height:100%;width:100%;object-fit:cover}
+.sale-disclaimer{margin:20px 0;font-size:12px}
+.editorial-grid{gap:18px}
+.editorial{border:1px solid #eee3d7;border-radius:12px;background:#f8f3ec}
+.editorial:nth-child(2){background:#edf0e7}
+.editorial h3{font-family:var(--display-font);font-size:24px}
+.cart-layout{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+.checkout-summary{position:sticky;top:100px;background:#f8f3ec}
+.cart-item .real-photo{padding:5px}
+.cart-item{grid-template-columns:90px minmax(0,1fr) auto}
+.account-grid{grid-template-columns:230px minmax(0,1fr)}
+.account-menu{background:#f8f3ec}
+.account-menu a:hover{background:#f1e6d8}
+.empty{padding:50px 24px;margin-bottom:45px}
+.search-title,.search-group{font-family:var(--display-font);letter-spacing:0}
+#search-overlay{background:rgba(255,255,255,.98)}
+.search-close{background:#f7f3ed;color:var(--ink)}
+.search-input{font-family:var(--display-font);border-color:#d9cec3}
+.live-result{border-color:#e5e3de;border-radius:8px}
+.footer{border-top:1px solid #ebe6e1}
+@media(max-width:1150px){.header-content{gap:14px}.header .nav{gap:13px}.brand-name{font-size:17px}.brand-name small{font-size:19px}}
+@media(max-width:880px){.header .nav{display:none}.header .hamburger{display:grid}.header .brand{margin-right:auto}.container{width:calc(100% - 44px)}.catalog-layout{grid-template-columns:185px minmax(0,1fr);gap:18px}.catalog-main .products-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.details-row,.wholesale-hero,.cart-layout{grid-template-columns:1fr}.checkout-summary{position:static}.wholesale-hero{gap:22px}.wholesale-photo img{min-height:260px}.product-card .product-art{height:195px}}
+@media(max-width:640px){.container{width:calc(100% - 32px)}.header-content{height:68px;gap:8px}.header .brand{flex:1 1 auto;min-width:0;gap:6px;margin-right:0}.brand-svg{width:42px;height:42px;flex-basis:42px}.brand-name{font-size:15px;min-width:0}.brand-name small{font-size:17px;white-space:normal;line-height:1.1}.header .header-actions{gap:0}.header .icon-btn{width:32px}.header .header-compare{display:none}.page-head{padding:18px 0 26px}.eyebrow{font-size:23px}.main-space{padding-bottom:40px}.catalog-layout{display:block}.filter-pane{margin-bottom:22px;padding:15px;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.filter-pane h3{grid-column:1/-1}.filter-pane .field input,.filter-pane .field select{font-size:12px}.products-grid,.catalog-main .products-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.product-card .product-art{height:160px}.product-card-content{padding:11px}.product-card h3{font-size:12px;min-height:48px}.card-buy .btn{width:100%}.card-tools{top:7px;right:7px}.card-tools .extra-button{width:28px;height:28px;font-size:16px}.detail-grid,.account-grid{grid-template-columns:minmax(0,1fr);gap:20px}.product-art.large{height:320px}.sale-banner{grid-template-columns:1fr}.sale-banner>div{padding:28px}.sale-banner img{height:190px}.steps,.editorial-grid,.saved-grid,.reviews-grid{grid-template-columns:1fr}.quote-card,.panel,.account-preview{padding:20px}.cart-item{grid-template-columns:62px minmax(0,1fr)}.cart-item>strong{grid-column:2}.form-grid{grid-template-columns:1fr}}
+@media(max-width:420px){.header .header-actions a[aria-label="Личный кабинет"]{display:none}.brand-name small{font-size:16px}.product-card .product-art{height:137px}.real-photo{padding:10px}}
+@media(prefers-reduced-motion:reduce){.bread-preview{transition:none}}
+
+.footer{background:#fff;color:var(--ink);margin-top:0}
+.footer .footer-inner{grid-template-columns:minmax(0,1.3fr) minmax(0,.75fr) minmax(0,.85fr) minmax(0,1.12fr);gap:clamp(24px,3.4vw,48px);padding:64px 0 52px;align-items:start}
+.footer .footer-inner>div,.footer .footer-inner>nav{min-width:0}
+.footer h4{font-size:14px;font-weight:750;letter-spacing:0;margin:8px 0 20px;color:#30251e}
+.footer a{color:#655b53;font-size:14px;line-height:1.5;margin:0 0 12px;display:block}
+.footer a:hover{color:#a96031}
+.footer p{font-size:13px;line-height:1.85;color:#80746b;max-width:290px}
+.footer .footer-brand{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.footer-brand img{height:68px;width:68px;object-fit:contain;flex:0 0 68px}
+.footer-brand-text{display:flex;flex-direction:column;min-width:0}
+.footer-brand-text strong{font-size:21px;color:#43291e;letter-spacing:.015em;line-height:1.2;font-weight:800;white-space:nowrap}
+.footer-brand-text small{font-family:"Great Vibes","Segoe Script","Marck Script",cursive;font-size:20px;line-height:1.3;color:#b46835;white-space:nowrap;margin-top:4px}
+.footer .footer-phone{font-family:var(--display-font);font-size:clamp(20px,1.95vw,28px);font-weight:700;color:#33241d;line-height:1.3;white-space:nowrap;margin-bottom:12px}
+.footer .footer-email{font-size:15px;color:#6f6258;margin-bottom:18px;overflow-wrap:anywhere}
+.footer .footer-contact-link{font-size:13px;color:#a96031;font-weight:700;text-decoration:underline;text-underline-offset:4px}
+.footer .footer-legal{border-top:1px solid #ebe6e1;padding:24px 0;display:flex;justify-content:space-between;align-items:flex-start;gap:28px;font-size:12px;color:#877970;line-height:1.8}
+.footer-legal-identity{display:flex;flex-direction:column;gap:3px}
+.footer-legal-identity strong{font-weight:650;color:#52443a}
+.footer-bank{flex:0 1 330px;min-width:0;font-size:12px}
+.footer-bank summary{cursor:pointer;list-style:none;display:flex;align-items:center;gap:12px;color:#6c5b4d;font-weight:650}
+.footer-bank summary::-webkit-details-marker{display:none}
+.footer-bank summary::marker{content:""}
+.footer-bank summary span{font-size:17px;font-weight:400;color:#a96031}
+.footer-bank[open] summary span{transform:rotate(45deg)}
+.footer-bank div{margin-top:8px;overflow-wrap:anywhere}
+.footer .footer-bottom{border-top:1px solid #ebe6e1;color:#8d8178;padding:19px 0 24px;display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:18px;font-size:12px}
+.footer-bottom-right{display:flex;align-items:center;gap:24px}
+.footer .footer-credit{font-size:12px;margin:0;color:#80746a}
+.footer-credit strong{color:#49372a;font-weight:800}
+.footer .footer-up{width:43px;height:43px;display:grid;place-items:center;margin:0;border:1px solid #d9cbbf;border-radius:50%;color:#a96031;transition:background .2s,color .2s}
+.footer .footer-up:hover{background:#a96031;color:#fff;border-color:#a96031}
+.footer-up svg{width:19px;height:19px}
+@media(max-width:1150px){.footer .footer-inner{gap:24px;grid-template-columns:1.15fr .8fr .85fr 1.2fr}.footer-brand img{width:53px;height:53px;flex-basis:53px}.footer-brand-text strong{font-size:17px}.footer-brand-text small{font-size:17px}.newsletter-section .newsletter form{max-width:370px}}
+@media(max-width:980px){.footer .footer-inner{grid-template-columns:1fr 1fr;gap:35px;padding:44px 0 40px}.footer .footer-inner>div:first-child{grid-column:auto}.footer .footer-phone{font-size:25px}.footer-brand img{width:64px;height:64px;flex-basis:64px}.footer-brand-text strong{font-size:21px}.footer-brand-text small{font-size:20px}}
+@media(max-width:880px){.faq-intro{position:static}.newsletter-section .newsletter{gap:25px}.newsletter-section .newsletter form{max-width:320px}.faq-section{padding-bottom:40px}.faq-newsletter-divider{margin-bottom:40px}}
+@media(max-width:640px){.newsletter-section{padding-bottom:40px}.newsletter-section .newsletter{display:block}.newsletter-section .newsletter form{max-width:none;margin-top:25px}.footer .footer-inner{gap:30px 18px;padding:36px 0}.footer .footer-about,.footer .footer-contact{grid-column:1/-1}.footer .footer-legal{flex-direction:column;gap:15px}.footer-bank{flex:auto}.footer .footer-bottom{flex-wrap:wrap}.footer-bottom-right{margin-left:auto;gap:15px}.footer .footer-phone{font-size:27px}.faq-section{padding-bottom:30px}.faq-newsletter-divider{margin-bottom:30px}}
+
+
+@media(max-width:980px){.footer .footer-inner{grid-template-columns:repeat(2,minmax(0,1fr))}.footer .footer-inner>.footer-about:first-child,.footer .footer-inner>.footer-contact{grid-column:1/-1}.footer-brand-text strong,.footer-brand-text small{white-space:normal;overflow-wrap:anywhere}.footer .footer-about p{max-width:540px}}.footer-bank{padding:0;border:0}.footer-legal-identity{min-width:0;overflow-wrap:anywhere}
+body.mobile-menu-open{overflow:hidden}
+.mobile-menu-dialog{position:fixed;inset:0 0 0 auto;margin:0;border:0;padding:26px;width:min(365px,calc(100% - 28px));max-width:100%;height:100vh;height:100dvh;max-height:none;background:#fff;color:var(--ink);overflow-y:auto;overscroll-behavior:contain;box-shadow:-12px 0 45px #30221d26}
+.mobile-menu-dialog:not([open]){display:none}
+.mobile-menu-dialog[open]{display:flex;flex-direction:column;animation:mobile-menu-enter .26s ease-out both}
+.mobile-menu-dialog::backdrop{background:rgba(35,24,18,.49);animation:mobile-menu-dim .26s ease-out both}
+.mobile-menu-header{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:24px;border-bottom:1px solid #eae0d5}
+.mobile-menu-brand{display:flex;align-items:center;gap:9px;min-width:0}
+.mobile-menu-brand img{flex:0 0 46px;width:46px;height:46px;object-fit:contain}
+.mobile-menu-brand strong{display:block;color:#43291e;font-size:16px;line-height:1.2}
+.mobile-menu-brand small{display:block;font-family:"Great Vibes","Segoe Script",cursive;color:#b46835;font-size:17px;line-height:1.3}
+#mobile-menu-close{flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;border:0;border-radius:6px;background:#f8f3ed;color:#43291e}
+#mobile-menu-close svg{width:22px;height:22px}
+.mobile-sidebar-nav{display:flex;flex-direction:column;padding:23px 0}
+.mobile-sidebar-nav h2{font-family:var(--display-font);font-size:28px;line-height:1.2;margin-bottom:12px}
+.mobile-sidebar-nav a{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;padding:11px 0;border-bottom:1px solid #eee8e2;font-size:16px;font-weight:650}
+.mobile-sidebar-nav a::after{content:"↗";font-size:15px;font-weight:400;color:#a96031}
+.mobile-menu-contact{display:flex;flex-direction:column;gap:9px;padding-top:18px;margin-top:auto;font-size:14px;color:#76533c}
+.mobile-menu-contact a:last-child{font-size:18px;font-weight:700}
+@keyframes mobile-menu-enter{from{transform:translateX(100%)}to{transform:translateX(0)}}
+@keyframes mobile-menu-dim{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.mobile-menu-dialog[open],.mobile-menu-dialog::backdrop{animation:none}}
+
 </style>
 </head>
-<body>
-  <div class="note-bar">КЛИКАБЕЛЬНЫЙ ПРОТОТИП · данные и цены демонстрационные · заказы, оплата и заявки не отправляются</div>
-  <header class="site-header">
-    <div class="container header-wrap">
-      <a class="brand" href="#home" aria-label="Hleb-Forma — главная">
-        <span class="brand-mark" aria-hidden="true">♨</span>
-        <span class="brand-text">HLEB-FORMA <small>корзинки и инструменты пекаря</small></span>
+<body id="page-top">
+<header class="header header-v3"><div class="container header-content">
+  <a class="brand" href="v3/index.html" aria-label="Hleb-Forma — главная"><span class="brand-svg"><img src="v2/assets/logo.svg" width="54" height="54" alt=""></span><span class="brand-name">HLEB-FORMA<small>Для тех, кто печёт хлеб</small></span></a>
+  <nav id="navigation" class="nav" aria-label="Основная навигация"><a href="#catalog">Каталог</a><a href="#sale" class="sale-link">Распродажа</a><a href="#wholesale">Оптовикам</a><a href="v3/index.html#guides">Как выбрать</a><a href="v3/index.html#reviews">Отзывы</a><a href="#delivery">Доставка</a></nav>
+  <div class="header-actions">
+    <button class="icon-btn" id="search-trigger" aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.5"/><path d="m16.7 16.7 5 5"/></svg></button>
+    <a class="icon-btn header-favorites" href="#favorites" aria-label="Избранное"><svg viewBox="0 0 24 24"><path d="M20.3 4.8a5.4 5.4 0 0 0-7.7 0L12 5.5l-.6-.7a5.4 5.4 0 1 0-7.7 7.6L12 21l8.3-8.6a5.4 5.4 0 0 0 0-7.6Z"/></svg><span class="count" id="enh-fav-count" hidden>0</span></a>
+    <a class="icon-btn header-compare" href="#compare" aria-label="Сравнение"><svg viewBox="0 0 24 24"><path d="M12 3v18M4 7h16M7 7l-4 8h8l-4-8Zm10 0-4 8h8l-4-8ZM2 19h20"/></svg><span class="count" id="enh-compare-count" hidden>0</span></a>
+    <a class="icon-btn" href="#account" aria-label="Личный кабинет"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21v-2.3a7.5 7.5 0 0 1 15 0V21"/></svg></a>
+    <a class="icon-btn header-cart" href="#checkout" aria-label="Корзина"><svg viewBox="0 0 24 24"><path d="M3 4h2l2.5 12h11L21 8H6"/><circle cx="9.5" cy="20" r="1"/><circle cx="17.5" cy="20" r="1"/></svg><span class="count" id="cart-count" hidden>0</span></a>
+    <button class="icon-btn hamburger" id="menu-toggle" aria-controls="mobile-menu-dialog" aria-haspopup="dialog" aria-expanded="false" aria-label="Меню"><svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
+  </div>
+</div></header>
+<main id="app" class="main-space" tabindex="-1"></main>
+<footer class="footer" id="site-footer">
+  <div class="container footer-inner">
+    <div class="footer-about">
+      <a class="footer-brand" href="v3/index.html" aria-label="Hleb-Forma — на главную">
+        <img src="v2/assets/logo.svg" width="76" height="76" alt="">
+        <span class="footer-brand-text"><strong>HLEB-FORMA</strong><small>Для тех, кто печёт хлеб</small></span>
       </a>
-      <nav id="navigation" class="navigation" aria-label="Главное меню">
-        <a href="#catalog">Каталог</a>
-        <a href="#wholesale">Оптовикам</a>
-        <a href="#articles">Статьи</a>
-        <a href="#delivery">Доставка</a>
-        <a href="#contacts">Контакты</a>
-      </nav>
-      <button id="menu-toggle" class="menu-button" aria-label="Открыть меню" aria-expanded="false">☰</button>
-      <div class="header-actions">
-        <form class="header-search" id="header-search" role="search">
-          <input type="search" name="q" id="header-query" placeholder="Поиск по каталогу" aria-label="Поиск по каталогу">
-        </form>
-        <a href="#checkout" class="bag-link" aria-label="Корзина"><span>Корзина</span> 🛒 <b id="cart-count">0</b></a>
-      </div>
+      <p>Корзинки и формы для расстойки теста, инструменты для домашнего и профессионального хлебопечения.</p>
     </div>
-  </header>
-  <main id="app" class="main-space" tabindex="-1"></main>
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <div><a href="#home" class="brand"><span class="brand-text">HLEB-FORMA</span></a><p>Специализированный магазин для домашних хлебопеков и профессиональных пекарен.</p><p class="small">Прототип. Логотип здесь условный — заменить оригиналом.</p></div>
-      <div><h4>Покупателям</h4><a href="#catalog">Каталог</a><a href="#delivery">Доставка и оплата</a><a href="#checkout">Корзина</a></div>
-      <div><h4>Для пекарен</h4><a href="#wholesale">Оптовые закупки</a><a href="#articles">Полезные статьи</a><a href="#contacts">Контакты</a></div>
-      <div><h4>Информация</h4><p>Здесь будут актуальные реквизиты, контакты, условия возврата и политика обработки данных.</p></div>
+    <nav class="footer-nav" aria-label="Покупателям">
+      <h4>Покупателям</h4>
+      <a href="#catalog">Каталог</a>
+      <a href="#sale">Распродажа</a>
+      <a href="#delivery">Доставка и оплата</a>
+      <a href="#account">Личный кабинет</a>
+    </nav>
+    <nav class="footer-nav" aria-label="О магазине">
+      <h4>О магазине</h4>
+      <a href="#wholesale">Оптовым покупателям</a>
+      <a href="#articles">Статьи о хлебе</a>
+      <a href="v3/index.html#reviews">Отзывы покупателей</a>
+      <a href="v3/index.html#faq">Частые вопросы</a>
+      <a href="https://hleb-forma.ru/contact">Контакты</a>
+    </nav>
+    <div class="footer-contact">
+      <h4>Свяжитесь с нами</h4>
+      <a class="footer-phone" href="tel:+79612211283">+7 (961) 221-12-83</a>
+      <a class="footer-email" href="mailto:hleb-forma@bk.ru">hleb-forma@bk.ru</a>
+      <a class="footer-contact-link" href="https://hleb-forma.ru/contact">Написать нам ↗</a>
     </div>
-    <div class="container copyright">© Hleb-Forma · UX-прототип новой версии · Не является действующим интернет-магазином</div>
-  </footer>
-  <div id="toast" class="toast" role="status" aria-live="polite"></div>
-  <script>
+  </div>
+  <div class="container footer-legal">
+    <div class="footer-legal-identity">
+      <strong>ИП Вичканов Евгений Николаевич</strong>
+      <span>ИНН 421800977810 · ОГРНИП 315547600090951</span>
+      <span>Адрес по реквизитам: 630099, г. Новосибирск, ул. Семьи Шамшиных, 12</span>
+    </div>
+    <details class="footer-bank">
+      <summary>Банковские реквизиты <span aria-hidden="true">+</span></summary>
+      <div>ПАО «Сбербанк России», Новосибирское отделение № 8047/0338<br>Р/с 40802810344050009182<br>К/с 30101810500000000641<br>БИК 045004641</div>
+    </details>
+  </div>
+  <div class="container footer-bottom">
+    <span>© Hleb-Forma, 2026. Все права защищены.</span>
+    <div class="footer-bottom-right">
+      <a class="footer-credit" href="https://web86.site/" target="_blank" rel="noopener noreferrer">Разработка сайта — <strong>web86.site</strong></a>
+      <a class="footer-up" href="#page-top" aria-label="Вернуться наверх" title="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+    </div>
+  </div>
+</footer>
+<dialog class="mobile-menu-dialog" id="mobile-menu-dialog" aria-labelledby="mobile-menu-title">
+  <div class="mobile-menu-header"><a class="mobile-menu-brand" href="v3/index.html"><img src="v2/assets/logo.svg" width="46" height="46" alt=""><span><strong>HLEB-FORMA</strong><small>Для тех, кто печёт хлеб</small></span></a><button type="button" id="mobile-menu-close" aria-label="Закрыть меню" autofocus><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
+  <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="#catalog">Каталог</a><a href="#sale">Распродажа</a><a href="#wholesale">Оптовикам</a><a href="v3/index.html#guides">Как выбрать</a><a href="v3/index.html#reviews">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
+  <div class="mobile-menu-contact"><a href="#contacts">Контакты ↗</a><a href="tel:+79612211283">+7 (961) 221-12-83</a></div>
+</dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/storefront-data.js"></script>
+<script>
     (function(){
       "use strict";
-      var products=[
-        {id:"bn10",sku:"BN 10",title:"Корзинка овальная 25 × 15 × 8 см",shape:"oval",weight:550,weightText:"500–550 г",size:"25 × 15 × 8 см",price:690,kind:"Овальные корзинки"},
-        {id:"bn01",sku:"BN 01",title:"Корзинка круглая 22 × 8,5 см",shape:"round",weight:800,weightText:"700–800 г",size:"22 × 8,5 см",price:760,kind:"Круглые корзинки"},
-        {id:"bn06",sku:"BN 06",title:"Корзинка багетная 55 × 10 × 7 см",shape:"baguette",weight:550,weightText:"500–550 г",size:"55 × 10 × 7 см",price:850,kind:"Багетные корзинки"},
-        {id:"bn32",sku:"BN 32",title:"Корзинка овальная 30 × 15 × 8 см",shape:"oval",weight:900,weightText:"около 900 г",size:"30 × 15 × 8 см",price:880,kind:"Овальные корзинки"},
-        {id:"bn28",sku:"BN 28",title:"Корзинка в форме сердца 20 × 17 × 7,5 см",shape:"heart",weight:500,weightText:"около 500 г",size:"20 × 17 × 7,5 см",price:890,kind:"Фигурные корзинки"},
-        {id:"canvas",sku:"Аксессуар",title:"Холст для расстойки багетов",shape:"cloth",weight:0,weightText:"Для пекарни",size:"Уточняется",price:950,kind:"Инструменты пекаря"},
-        {id:"blade",sku:"Аксессуар",title:"Держатель лезвия для надрезов теста",shape:"tool",weight:0,weightText:"Для пекарни",size:"Комплект уточняется",price:490,kind:"Инструменты пекаря"}
-      ];
+      var products=HlebDemo.products;
       var categories=[
         {label:"Круглые",shape:"round",icon:"◯",desc:"Формы для круглого хлеба"},
         {label:"Овальные",shape:"oval",icon:"⬭",desc:"Формы для батонов"},
@@ -495,7 +709,7 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
         {label:"Инструменты",shape:"tools",icon:"♧",desc:"Аксессуары пекаря"}
       ];
       var filters={shape:"all",weight:"all",q:""};
-      var cart={};
+      var cart=HlebDemo.basket();
       var chosenWholesaleSku="";
       var app=document.getElementById("app");
       var fmt=function(v){return Number(v).toLocaleString("ru-RU")+" ₽";};
@@ -507,19 +721,20 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
         toast.timer=setTimeout(function(){node.classList.remove("show");},4000);
       }
       function art(p,large){
-        return '<div class="product-art'+(large?' large':'')+'" aria-label="Схематичное изображение, заменить реальной фотографией"><div class="woven '+safe(p.shape)+'"></div></div>';
+        return '<div class="product-art'+(large?' large':'')+'" data-product-id="'+safe(p.id)+'"><div class="woven '+safe(p.shape)+'" aria-hidden="true"></div></div>';
       }
       function productCard(p){
-        return '<article class="product-card">'+
-          '<a href="#product-'+p.id+'" aria-label="Подробнее о товаре '+safe(p.title)+'">'+art(p,false)+'</a>'+
-          '<div class="product-card-content"><span class="meta-pill">'+safe(p.weightText)+'</span>'+
-          '<a href="#product-'+p.id+'"><h3>'+safe(p.title)+'</h3></a>'+
-          '<div class="small muted">'+safe(p.sku)+' · '+safe(p.size)+'</div>'+
-          '<div class="price">'+fmt(p.price)+'</div>'+
-          '<button class="btn btn-primary btn-sm" data-action="add" data-id="'+p.id+'">В корзину</button></div></article>';
+        return '<article class="product-card" data-product-id="'+p.id+'">'+
+          '<a class="card-picture" href="#product-'+p.id+'" aria-label="Подробнее о товаре '+safe(p.title)+'">'+art(p,false)+'</a>'+
+          '<div class="product-card-content"><a href="#product-'+p.id+'"><h3>'+safe(p.title)+'</h3></a>'+
+          '<div class="card-weight">'+safe(p.weight?'Для '+p.weightText+' теста':p.weightText)+'</div>'+
+          (p.exact===false?'<small class="photo-analogue">Фото аналога</small>':'')+
+          '<div class="card-buy"><div class="card-prices'+(p.oldPrice?' on-sale':'')+'">'+(p.oldPrice?'<del>'+fmt(p.oldPrice)+'</del>':'')+'<strong class="price">'+fmt(p.price)+'</strong></div>'+
+          '<button class="btn btn-primary btn-sm" data-action="add" data-id="'+p.id+'">В корзину ↗</button></div></div></article>';
       }
+      window.hlebRenderCard=productCard;
       function productById(id){return products.find(function(p){return p.id===id;});}
-      function crumbs(nodes){return '<div class="breadcrumb"><a href="#home">Главная</a> / '+nodes+'</div>';}
+      function crumbs(nodes){return '<div class="breadcrumb"><a href="v3/index.html">Главная</a> / '+nodes+'</div>';}
       function home(){
         return '<div class="container">'+
           '<section class="hero"><div class="hero-copy">'+
@@ -561,14 +776,14 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
       function catalog(){
         return '<div class="container">'+crumbs('Каталог')+
           '<div class="page-head"><span class="eyebrow">Подберите форму под свою выпечку</span>'+
-          '<h1>Каталог корзинок и инструментов</h1><p class="lead">Укажите вес тестовой заготовки или форму, чтобы быстрее найти подходящий товар. В демонстрации представлены только несколько моделей.</p></div>'+
+          '<h1>Каталог корзинок и инструментов</h1><p class="lead">Укажите вес тестовой заготовки или форму, чтобы быстрее найти подходящий товар. </p></div>'+
           '<div class="catalog-layout"><aside class="filter-pane" aria-label="Фильтр каталога">'+
           '<h3 style="margin:0">Быстрый подбор</h3><div class="field"><label for="filter-weight">Вес теста</label>'+weightSelect('filter-weight')+'</div>'+
           '<div class="field"><label for="filter-shape">Форма</label>'+shapeSelect('filter-shape')+'</div>'+
           '<div class="field"><label for="filter-query">Поиск / артикул</label><input type="search" id="filter-query" placeholder="Например, BN 10"></div>'+
           '<button class="btn btn-outline btn-sm" data-action="reset-filters">Сбросить фильтры</button>'+
-          '<div class="notice small">Подбор демонстрационный. При разработке данные будут поступать из каталога MiniShop3.</div></aside>'+
-          '<div class="catalog-main"><div class="catalog-top"><span id="results-counter" class="results"></span><span class="small muted">Фото и цены для прототипа</span></div><div id="catalog-results" class="products-grid"></div></div></div></div>';
+          '</aside>'+
+          '<div class="catalog-main"><div class="catalog-top"><span id="results-counter" class="results"></span></div><div id="catalog-results" class="products-grid"></div></div></div></div>';
       }
       function matches(p){
         if(filters.shape!=="all" && !(filters.shape==="tools" && ["tool","cloth"].includes(p.shape)) && p.shape!==filters.shape){return false;}
@@ -598,8 +813,8 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
           '<div class="detail-features"><div><span>Вес тестовой заготовки</span><b>'+safe(p.weightText)+'</b></div>'+
           '<div><span>Размеры</span><b>'+safe(p.size)+'</b></div>'+
           '<div><span>Назначение</span><b>'+safe(p.kind)+'</b></div></div>'+
-          '<p class="small muted">Характеристики и цену перед запуском нужно сверить с актуальным каталогом. Статус наличия здесь не моделируется.</p>'+
-          '<div class="detail-price">'+fmt(p.price)+' <span class="small muted" style="font-weight:400">· цена в примере</span></div>'+
+          '<p class="small muted">Демонстрационные характеристики и цена. Наличие уточняется.</p>'+
+          '<div class="detail-price">'+(p.oldPrice?'<del class="detail-old-price">'+fmt(p.oldPrice)+'</del> ':'')+fmt(p.price)+'</div>'+
           '<div class="btn-row"><input class="quantity" type="number" id="detail-qty" min="1" max="99" value="1" aria-label="Количество товара">'+
           '<button class="btn btn-primary" data-action="add" data-id="'+p.id+'">В корзину</button></div>'+
           '<div style="margin-top:13px"><button class="btn btn-outline" data-action="quote" data-id="'+p.id+'">Нужна партия? Запросить оптовую цену →</button></div>'+
@@ -617,8 +832,8 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
         return '<div class="container">'+crumbs('Оптовым покупателям')+
           '<section class="wholesale-hero"><div><span class="eyebrow">Для пекарен и профессионалов</span>'+
           '<h1>Корзинки для расстойки хлеба оптом</h1><p class="lead">Подберём формы и инструменты под ваш ассортимент и объёмы выпечки. Укажите модели и количество — подготовим индивидуальное предложение.</p>'+
-          '<a href="#quote-form" class="btn btn-primary">Запросить предложение →</a></div>'+
-          '<div class="hero-art" style="min-height:315px"><div class="baskets"><div class="basket small"></div><div class="basket big"></div></div><div class="art-label">Место для фото партии / пекарни</div></div></section>'+
+          '<a href="#quote-form" data-scroll="quote-form" class="btn btn-primary">Запросить предложение →</a></div>'+
+          '<div class="wholesale-photo"><img src="v3/assets/hero-bakery.webp" alt="Корзинки с тестом в пекарне"></div></section>'+
           '<section class="section"><h2>Как организуем закупку</h2><div class="steps">'+
           '<div class="step"><strong>01</strong><h3>Расскажите о задаче</h3><p>Укажите нужные формы, вес теста, артикулы и количество.</p></div>'+
           '<div class="step"><strong>02</strong><h3>Уточним ассортимент</h3><p>Согласуем наличие, размеры и варианты комплектации.</p></div>'+
@@ -639,12 +854,12 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
       }
       function cartCount(){return Object.values(cart).reduce(function(s,n){return s+n;},0);}
       function cartTotal(){return products.reduce(function(s,p){return s+p.price*(cart[p.id]||0);},0);}
-      function updateCartCounter(){document.getElementById("cart-count").textContent=cartCount();}
+      function updateCartCounter(){var c=document.getElementById("cart-count");c.textContent=cartCount();c.hidden=!cartCount();HlebDemo.write("cart",cart);}
       function checkout(){
         var inCart=products.filter(function(p){return cart[p.id]>0;});
         var rows=inCart.map(function(p){
           return '<div class="cart-item">'+art(p,false)+
-            '<div><h3><a href="#product-'+p.id+'">'+safe(p.title)+'</a></h3><div class="small muted">'+safe(p.sku)+' · '+safe(p.weightText)+'</div>'+
+            '<div><h3><a href="#product-'+p.id+'">'+safe(p.title)+'</a></h3><div class="small muted">'+safe(p.weightText)+'</div>'+
             '<div class="cart-item-actions"><button data-action="dec" data-id="'+p.id+'" aria-label="Уменьшить количество">−</button>'+
             '<strong>'+cart[p.id]+' шт.</strong><button data-action="inc" data-id="'+p.id+'" aria-label="Увеличить количество">+</button>'+
             '<button data-action="remove" data-id="'+p.id+'">Удалить</button></div></div><strong>'+fmt(p.price*cart[p.id])+'</strong></div>';
@@ -692,11 +907,11 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
           (articles?'<section class="section">'+articleTiles()+'</section>':'<div class="panel" style="max-width:760px"><h2>Что покажем здесь</h2><p>Достоверную информацию, согласованную с владельцем магазина, без устаревших обещаний о сроках или скидках.</p></div>')+
           '<div style="margin:45px 0 90px"><a class="btn btn-primary" href="#catalog">Перейти в каталог</a></div></div>';
       }
-      function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>В этом прототипе доступны основные экраны.</p><a class="btn btn-primary" href="#home">На главную</a></section></div>';}
+      function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>В этом прототипе доступны основные экраны.</p><a class="btn btn-primary" href="v3/index.html">На главную</a></section></div>';}
       function route(){
         var slug=decodeURIComponent(location.hash.replace(/^#/,"")||"home");
-        var selected=slug.split("-")[0];
-        document.querySelectorAll(".navigation a").forEach(function(a){
+        if(slug==="home"){location.replace("v3/index.html");return;} if(slug==="quote-form"){location.replace("#wholesale");return;} if(slug==="page-top"){history.replaceState(null,"",location.pathname+location.search+"#"+(app.dataset.route||"catalog"));window.scrollTo(0,0);return;} app.dataset.route=slug; var selected=slug.split("-")[0]; if(selected==="product")selected="catalog";
+        document.querySelectorAll("#navigation a").forEach(function(a){
           a.removeAttribute("aria-current");
           if(a.getAttribute("href")==="#"+selected)a.setAttribute("aria-current","page");
         });
@@ -707,11 +922,9 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
         else if(slug==="checkout"){app.innerHTML=checkout();}
         else if(["articles","delivery","contacts"].includes(slug)){app.innerHTML=infoPage(slug);}
         else{app.innerHTML=notFound();}
-        var n=document.getElementById("navigation");
-        n.classList.remove("open");
-        document.getElementById("menu-toggle").setAttribute("aria-expanded","false");
+        document.dispatchEvent(new Event("hleb-route"));
         var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?"Товар":"Раздел";
-        document.title=selectedTitle+" — Hleb-Forma 2.0, прототип";
+        document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";
         window.scrollTo(0,0);
       }
       function syncFilters(){
@@ -723,11 +936,12 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
       document.addEventListener("click",function(e){
         var menu=e.target.closest("#menu-toggle");
         if(menu){
-          var nav=document.getElementById("navigation");
-          var opened=nav.classList.toggle("open");
-          menu.setAttribute("aria-expanded",String(opened));
+          document.getElementById("mobile-menu-dialog").showModal();
+          document.body.classList.add("mobile-menu-open");
+          menu.setAttribute("aria-expanded","true");
           return;
         }
+        var scrollLink=e.target.closest("a[data-scroll]");if(scrollLink){e.preventDefault();document.getElementById(scrollLink.dataset.scroll)?.scrollIntoView({behavior:"smooth",block:"start"});return;}
         var cat=e.target.closest(".category-card[data-shape]");
         if(cat){filters.shape=cat.getAttribute("data-shape");filters.weight="all";filters.q="";}
         var btn=e.target.closest("[data-action]");if(!btn)return;
@@ -791,56 +1005,25 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
     'use strict';
     /* Progressive enhancement of the standalone demonstration prototype.
        Replaces no payment, stock, review, account or backend functionality. */
-    var ids=['bn10','bn01','bn06','bn32','bn28','canvas','blade'];
-    var known={};var favorites=new Set(),compares=new Set(),signedInDemo=false;
+    var ids=HlebDemo.products.map(p=>p.id);
+    var known=Object.fromEntries(HlebDemo.products.map(p=>[p.id,{id:p.id,name:p.title,price:p.price.toLocaleString('ru-RU')+' ₽',weight:p.weightText,size:p.size}]));var favorites=new Set(HlebDemo.list('favorites')),compares=new Set(HlebDemo.list('compare').slice(0,4)),signedInDemo=false;
     var root=document.getElementById('app');
     function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
     function current(){return decodeURIComponent(location.hash.slice(1)||'home');}
     function notify(t){var n=document.getElementById('toast');n.textContent=t;n.classList.add('show');clearTimeout(notify.timeout);notify.timeout=setTimeout(function(){n.classList.remove('show');},3200);}
     function updateCounters(){
       var f=document.getElementById('enh-fav-count'),c=document.getElementById('enh-compare-count');
-      if(f)f.textContent=favorites.size;
-      if(c)c.textContent=compares.size;
+      if(f){f.textContent=favorites.size;f.hidden=!favorites.size;}
+      if(c){c.textContent=compares.size;c.hidden=!compares.size;}
+      HlebDemo.write("favorites",[...favorites]);HlebDemo.write("compare",[...compares]);
     }
-    function initFrame(){
-      if(!document.querySelector('.stock-bar')){
-        var bar=document.createElement('div');bar.className='stock-bar';
-        bar.innerHTML='<div class="container">📍 <strong>Склад в Москве</strong> · Наличие конкретного товара и сроки отгрузки уточняйте при заказе. <small>Уточнить сведения о складе у владельца перед запуском.</small></div>';
-        document.querySelector('.site-header').after(bar);
-      }
-      var nav=document.getElementById('navigation');
-      if(nav&&!nav.querySelector('a[href="#sale"]')){
-        var link=document.createElement('a');link.href='#sale';link.textContent='Распродажа';
-        nav.querySelector('a[href="#wholesale"]').before(link);
-      }
-      var actions=document.querySelector('.header-actions');
-      if(actions&&!actions.querySelector('#enh-account')){
-        var node=document.createElement('div');node.className='extras';node.style.margin='0';
-        node.innerHTML='<a href="#favorites" class="quick-link" aria-label="Избранное" title="Избранное">♡<span id="enh-fav-count">0</span></a>'+
-        '<a href="#compare" class="quick-link" aria-label="Сравнение" title="Сравнение">⚖<span id="enh-compare-count">0</span></a>'+
-        '<a id="enh-account" href="#account" class="quick-link" aria-label="Личный кабинет" title="Личный кабинет">♙</a>';
-        actions.prepend(node);updateCounters();
-      }
-      var footer=document.querySelector('.footer-grid');
-      if(footer&&!footer.querySelector('a[href="#sale"]')){
-        var col=footer.children[1];
-        if(col){var a=document.createElement('a');a.href='#sale';a.textContent='Распродажа';col.appendChild(a);}
-      }
-    }
+    function initFrame(){ /* Static v3 header and footer. */ }
     function enrichCards(){
       root.querySelectorAll('article.product-card').forEach(function(card){
-        var link=card.querySelector('a[href^="#product-"]');
-        if(!link)return;
-        var id=link.getAttribute('href').replace('#product-','');
-        if(ids.indexOf(id)<0)return;
-        var title=card.querySelector('h3'),price=card.querySelector('.price'),pill=card.querySelector('.meta-pill');
-        var meta=card.querySelector('.small.muted');
-        known[id]={id:id,name:title?title.textContent:id,price:price?price.textContent:'',weight:pill?pill.textContent:'',size:meta?meta.textContent:''};
-        if(!card.querySelector('.extras')){
-          var row=document.createElement('div');row.className='extras';row.style.padding='0 12px 13px';
-          row.innerHTML=actionButtons(id);
-          card.appendChild(row);
-        }
+        var id=card.dataset.productId;
+        if(ids.indexOf(id)<0||card.querySelector('.card-tools'))return;
+        var row=document.createElement('div');row.className='card-tools';
+        row.innerHTML=actionButtons(id,true);card.appendChild(row);
       });
     }
     function enrichDetail(){
@@ -856,11 +1039,6 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
         wrap.innerHTML=actionButtons(id);
         var buy=summary.querySelector('.btn-row');if(buy)buy.after(wrap);
       }
-      if(!summary.querySelector('.warehouse-detail')){
-        var box=document.createElement('p');box.className='notice warehouse-detail';
-        box.textContent='📍 Склад в Москве: наличие именно этой модели и сроки отгрузки уточняются при заказе.';
-        summary.appendChild(box);
-      }
       if(!root.querySelector('#product-reviews')){
         var r=document.createElement('section');r.id='product-reviews';r.className='section';
         r.innerHTML=reviewBlock(true);
@@ -868,9 +1046,10 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
         if(other)other.before(r);else root.querySelector('.container').appendChild(r);
       }
     }
-    function actionButtons(id){
-      return '<button class="extra-button" type="button" data-extra="favorite" data-id="'+esc(id)+'" aria-pressed="'+favorites.has(id)+'">'+(favorites.has(id)?'♥ В избранном':'♡ В избранное')+'</button>'+
-             '<button class="extra-button" type="button" data-extra="compare" data-id="'+esc(id)+'" aria-pressed="'+compares.has(id)+'">'+(compares.has(id)?'✓ Сравнивается':'⚖ Сравнить')+'</button>';
+    function actionButtons(id,compact){
+      var fav=favorites.has(id),comp=compares.has(id);
+      return '<button class="extra-button" type="button" data-extra="favorite" data-id="'+esc(id)+'" aria-label="Избранное" aria-pressed="'+fav+'">'+(compact?(fav?'♥':'♡'):(fav?'♥ В избранном':'♡ В избранное'))+'</button>'+
+             '<button class="extra-button" type="button" data-extra="compare" data-id="'+esc(id)+'" aria-label="Сравнить" aria-pressed="'+comp+'">'+(compact?(comp?'✓':'⚖'):(comp?'✓ Сравнивается':'⚖ Сравнить'))+'</button>';
     }
     function reviewBlock(product){
       return '<div class="section-heading"><h2>'+(product?'Отзывы о товаре':'Отзывы покупателей')+'</h2><span class="small muted">Реальные отзывы импортируем из OpenCart</span></div>'+
@@ -913,7 +1092,7 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
       var title=kind==='favorites'?'Избранные товары':'Сравнение товаров';
       var items=Array.from(selected).map(function(id){return known[id]||{id:id,name:id,price:'',weight:'',size:''};});
       var h='<div class="container"><div class="page-head"><span class="eyebrow">Сохраняйте интересные модели</span><h1>'+title+'</h1>'+
-        '<p>Списки существуют только в текущем сеансе прототипа. В рабочей версии будут синхронизироваться с личным кабинетом.</p></div>';
+        '<p>Списки сохраняются в этой вкладке прототипа.</p></div>';
       if(!items.length)return h+'<div class="empty"><h2>Здесь пока пусто</h2><p>Добавляйте корзинки кнопками ♡ и ⚖ из каталога или карточек товаров.</p><a href="#catalog" class="btn btn-primary">В каталог →</a></div></div>';
       if(kind==='favorites'){
         h+='<div class="saved-grid">'+items.map(function(p){return '<article class="saved-card"><span class="eyebrow">'+esc(p.id.toUpperCase())+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.weight)+' · '+esc(p.size)+'</p><strong>'+esc(p.price)+'</strong><div class="extras"><a href="#product-'+esc(p.id)+'" class="btn btn-outline btn-sm">Открыть</a><button class="extra-button" data-extra="favorite" data-id="'+esc(p.id)+'">Удалить ♡</button></div></article>';}).join('')+'</div>';
@@ -928,11 +1107,7 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
       return h+'<div class="section"><a href="#catalog" class="btn btn-primary">Продолжить выбор →</a></div></div>';
     }
     function salePage(){
-      return '<div class="container"><div class="page-head"><span class="eyebrow">Специальные предложения</span><h1>Распродажа и акции</h1>'+
-        '<p class="lead">Сохраняем знакомый раздел старого магазина. В рабочей версии товары, старая и новая цена, срок акции и наличие будут подтягиваться из реальных скидок MiniShop3.</p></div>'+
-        '<section class="promo-bar"><div><span class="eyebrow">Блок будущих акций</span><h2>Полезные предложения для хлебопеков</h2>'+
-        '<p>Здесь будут только действующие акции — никаких фиктивных скидок или перечёркнутых цен.</p><a class="btn btn-primary" href="#catalog">Посмотреть весь каталог</a></div><div class="promo-art" aria-hidden="true">%</div></section>'+
-        '<div class="empty-soft"><strong>Акционные товары пока не загружены в прототип.</strong><p class="small">Для запуска понадобятся подтверждённые SKU, актуальные цены и условия. На старом сайте раздел «Распродажа» уже существовал.</p></div></div>';
+      return '<div class="container"><div class="breadcrumb"><a href="v3/index.html">Главная</a> / Распродажа</div><section class="sale-banner"><div><span class="eyebrow">Специальные предложения</span><h1>Распродажа</h1><p>Корзинки для красивого домашнего хлеба.</p><a href="#catalog" class="btn btn-light">Весь каталог ↗</a></div><img src="v3/assets/hero-bread.webp" alt=""></section><p class="small muted sale-disclaimer">Демонстрационные цены и скидки. Перед запуском магазина их необходимо подтвердить.</p><div class="products-grid sale-products">'+HlebDemo.products.filter(p=>p.oldPrice).map(window.hlebRenderCard).join('')+'</div></div>';
     }
     function accountPage(){
       var header='<div class="container"><div class="page-head"><span class="eyebrow">Личный кабинет</span><h1>Ваши покупки и любимые товары</h1>'+
@@ -968,6 +1143,7 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
           if(slug.indexOf('product-')===0)enrichDetail();
           enrichCards();
         }
+        if(slug==='sale')enrichCards();
         updateCounters();
       }finally{running=false;}
     }
@@ -979,9 +1155,10 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
         root.querySelectorAll('[data-extra="favorite"],[data-extra="compare"]').forEach(function(b){
           var id=b.getAttribute('data-id'),fav=b.getAttribute('data-extra')==='favorite',checked=fav?favorites.has(id):compares.has(id);
           b.setAttribute('aria-pressed',String(checked));
-          b.textContent=fav?(checked?'♥ В избранном':'♡ В избранное'):(checked?'✓ Сравнивается':'⚖ Сравнить');
+          var compact=!!b.closest('.card-tools');b.textContent=fav?(compact?(checked?'♥':'♡'):(checked?'♥ В избранном':'♡ В избранное')):(compact?(checked?'✓':'⚖'):(checked?'✓ Сравнивается':'⚖ Сравнить'));
         });
       }
+      if(slug==='sale')enrichCards();
       updateCounters();
     }
     document.addEventListener('click',function(e){
@@ -1012,42 +1189,27 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
 <script>
 (function(){
   "use strict";
-  var imgs={
-    bn10:"https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalunay-razmer-25-15-8-bn-10-65-260x210_0.jpg",
-    bn01:"https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-kruglay-razmer-22-8-5-bn-01-52-260x210_0.jpg",
-    bn06:"https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-bagetnay-razmer-55-10-7-bn-06-51-260x210_0.jpg",
-    bn28:"https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-v-forme-serdta-razmer-20-17-7-5bn-28-78-260x210_0.jpg",
-    canvas:"https://hleb-forma.ru/image/cache/catalog/001/holst2-907x680_0-260x210_0.jpg",
-    blade:"https://hleb-forma.ru/image/cache/catalog/bakery-nife-260x210_0.jpg"
-  };
+  var imgs=Object.fromEntries(HlebDemo.products.map(p=>[p.id,p.image||'']));
   var root=document.getElementById("app");
   var nav=document.getElementById("navigation");
   var articles=[["Что такое корзинки для расстойки","Что это, как выбрать и использовать"],["Как подобрать корзинку по весу теста","Вместимость от 350 до 900 граммов"],["Круглая или овальная корзинка","Форма выпечки и особенности расстойки"],["Уход за ротанговой корзинкой","Подготовка к использованию и чистка"]];
-  var itemNames={bn10:"Овальная корзинка BN 10, 25 × 15 × 8 см",bn01:"Круглая корзинка BN 01, 22 × 8,5 см",bn06:"Багетная корзинка BN 06, 55 × 10 × 7 см",bn28:"Корзинка сердечко BN 28",bn32:"Овальная корзинка BN 32",canvas:"Холст для расстойки",blade:"Держатель лезвия"};
+  var itemNames=Object.fromEntries(HlebDemo.products.map(p=>[p.id,p.title+' · '+p.sku]));
   function safe(s){return String(s||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   var brand=document.querySelector(".brand-mark");
   if(brand){brand.innerHTML='<img class="brand-logo-img" src="assets/bakery-logo.svg" alt="Логотип Hleb-Forma">';}
   if(document.querySelector(".brand-text")){document.querySelector(".brand-text").innerHTML="HLEB-FORMA<small>Всё для расстойки хлеба</small>";}
   function addImg(host,url,classname){
-    if(!host||!url||host.querySelector("."+classname))return;
+    if(!host||!url||host.hasAttribute("data-attempt-"+classname))return;host.setAttribute("data-attempt-"+classname,"1");
     var pic=document.createElement("img");pic.className=classname;pic.src=url;pic.alt="Фотография товара Hleb-Forma";pic.loading="lazy";pic.decoding="async";
     pic.addEventListener("error",function(){pic.remove();});
     host.appendChild(pic);
   }
   function photoProducts(){
-    root.querySelectorAll(".product-card").forEach(function(card){
-      var link=card.querySelector('a[href^="#product-"]'),art=card.querySelector(".product-art");
-      if(link&&art){var id=link.hash.replace("#product-","");addImg(art,imgs[id],"real-photo");}
-    });
-    var detail=root.querySelector(".detail-grid"),slug=location.hash.slice(1);
-    if(detail&&slug.indexOf("product-")===0){
-      addImg(detail.querySelector(".product-art"),imgs[slug.slice(8)],"real-photo");
-    }
-    root.querySelectorAll(".category-card").forEach(function(cat){
-      var map={round:"bn01",oval:"bn10",baguette:"bn06",heart:"bn28",tools:"blade"};
-      var id=map[cat.dataset.shape];
-      var host=cat.querySelector(".category-icon");
-      if(host&&id)addImg(host,imgs[id],"category-photo");
+    root.querySelectorAll(".product-art[data-product-id]").forEach(function(art){
+      var id=art.dataset.productId;
+      addImg(art,imgs[id],"real-photo");
+      var product=HlebDemo.products.find(p=>p.id===id);
+      if(art.closest(".product-card")&&product&&product.bread)addImg(art,product.bread,"bread-preview");
     });
   }
   function heroRefresh(){
@@ -1080,10 +1242,7 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
   var observer=new MutationObserver(function(){compose();});
   observer.observe(root,{childList:true,subtree:true});
   compose();
-  var btn=document.createElement("button");
-  btn.className="search-trigger";btn.type="button";btn.setAttribute("aria-label","Открыть поиск");btn.setAttribute("title","Поиск по сайту");btn.textContent="⌕";
-  var head=document.querySelector(".header-actions");
-  if(head)head.prepend(btn);
+  var btn=document.getElementById("search-trigger");
   var overlay=document.createElement("div");overlay.id="search-overlay";
   overlay.setAttribute("role","dialog");overlay.setAttribute("aria-modal","true");overlay.setAttribute("aria-label","Поиск по сайту");
   overlay.innerHTML='<div class="search-stage"><div class="top"><div><span class="eyebrow">HLEB-FORMA</span>'+
@@ -1118,6 +1277,7 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
   overlay.addEventListener("click",function(e){if(e.target===overlay)hide();if(e.target.closest('a[href^="#"]'))hide();});
   document.addEventListener("keydown",function(e){
     if(e.key==="Escape"&&overlay.classList.contains("open")){hide();return;}
+    if(document.getElementById("mobile-menu-dialog").open)return;
     if((e.key.toLowerCase()==="k")&&(e.metaKey||e.ctrlKey)){e.preventDefault();overlay.classList.contains("open")?hide():show();}
     if(e.key==="Tab"&&overlay.classList.contains("open")){
       var controls=[overlay.querySelector(".search-close"),input];
@@ -1125,5 +1285,20 @@ h1,h2{font-family:Georgia,"Times New Roman",serif;letter-spacing:-.032em}
     }
   });
 })();
-</script></body>
+</script>
+<script>
+(function(){
+  const menu=document.getElementById('mobile-menu-dialog'), trigger=document.getElementById('menu-toggle');
+  function closeMenu(){if(menu.open)menu.close();document.body.classList.remove('mobile-menu-open');trigger.setAttribute('aria-expanded','false');}
+  document.getElementById('mobile-menu-close').addEventListener('click',closeMenu);
+  menu.addEventListener('close',()=>{if(!menu.open){document.body.classList.remove('mobile-menu-open');trigger.setAttribute('aria-expanded','false');}});
+  menu.addEventListener('cancel',e=>{e.preventDefault();closeMenu();});
+  menu.addEventListener('click',e=>{if(e.target===menu){let r=menu.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)closeMenu();}});
+  menu.querySelectorAll('a').forEach(a=>a.addEventListener('click',closeMenu));
+  document.addEventListener('hleb-route',closeMenu);
+  window.matchMedia('(min-width: 881px)').addEventListener('change',e=>{if(e.matches)closeMenu();});
+  window.addEventListener('pageshow',e=>{if(e.persisted)location.reload();});
+})();
+</script>
+</body>
 </html>
