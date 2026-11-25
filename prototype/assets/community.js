@@ -1,8 +1,7 @@
-/* Configure with the verified numeric ID from the old site's VK.Widgets.Group call.
-   Until then, no external VK requests are made and the old-site fallback is shown. */
+/* Original Hleb-Forma VK community; load the widget near the viewport. */
 (function(){
   'use strict';
-  const communityId = null; // Replace with the original community's positive numeric ID.
+  const communityId = 175445199; // Original Hleb-Forma VK community.
   if (!Number.isSafeInteger(communityId) || communityId <= 0) return;
   const url='https://vk.com/club'+communityId;
   document.querySelectorAll('[data-vk-footer],[data-vk-direct]').forEach(a=>{
