@@ -644,6 +644,84 @@ body.mobile-menu-open{overflow:hidden}
 .footer .footer-vk:hover{color:#a96031}
 .footer .footer-vk svg{flex:0 0 24px}
 
+
+/* v3 — product detail: editorial gallery, quick buying and mobile purchase bar */
+.pdp{--pdp-accent:#a96031;--pdp-line:#e9e2da;--pdp-paper:#f8f5ef;color:#29231f}
+.pdp [hidden]{display:none!important}
+.pdp .breadcrumb{margin:20px 0 18px;line-height:1.5;overflow-wrap:anywhere}
+.pdp .detail-grid{grid-template-columns:minmax(0,1.12fr) minmax(0,1fr);gap:clamp(28px,4.4vw,68px);margin:0 0 52px;align-items:start}
+.pdp-gallery{min-width:0;position:sticky;top:100px}
+.pdp-stage{position:relative;border:1px solid var(--pdp-line);border-radius:8px;overflow:hidden;background:#fff;aspect-ratio:1.12;touch-action:pan-y}
+.pdp-panel{position:absolute;inset:0;display:grid;place-items:center;min-width:0}
+.pdp-zoom{display:grid;place-items:center;border:0;background:#fff;color:#594a3f;width:100%;height:100%;padding:0;cursor:zoom-in}
+.pdp-zoom img{display:block;width:100%;height:100%;max-height:100%;object-fit:contain;min-height:0}
+.pdp-panel[data-kind="bread"] .pdp-zoom img{object-fit:cover}
+.pdp-photo-unavailable{display:grid;place-items:center;text-align:center;min-height:100%;padding:30px;color:#76685d;font-size:14px;background:#faf7f2}.pdp-zoom-mark{position:absolute;right:13px;bottom:13px;display:grid;place-items:center;width:42px;height:42px;background:#fff;border:1px solid var(--pdp-line);border-radius:50%;box-shadow:0 2px 10px #30221d12;font-size:21px;line-height:1}
+.pdp-prev,.pdp-next{position:absolute;top:50%;transform:translateY(-50%);z-index:2;border:1px solid var(--pdp-line);border-radius:50%;width:40px;height:40px;background:#fffc;color:#4e3a2c;font-size:23px;line-height:1;display:grid;place-items:center;padding:0;box-shadow:0 2px 12px #30221d12}
+.pdp-prev{left:10px}.pdp-next{right:10px}
+.pdp-size-visual{background:var(--pdp-paper);text-align:center;padding:24px 48px;align-content:center;gap:12px}
+.pdp-size-visual svg{display:block;width:min(180px,65%);height:auto;color:#b58c66;margin:0 auto}
+.pdp-size-visual strong{font-family:var(--display-font,Georgia,serif);font-size:clamp(21px,2.4vw,34px);line-height:1.2;overflow-wrap:anywhere}
+.pdp-size-visual p{font-size:13px;color:#6d625a;margin:0}
+.pdp-caption{min-height:25px;margin:8px 0 10px;font-size:12px;color:#76685d;line-height:1.4}
+.pdp-thumbs{display:grid;grid-template-columns:repeat(3,minmax(0,104px));gap:9px}
+.pdp-thumb{border:1px solid var(--pdp-line);border-radius:6px;background:#fff;padding:4px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:3px;color:#6d625a;min-width:0;text-align:center;font:600 11px/1.35 system-ui,sans-serif}
+.pdp-thumb[aria-pressed="true"]{border-color:var(--pdp-accent);box-shadow:0 0 0 1px var(--pdp-accent);color:#79441e}
+.pdp-thumb img,.pdp-thumb .pdp-thumb-size{width:100%;height:66px;object-fit:contain;border-radius:3px;display:grid;place-items:center;background:#fff}
+.pdp-thumb[data-kind="bread"] img{object-fit:cover}.pdp-thumb .pdp-photo-unavailable{min-height:0;height:39px;width:100%;padding:4px;font-size:10px}
+.pdp-thumb .pdp-thumb-size{background:var(--pdp-paper);font-size:26px;color:#a96031}
+.pdp .detail-summary{padding:0;min-width:0;display:flex;flex-direction:column;align-items:stretch}
+.pdp-kicker{font-size:12px;font-weight:650;color:#847466;line-height:1.5;margin:0 0 8px}
+.pdp .detail-summary h1{font-size:clamp(29px,3.1vw,46px);font-weight:700;line-height:1.15;letter-spacing:-.025em;margin:0 0 14px;overflow-wrap:anywhere}
+.pdp .detail-badges{gap:8px;margin:0 0 12px}
+.pdp .detail-badges .meta-pill{background:#f7efe3;color:#784824;border-radius:6px;padding:7px 11px;font-size:12px;white-space:normal}
+.pdp-intro{font-size:15px;line-height:1.65;margin:0;color:#6d625a;max-width:570px}
+.pdp .detail-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:10px;margin:20px 0 5px;font:800 clamp(31px,3vw,42px)/1.2 system-ui,sans-serif;color:#29231f}
+.pdp .detail-price.on-sale{color:var(--pdp-accent)}
+.pdp .detail-old-price{font-size:17px;color:#82756b;font-weight:500}
+.pdp-discount{background:#f6e8db;color:#96491e;border-radius:4px;padding:4px 7px;font-size:13px;font-weight:750}
+.pdp-saving{font-size:12px;color:#925529;margin:0 0 12px}
+.pdp .btn-row.pdp-buy{display:grid;grid-template-columns:116px minmax(0,1fr);gap:10px;margin:10px 0 0;width:100%;align-items:stretch}
+.pdp .pdp-buy .btn,.pdp-sticky .btn{margin:0;min-height:50px;background:var(--pdp-accent);color:white;font-size:15px;border:1px solid transparent;border-radius:6px;font-weight:750;justify-content:center}
+.pdp .pdp-buy .btn:hover,.pdp-sticky .btn:hover{background:#884a25;color:#fff}
+.pdp-qty{display:grid;grid-template-columns:36px minmax(0,1fr) 36px;align-items:stretch;min-width:0;border:1px solid #d9cfc4;border-radius:6px;overflow:hidden;min-height:50px;background:#fff}
+.pdp-qty button{display:grid;place-items:center;border:0;background:white;padding:0;font-size:23px;color:#75543c;min-width:0;line-height:1}
+.pdp-qty button:hover{background:var(--pdp-paper)}
+.pdp .pdp-qty .quantity{appearance:textfield;-moz-appearance:textfield;width:100%;min-width:0;padding:0 1px;border:0;border-radius:0;text-align:center;font-size:15px;font-weight:700}
+.pdp-qty .quantity::-webkit-inner-spin-button,.pdp-qty .quantity::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.pdp .detail-summary .extras{display:flex;gap:8px;margin:9px 0 0;flex-wrap:wrap}
+.pdp .detail-summary .extra-button{min-height:40px;padding:8px 12px;border-radius:6px;font-size:12px;white-space:normal;color:#72503a}
+.pdp .detail-summary .extra-button[aria-pressed="true"]{background:#f6e8db;border-color:#c0926e;color:#8d481e}
+.pdp-quick-info{display:grid;gap:9px;margin:20px 0 0;padding:16px 0;border-top:1px solid var(--pdp-line);border-bottom:1px solid var(--pdp-line);font-size:13px;color:#625449}
+.pdp-quick-info div{display:flex;align-items:center;gap:9px}.pdp-quick-info svg{flex:0 0 22px;width:22px;height:22px;color:#a96031}
+.pdp-quick-info a{text-decoration:underline;text-underline-offset:3px}
+.pdp .detail-features{border:0;padding:0;margin:17px 0 0;gap:9px}
+.pdp .detail-features div{font-size:13px;gap:12px}.pdp .detail-features span{color:#76685d}.pdp .detail-features b{overflow-wrap:anywhere;min-width:0}
+.pdp-variants{margin:22px 0 0}.pdp-variants h2{font-size:19px;line-height:1.2;margin:0 0 5px}.pdp-variants p{font-size:12px;line-height:1.5;color:#75675c;margin:0 0 10px}
+.pdp-variant-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.pdp-variant{min-width:0;display:flex;flex-direction:column;gap:3px;padding:9px 8px;border:1px solid var(--pdp-line);border-radius:6px;background:white;color:#47382e;text-decoration:none;line-height:1.3;overflow-wrap:anywhere}
+.pdp-variant:hover,.pdp-variant[aria-current="page"]{border-color:var(--pdp-accent);background:#faf3ea;color:#814720}.pdp-variant[aria-current="page"]{box-shadow:0 0 0 1px var(--pdp-accent)}
+.pdp-variant strong{font-size:13px}.pdp-variant small{font-size:10px;color:#77685e}.pdp-variant b{font-size:12px}
+.pdp-wholesale{background:#f5f0e9;border-radius:8px;margin:20px 0 0;padding:15px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.pdp-wholesale strong{font-size:13px}.pdp-wholesale button{font:650 12px/1.4 system-ui,sans-serif;background:transparent;border:0;color:#925529;padding:5px 0;text-align:left;text-decoration:underline;text-underline-offset:3px}
+.pdp-story{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(22px,4vw,58px);align-items:center;background:var(--pdp-paper);border-radius:10px;overflow:hidden;margin:0 0 44px}
+.pdp-story-visual{margin:0;min-width:0;height:100%;min-height:250px;display:flex;flex-direction:column}.pdp-story-visual img{width:100%;height:100%;min-height:250px;max-height:360px;object-fit:cover;flex:1}.pdp-story-visual figcaption{font-size:11px;color:#73655b;padding:7px 12px;background:#f1e9dd;margin:0}
+.pdp-story-copy{padding:28px 32px 28px 0}.pdp-story-copy h2,.pdp-section-title{font-family:var(--display-font,Georgia,serif);font-weight:700;font-size:clamp(24px,2.6vw,35px);line-height:1.2;margin:0 0 12px}.pdp-story-copy p{font-size:14px;line-height:1.75;margin:0 0 11px}.pdp-story-copy p:last-child{margin:0}
+.pdp-information{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:26px;margin:0 0 48px;align-items:start}.pdp-instructions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0;padding:0;list-style:none}.pdp-instructions li{background:#f8f5ef;border-radius:7px;padding:14px;min-width:0}.pdp-instructions b{color:#a96031;display:block;font-size:21px;margin-bottom:3px}.pdp-instructions strong{display:block;font-size:14px}.pdp-instructions p{font-size:12px;margin:6px 0 0;line-height:1.6;color:#6d625a}.pdp-facts{border:1px solid var(--pdp-line);padding:18px 22px;border-radius:8px}.pdp-facts h2{font-size:23px;margin:0 0 8px}.pdp-facts details{padding:12px 0}.pdp-facts details:last-child{padding-bottom:0;border-bottom:0}.pdp-facts summary{font-size:14px}.pdp-facts p{font-size:13px;line-height:1.65}.pdp-facts a{color:#925529;text-decoration:underline;text-underline-offset:3px}
+.pdp .pdp-related{margin:0 0 45px}.pdp-related .section-heading{margin-bottom:16px;gap:12px}.pdp-related .section-heading h2{font-size:clamp(24px,2.6vw,35px);margin:0}.pdp-related .products-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.pdp-accessories .products-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-width:650px}
+.pdp-sticky{display:none}.pdp-lightbox{border:0;padding:12px;background:#fff;max-width:min(94vw,950px);width:fit-content;max-height:92vh;max-height:92dvh;overflow:auto;border-radius:10px;box-shadow:0 20px 80px #20151042}.pdp-lightbox::backdrop{background:#21180fbb}.pdp-lightbox img{display:block;max-width:100%;max-height:76vh;max-height:76dvh;object-fit:contain;margin:auto}.pdp-lightbox-close{position:sticky;top:0;display:block;margin:0 0 6px auto;z-index:1;background:white;border:1px solid var(--pdp-line,#e9e2da);width:44px;height:44px;border-radius:50%;font-size:25px;line-height:1;color:#4c3728}.pdp-lightbox-caption{font-size:12px;text-align:center;margin:8px 0 0;color:#6d625a}
+@media(max-width:880px){.pdp .detail-grid{gap:24px}.pdp-gallery{position:static}.pdp-variant-list{grid-template-columns:repeat(2,minmax(0,1fr))}.pdp-related .products-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.pdp-accessories .products-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){
+  .pdp .breadcrumb{font-size:11px;margin:10px 0 9px}.pdp .detail-grid{grid-template-columns:minmax(0,1fr);gap:13px;margin-bottom:28px}
+  .pdp-stage{aspect-ratio:auto;height:clamp(220px,63vw,335px);border-radius:7px}.pdp-zoom-mark{right:8px;bottom:8px;width:38px;height:38px}.pdp-prev,.pdp-next{width:34px;height:34px;font-size:21px}.pdp-prev{left:6px}.pdp-next{right:6px}
+  .pdp-thumbs{grid-template-columns:repeat(3,minmax(0,1fr));max-width:290px;gap:7px}.pdp-thumb img,.pdp-thumb .pdp-thumb-size{height:39px}.pdp-thumb{font-size:10px;padding:3px}.pdp-caption{margin:5px 0 7px;min-height:17px;font-size:11px}
+  .pdp .detail-summary h1{font-size:clamp(25px,6.7vw,32px);margin-bottom:9px;line-height:1.18}.pdp-kicker{font-size:11px;margin-bottom:4px}.pdp .detail-badges{margin-bottom:8px;gap:5px}.pdp .detail-badges .meta-pill{font-size:11px;padding:5px 8px}.pdp-intro{font-size:13px;line-height:1.55}.pdp .detail-price{font-size:31px;margin-top:12px}.pdp .detail-old-price{font-size:14px}.pdp-saving{margin-bottom:7px}.pdp .btn-row.pdp-buy{grid-template-columns:106px minmax(0,1fr);gap:8px;margin-top:8px}.pdp-qty{grid-template-columns:34px minmax(0,1fr) 34px}.pdp .pdp-buy .btn{font-size:14px;min-height:48px}.pdp .detail-summary .extras{gap:6px}.pdp .detail-summary .extra-button{min-height:40px;padding:7px 9px}.pdp-quick-info{margin-top:13px;padding:12px 0;gap:7px}.pdp .detail-features{margin-top:12px}.pdp-variants{margin-top:17px}.pdp-variant-list{grid-template-columns:repeat(2,minmax(0,1fr))}.pdp-wholesale{margin-top:15px;padding:12px}.pdp-wholesale button{min-height:36px}
+  .pdp-story{grid-template-columns:minmax(0,1fr);gap:0;margin-bottom:27px}.pdp-story-visual{min-height:0;margin:0}.pdp-story-visual img{height:190px;min-height:0;max-height:none}.pdp-story-copy{padding:20px 16px}.pdp-story-copy p{font-size:13px}.pdp-information{grid-template-columns:minmax(0,1fr);gap:18px;margin-bottom:28px}.pdp-instructions{gap:7px}.pdp-instructions li{padding:11px}.pdp-facts{padding:16px}.pdp .pdp-related{margin-bottom:27px}.pdp-related .products-grid,.pdp-accessories .products-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pdp-sticky{display:grid;position:fixed;z-index:55;bottom:0;left:0;right:0;grid-template-columns:minmax(82px,auto) minmax(0,1fr);align-items:center;gap:12px;padding:9px 16px calc(9px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--pdp-line);box-shadow:0 -4px 22px #30221d10}.pdp-sticky-price{font-size:21px;font-weight:800;white-space:nowrap;line-height:1.2;color:#29231f}.pdp-sticky-price small{font-weight:500;font-size:10px;display:block;color:#786a5e}.pdp-sticky .btn{min-height:46px;font-size:14px;padding:10px 12px}.pdp-sticky .btn:focus-visible{outline-offset:1px}
+  body:has(.pdp) {padding-bottom:calc(73px + env(safe-area-inset-bottom,0px))}body:has(.pdp) .toast{bottom:calc(81px + env(safe-area-inset-bottom,0px));left:12px;right:12px;max-width:none}
+  body:has(.pdp) .header-content{height:64px}
+}
+@media(max-width:350px){.pdp .detail-summary h1{font-size:24px}.pdp .detail-features div{font-size:12px}.pdp-sticky{gap:8px;padding-left:12px;padding-right:12px}.pdp-sticky-price{font-size:19px;max-width:135px;white-space:normal}.pdp-sticky .btn{font-size:13px}}
+
 </style>
 </head>
 <body id="page-top">
@@ -825,29 +903,56 @@ body.mobile-menu-open{overflow:hidden}
         area.innerHTML=found.length?found.map(productCard).join(""):'<div class="empty" style="grid-column:1/-1"><h3>Пока нет подходящих образцов</h3><p>Попробуйте изменить вес или форму.</p><button class="btn btn-outline" data-action="reset-filters">Сбросить подбор</button></div>';
         document.getElementById("results-counter").textContent="Найдено моделей в прототипе: "+found.length;
       }
-      function productPage(id){
-        var p=productById(id);if(!p)return notFound();
-        return '<div class="container">'+crumbs('<a href="#catalog">Каталог</a> / '+safe(p.sku))+
-          '<div class="detail-grid">'+art(p,true)+
-          '<div class="detail-summary"><span class="eyebrow">'+safe(p.kind)+'</span><h1>'+safe(p.title)+'</h1>'+
-          '<div class="detail-badges"><span class="meta-pill">'+safe(p.weightText)+'</span><span class="meta-pill">'+safe(p.sku)+'</span></div>'+
-          '<div class="detail-features"><div><span>Вес тестовой заготовки</span><b>'+safe(p.weightText)+'</b></div>'+
-          '<div><span>Размеры</span><b>'+safe(p.size)+'</b></div>'+
-          '<div><span>Назначение</span><b>'+safe(p.kind)+'</b></div></div>'+
-          '<p class="small muted">Демонстрационные характеристики и цена. Наличие уточняется.</p>'+
-          '<div class="detail-price">'+(p.oldPrice?'<del class="detail-old-price">'+fmt(p.oldPrice)+'</del> ':'')+fmt(p.price)+'</div>'+
-          '<div class="btn-row"><input class="quantity" type="number" id="detail-qty" min="1" max="99" value="1" aria-label="Количество товара">'+
-          '<button class="btn btn-primary" data-action="add" data-id="'+p.id+'">В корзину</button></div>'+
-          '<div style="margin-top:13px"><button class="btn btn-outline" data-action="quote" data-id="'+p.id+'">Нужна партия? Запросить оптовую цену →</button></div>'+
-          '<p class="small muted" style="margin-top:21px">Доставка СДЭК и оплата ЮKassa будут доступны в рабочем магазине. Реальный тариф рассчитывается при оформлении.</p></div></div>'+
-          '<div class="details-row"><div class="panel"><h2>Информация о товаре</h2>'+
-          '<details open><summary>Как выбрать размер?</summary><p>Начните с веса тестовой заготовки и желаемой формы хлеба. Подтвердите вместимость конкретной корзинки перед покупкой.</p></details>'+
-          '<details><summary>Материал и уход</summary><p>Для корзинок из ротанга используйте инструкции производителя. Расстоечные корзины не являются формами для выпечки: не ставьте их в духовку, если производитель не допускает это.</p></details>'+
-          '<details><summary>Доставка и оплата</summary><p>Способы доставки и оплаты будут показаны по актуальным условиям магазина. Сейчас это схема интерфейса.</p></details></div>'+
-          '<aside class="panel"><h2>Покупаете для пекарни?</h2><p>Запросите предложение на нужное количество одинаковых форм или набор разных размеров.</p>'+
-          '<button class="btn btn-primary" data-action="quote" data-id="'+p.id+'">Запросить партию</button></aside></div>'+
-          '<section class="section"><div class="section-heading"><h2>Другие модели</h2><a href="#catalog">В каталог →</a></div><div class="products-grid">'+products.filter(function(item){return item.id!==p.id;}).slice(0,4).map(productCard).join("")+'</div></section></div>';
+
+      function pdpBasket(p){return !['tool','cloth'].includes(p.shape);}
+      function pdpBread(p){var shapes={round:'round',oval:'oval',baguette:'baguette',triangle:'triangle',heart:'heart',diamond:'diamond',boat:'oval',square:'square',rectangle:'rectangle',ring:'ring'};return pdpBasket(p)&&shapes[p.shape]?'v3/assets/bread/'+shapes[p.shape]+'.webp':'';}
+      function pdpName(p){if(p.id==='bn001')return 'Круглая плетёная корзинка из ротанга без гвоздиков';return p.title.endsWith(', '+p.size)?p.title.slice(0,-p.size.length-2):p.title;}
+      function pdpIntro(p){var copy={round:'Для расстойки круглого хлеба.',oval:'Для расстойки овального хлеба и батонов.',baguette:'Для расстойки длинных хлебных заготовок.',triangle:'Для хлеба необычной треугольной формы.',heart:'Для хлеба в форме сердца.',diamond:'Для хлеба ромбовидной формы.',boat:'Для хлеба в форме лодочки.',cloth:'Помогает разместить и разделить заготовки багетов во время расстойки.',tool:'Для аккуратных надрезов на тестовой заготовке перед выпечкой.'};return (copy[p.shape]||'Для расстойки хлеба.')+(pdpBasket(p)?' Подберите вместимость под вес теста по вашему рецепту.':'');}
+      function pdpRelated(p,sameOnly){return products.filter(function(q){return q.id!==p.id&&pdpBasket(q)===pdpBasket(p)&&(!sameOnly||q.shape===p.shape);}).sort(function(a,b){return Number(b.shape===p.shape)-Number(a.shape===p.shape)||(p.weight?((a.weight?Math.abs(a.weight-p.weight):99999)-(b.weight?Math.abs(b.weight-p.weight):99999)):0)||Number(b.exact)-Number(a.exact)||a.price-b.price;});}
+      function pdpGallery(p){
+        var slides=[];if(p.image)slides.push({kind:'product',label:'Корзинка',src:p.image,caption:p.exact===false?'Фото аналогичной модели':pdpBasket(p)?'Фотография корзинки':'Фотография товара'});if(!pdpBasket(p)&&slides.length)slides[0].label='Товар';
+        var bread=pdpBread(p);if(bread)slides.push({kind:'bread',label:'Готовый хлеб',src:bread,caption:'Пример готового хлеба · иллюстрация'});
+        if(pdpBasket(p))slides.push({kind:'size',label:'Размеры',caption:'Размеры и вес тестовой заготовки'});
+        if(!slides.length)slides.push({kind:'size',label:'Размеры',caption:'Характеристики товара'});
+        var diagram='<svg viewBox="0 0 180 80" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="23" y="22" width="134" height="34" rx="16" stroke-dasharray="3 5"/><path d="M23 10h134m-134 0 8-5m-8 5 8 5m126-5-8-5m8 5-8 5M167 22v34m0-34-4 7m4-7 4 7m-4 27-4-7m4 7 4-7"/></svg>';
+        var panels=slides.map(function(s,i){var attrs=' data-pdp-panel="'+i+'" data-kind="'+s.kind+'"'+(i?' hidden':'');if(s.kind==='size')return '<div class="pdp-panel pdp-size-visual"'+attrs+'>'+diagram+'<strong>'+safe(p.size)+'</strong><p>'+(p.weight?safe(p.weightText)+' теста':safe(p.weightText))+'</p><p>Размеры указаны в характеристиках модели</p></div>';return '<div class="pdp-panel"'+attrs+'><button type="button" class="pdp-zoom" data-pdp-zoom="'+i+'" aria-label="Увеличить: '+safe(s.caption)+'"><img src="'+safe(s.src)+'" alt="'+safe(s.kind==='product'?p.title:s.caption)+'" '+(i?'loading="lazy"':'fetchpriority="high"')+' decoding="async"><span class="pdp-zoom-mark" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5M10.5 7.5v6M7.5 10.5h6"/></svg></span></button></div>';}).join('');
+        var thumbs=slides.map(function(s,i){return '<button type="button" class="pdp-thumb" data-pdp-thumb="'+i+'" data-kind="'+s.kind+'" aria-pressed="'+(i===0)+'" aria-label="Показать: '+safe(s.label)+'">'+(s.src?'<img src="'+safe(s.src)+'" alt="" loading="lazy">':'<span class="pdp-thumb-size" aria-hidden="true">↔</span>')+'<span>'+safe(s.label)+'</span></button>';}).join('');
+        return '<div class="pdp-gallery" data-pdp-gallery data-count="'+slides.length+'" data-active="0"><div class="pdp-stage" aria-label="Галерея товара">'+panels+(slides.length>1?'<button type="button" class="pdp-prev" data-pdp-step="-1" aria-label="Предыдущее изображение">‹</button><button type="button" class="pdp-next" data-pdp-step="1" aria-label="Следующее изображение">›</button>':'')+'</div><p class="pdp-caption" aria-live="polite" data-pdp-caption data-captions="'+safe(JSON.stringify(slides.map(function(s){return s.caption;})))+'">'+safe(slides[0].caption)+'</p>'+(slides.length>1?'<div class="pdp-thumbs" role="group" aria-label="Выбор изображения">'+thumbs+'</div>':'')+'<dialog class="pdp-lightbox" aria-label="Увеличенное изображение товара"><button type="button" class="pdp-lightbox-close" data-pdp-close aria-label="Закрыть изображение">×</button><img alt=""><p class="pdp-lightbox-caption"></p></dialog></div>';
       }
+      function pdpVariants(p){var options=pdpRelated(p,true).slice(0,4);if(!pdpBasket(p)||!options.length)return '';options.push(p);options.sort(function(a,b){return (a.weight||Infinity)-(b.weight||Infinity)||a.id.localeCompare(b.id);});return '<section class="pdp-variants" aria-label="Другие размеры"><h2>Другие модели этой формы</h2><p>Выберите подходящую модель по весу теста.</p><div class="pdp-variant-list">'+options.map(function(q){var label=q.weight?q.weightText:q.sku;var contents='<strong>'+safe(label)+'</strong><small>'+safe(q.sku)+' · '+safe(q.size)+'</small><b>'+fmt(q.price)+'</b>';return q.id===p.id?'<span class="pdp-variant" aria-current="page">'+contents+'</span>':'<a class="pdp-variant" href="#product-'+safe(q.id)+'">'+contents+'</a>';}).join('')+'</div></section>';}
+      function pdpIcon(type){return type==='truck'?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 5h13v12H2zM15 9h4l3 4v4h-7"/><circle cx="6" cy="18" r="2" fill="white"/><circle cx="18" cy="18" r="2" fill="white"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19C3 8 12 4 21 3c0 10-6 18-16 16ZM5 19l10-10"/></svg>';}
+      function productPage(id){
+        var p=productById(id);if(!p)return notFound();var basket=pdpBasket(p),bread=pdpBread(p),discount=p.oldPrice>p.price?Math.round((1-p.price/p.oldPrice)*100):0;
+        var mainTitle=pdpName(p),weight=p.weight?safe(p.weightText)+' теста':safe(p.weightText),price=fmt(p.price),size=safe(p.size);
+        var related=pdpRelated(p,false).slice(0,4),accessories=basket?products.filter(function(q){return !pdpBasket(q);}).slice(0,4):[];
+        var steps=[['Подготовьте корзинку','Присыпьте сухую корзинку мукой, чтобы тесто меньше прилипало.'],['Сформуйте заготовку','Поместите тесто в корзинку в соответствии с рецептом.'],['Дайте тесту расстояться','Ориентируйтесь на температуру, рецепт и состояние теста.'],['Переложите перед выпечкой','Аккуратно переверните корзинку на поверхность для выпечки.']];
+        return '<div class="container pdp">'+crumbs('<a href="#catalog">Каталог</a> / '+safe(p.kind)+' / '+safe(p.sku))+
+          '<div class="detail-grid">'+pdpGallery(p)+'<div class="detail-summary"><p class="pdp-kicker">'+safe(p.kind)+' · Артикул '+safe(p.sku)+'</p><h1>'+safe(mainTitle)+'</h1>'+
+          '<div class="detail-badges"><span class="meta-pill">'+weight+'</span><span class="meta-pill">'+size+'</span></div><p class="pdp-intro">'+safe(pdpIntro(p))+'</p>'+
+          '<div class="detail-price'+(discount?' on-sale':'')+'"><span>'+price+'</span>'+(discount?'<del class="detail-old-price">'+fmt(p.oldPrice)+'</del><span class="pdp-discount">−'+discount+'%</span>':'')+'</div>'+(discount?'<p class="pdp-saving">Выгода '+fmt(p.oldPrice-p.price)+'</p>':'')+
+          '<div class="btn-row pdp-buy"><div class="pdp-qty"><button type="button" data-pdp-qty="-1" aria-label="Уменьшить количество">−</button><input class="quantity" type="number" id="detail-qty" min="1" max="99" value="1" inputmode="numeric" aria-label="Количество товара"><button type="button" data-pdp-qty="1" aria-label="Увеличить количество">+</button></div><button class="btn btn-primary" type="button" data-action="add" data-id="'+safe(p.id)+'">В корзину</button></div>'+
+          '<div class="pdp-quick-info">'+(basket?'<div>'+pdpIcon('leaf')+'<span>Натуральный ротанг</span></div>':'')+'<div>'+pdpIcon('truck')+'<span>Доставка по России · <a href="#delivery">Подробнее</a></span></div></div>'+
+          '<div class="detail-features"><div><span>'+(basket?'Вес тестовой заготовки':'Назначение')+'</span><b>'+safe(p.weightText)+'</b></div><div><span>Размеры</span><b>'+size+'</b></div><div><span>Артикул</span><b>'+safe(p.sku)+'</b></div></div>'+pdpVariants(p)+
+          '<div class="pdp-wholesale"><strong>Покупаете для пекарни?</strong><button type="button" data-action="quote" data-id="'+safe(p.id)+'">Запросить оптовую цену ↗</button></div></div></div>'+
+          (basket&&bread?'<section class="pdp-story"><figure class="pdp-story-visual"><img src="'+bread+'" alt="Пример готового хлеба выбранной формы" loading="lazy" decoding="async"><figcaption>Пример выпечки · иллюстрация</figcaption></figure><div class="pdp-story-copy"><h2>Для какого хлеба подходит</h2><p>'+safe(pdpIntro(p))+'</p><p>Ротанговая корзинка поддерживает форму тестовой заготовки во время расстойки. Перед выпечкой хлеб вынимают из корзинки.</p></div></section>':'')+
+          '<section class="pdp-information"><div><h2 class="pdp-section-title">'+(basket?'Как пользоваться корзинкой':'О товаре')+'</h2>'+(basket?'<ol class="pdp-instructions">'+steps.map(function(s,i){return '<li><b>0'+(i+1)+'</b><strong>'+s[0]+'</strong><p>'+s[1]+'</p></li>';}).join('')+'</ol>':'<p>'+safe(pdpIntro(p))+'</p>')+'</div><div class="pdp-facts"><h2>Полезно знать</h2>'+(basket?'<details open><summary>Материал и уход</summary><p>Ротанг используют для расстойки благодаря его фактуре и способности поддерживать форму теста. После расстойки удалите остатки муки сухой мягкой щёткой. Дайте корзинке полностью просохнуть перед хранением. Не ставьте её в духовку.</p></details><details><summary>Как подобрать размер?</summary><p>Ориентируйтесь на вес тестовой заготовки до выпечки. '+(p.weight?'Для этой модели указан вес '+safe(p.weightText)+'.':'Вместимость этой модели уточняется.')+'</p></details>':'')+'<details><summary>Доставка и оплата</summary><p><a href="#delivery">Условия доставки и оплаты</a>. По вопросам заказа можно <a href="#contacts">связаться с магазином</a>.</p></details></div></section>'+
+          (related.length?'<section class="section pdp-related"><div class="section-heading"><h2>'+(basket?'Другие формы и размеры':'Другие инструменты')+'</h2><a href="#catalog">В каталог ↗</a></div><div class="products-grid">'+related.map(productCard).join('')+'</div></section>':'')+
+          (accessories.length?'<section class="section pdp-related pdp-accessories"><div class="section-heading"><h2>Пригодится для выпечки</h2><a href="#catalog">В каталог ↗</a></div><div class="products-grid">'+accessories.map(productCard).join('')+'</div></section>':'')+
+          '<div class="pdp-sticky" aria-label="Покупка товара"><div class="pdp-sticky-price"><span data-pdp-total data-price="'+p.price+'">'+price+'</span><small data-pdp-qty-label>за 1 шт.</small></div><button class="btn btn-primary" type="button" data-action="add" data-id="'+safe(p.id)+'">В корзину</button></div></div>';
+      }
+      function pdpQuantity(value){return Math.max(1,Math.min(99,parseInt(value,10)||1));}
+      function pdpSyncQuantity(){var input=document.getElementById('detail-qty');if(!input)return;var n=pdpQuantity(input.value),total=app.querySelector('[data-pdp-total]'),label=app.querySelector('[data-pdp-qty-label]');if(total)total.textContent=fmt(Number(total.dataset.price)*n);if(label)label.textContent='за '+n+' шт.';}
+      function pdpShow(gallery,i){var count=Number(gallery.dataset.count),next=(i%count+count)%count;gallery.dataset.active=String(next);gallery.querySelectorAll('[data-pdp-panel]').forEach(function(el){el.hidden=Number(el.dataset.pdpPanel)!==next;});gallery.querySelectorAll('[data-pdp-thumb]').forEach(function(el){el.setAttribute('aria-pressed',String(Number(el.dataset.pdpThumb)===next));});var caption=gallery.querySelector('[data-pdp-caption]');caption.textContent=JSON.parse(caption.dataset.captions)[next];}
+      var pdpSwipe=null,pdpIgnoreClickUntil=0;
+      app.addEventListener('click',function(e){var b=e.target.closest('[data-pdp-qty],[data-pdp-thumb],[data-pdp-step],[data-pdp-zoom],[data-pdp-close]');if(!b)return;var gallery=b.closest('[data-pdp-gallery]');if(b.hasAttribute('data-pdp-qty')){var input=document.getElementById('detail-qty');if(input){input.value=pdpQuantity(pdpQuantity(input.value)+Number(b.dataset.pdpQty));pdpSyncQuantity();}return;}if(!gallery)return;if(b.hasAttribute('data-pdp-thumb'))pdpShow(gallery,Number(b.dataset.pdpThumb));else if(b.hasAttribute('data-pdp-step'))pdpShow(gallery,Number(gallery.dataset.active)+Number(b.dataset.pdpStep));else if(b.hasAttribute('data-pdp-zoom')){if(Date.now()<pdpIgnoreClickUntil)return;var dialog=gallery.querySelector('dialog'),source=b.querySelector('img'),target=dialog.querySelector('img');if(!source||!source.complete||!source.naturalWidth)return;target.src=source.currentSrc||source.src;target.alt=source.alt;dialog.querySelector('.pdp-lightbox-caption').textContent=gallery.querySelector('[data-pdp-caption]').textContent;dialog.showModal();}else if(b.hasAttribute('data-pdp-close'))b.closest('dialog').close();});
+      app.addEventListener('error',function(e){var img=e.target;if(!img.matches||!img.matches('.pdp-zoom img,.pdp-thumb img'))return;img.hidden=true;var host=img.parentElement;if(!host.querySelector('.pdp-photo-unavailable')){var notice=document.createElement('span');notice.className='pdp-photo-unavailable';notice.textContent=host.classList.contains('pdp-thumb')?'Фото':'Фото временно недоступно';host.appendChild(notice);}},true);
+      app.addEventListener('keydown',function(e){if(!['ArrowLeft','ArrowRight'].includes(e.key)||e.target.closest('dialog'))return;var gallery=e.target.closest('[data-pdp-gallery]');if(!gallery||Number(gallery.dataset.count)<2)return;e.preventDefault();pdpShow(gallery,Number(gallery.dataset.active)+(e.key==='ArrowRight'?1:-1));var thumb=gallery.querySelector('[data-pdp-thumb="'+gallery.dataset.active+'"]');if(thumb)thumb.focus();});
+      app.addEventListener('touchstart',function(e){var stage=e.target.closest('.pdp-stage');if(!stage||e.touches.length!==1){pdpSwipe=null;return;}pdpSwipe={gallery:stage.closest('[data-pdp-gallery]'),x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
+      app.addEventListener('touchend',function(e){if(!pdpSwipe)return;var start=pdpSwipe;pdpSwipe=null;if(!start.gallery.isConnected||!e.changedTouches.length)return;var dx=e.changedTouches[0].clientX-start.x,dy=e.changedTouches[0].clientY-start.y;if(Math.abs(dx)>45&&Math.abs(dx)>Math.abs(dy)*1.4){pdpIgnoreClickUntil=Date.now()+350;pdpShow(start.gallery,Number(start.gallery.dataset.active)+(dx<0?1:-1));}},{passive:true});
+      app.addEventListener('touchcancel',function(){pdpSwipe=null;},{passive:true});
+      app.addEventListener('input',function(e){if(e.target.id==='detail-qty')pdpSyncQuantity();});
+      app.addEventListener('change',function(e){if(e.target.id==='detail-qty'){e.target.value=pdpQuantity(e.target.value);pdpSyncQuantity();}});
+
       function wholesale(){
         var opts='<option value="">Выберите товар (необязательно)</option>'+products.map(function(p){return '<option value="'+p.id+'"'+(chosenWholesaleSku===p.id?' selected':'')+'>'+safe(p.sku)+' — '+safe(p.title)+'</option>';}).join("");
         return '<div class="container">'+crumbs('Оптовым покупателям')+
@@ -944,7 +1049,7 @@ body.mobile-menu-open{overflow:hidden}
         else if(["articles","delivery","contacts"].includes(slug)){app.innerHTML=infoPage(slug);}
         else{app.innerHTML=notFound();}
         document.dispatchEvent(new Event("hleb-route"));
-        var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?"Товар":"Раздел";
+        var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?(productById(slug.slice(8))?.title||"Товар"):"Раздел";
         document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";
         window.scrollTo(0,0);
       }
@@ -968,9 +1073,9 @@ body.mobile-menu-open{overflow:hidden}
         var btn=e.target.closest("[data-action]");if(!btn)return;
         var action=btn.dataset.action,id=btn.dataset.id;
         if(action==="add"){
-          var qty=document.getElementById("detail-qty");
-          var n=qty?Math.max(1,Math.min(99,parseInt(qty.value,10)||1)):1;
-          cart[id]=(cart[id]||0)+n;updateCartCounter();toast("Добавлено в демо-корзину: "+productById(id).sku);
+          var qty=btn.closest(".pdp-buy,.pdp-sticky")?document.getElementById("detail-qty"):null;
+          var n=qty?pdpQuantity(qty.value):1;
+          cart[id]=Math.min(99,(cart[id]||0)+n);updateCartCounter();toast("Добавлено в корзину: "+productById(id).sku);
         }
         if(action==="quote"){
           chosenWholesaleSku=id;
@@ -1052,19 +1157,12 @@ body.mobile-menu-open{overflow:hidden}
       if(!summary)return;
       var id=current().replace(/^product-/,'');
       if(ids.indexOf(id)<0)return;
-      var title=summary.querySelector('h1'),price=summary.querySelector('.detail-price');
-      var feats=summary.querySelectorAll('.detail-features b'),pills=summary.querySelectorAll('.meta-pill');
-      known[id]={id:id,name:title?title.textContent:id,price:price?price.textContent:'',weight:feats[0]?feats[0].textContent:'',size:feats[1]?feats[1].textContent:'',sku:pills[1]?pills[1].textContent:''};
+      var product=HlebDemo.products.find(function(p){return p.id===id;});
+      if(product)known[id]={id:id,name:product.title,price:product.price.toLocaleString('ru-RU')+' ₽',weight:product.weightText,size:product.size,sku:product.sku};
       if(!summary.querySelector('.extras')){
         var wrap=document.createElement('div');wrap.className='extras';
         wrap.innerHTML=actionButtons(id);
         var buy=summary.querySelector('.btn-row');if(buy)buy.after(wrap);
-      }
-      if(!root.querySelector('#product-reviews')){
-        var r=document.createElement('section');r.id='product-reviews';r.className='section';
-        r.innerHTML=reviewBlock(true);
-        var other=Array.from(root.querySelectorAll('.section')).find(function(el){return (el.querySelector('h2')||{}).textContent==='Другие модели';});
-        if(other)other.before(r);else root.querySelector('.container').appendChild(r);
       }
     }
     function actionButtons(id,compact){
