@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>Hleb-Forma — новая главная · v3.20</title>
+<title>Hleb-Forma — новая главная · v3.21</title>
 <meta name="description" content="Новая визуальная концепция Hleb-Forma: магазин корзинок для расстойки хлеба с подбором, каталогом и оптовыми заказами.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -564,6 +564,40 @@ body.mobile-menu-open{overflow:hidden}
 .header.header-v3.is-scrolled{box-shadow:0 3px 12px rgba(41,35,31,.09)}
 @media(prefers-reduced-motion:reduce){.header.header-v3{transition:none}}
 
+
+/* v3.21 — stay connected: newsletter and real community embed */
+.connection-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:clamp(30px,6vw,90px);align-items:center}
+.connection-newsletter,.connection-community{min-width:0}
+.connection-grid h2{font-family:var(--display-font);font-size:clamp(28px,2.8vw,40px);line-height:1.2;margin:8px 0 15px}
+.connection-community h2{font-size:clamp(26px,2.4vw,34px)}
+.connection-newsletter p{font-size:14px;line-height:1.75;max-width:480px}
+.connection-newsletter form{display:flex;gap:8px;margin-top:25px;max-width:500px}
+.connection-newsletter input{flex:1;min-width:0;width:100%;border:1px solid #d9cfc4;border-radius:6px;min-height:51px;padding:12px 15px;background:white}
+.connection-newsletter button{flex-shrink:0;border:0;background:#a96031;color:#fff;min-height:51px;border-radius:6px;font-size:13px;font-weight:750;padding:12px 19px;white-space:nowrap}
+.connection-newsletter button:hover{background:#884a25}
+.connection-community{scroll-margin-top:105px}
+.vk-community-card{border:1px solid #e5e3de;border-radius:10px;background:#fff;overflow:hidden;min-width:0}
+.vk-cover{display:block;width:100%;height:105px;object-fit:cover;object-position:70% 52%}
+.vk-fallback-copy{padding:17px}
+.vk-community-brand{display:flex;gap:12px;align-items:center;margin-bottom:15px}
+.vk-brand-icon{display:grid;place-items:center;flex-shrink:0;color:#447cb9}
+.vk-brand-icon svg{width:32px;height:32px}
+.vk-community-brand strong{font-size:14px}
+.vk-community-brand p{font-size:12px;color:#79695b;line-height:1.5;margin-top:3px}
+.vk-community-button{display:block;padding:10px 12px;border-radius:6px;background:#447cb9;color:#fff;text-align:center;font-size:12px;font-weight:650}
+.vk-community-button:hover{background:#36699f;color:#fff}
+.vk-direct-link{font-size:12px;color:#76533c;display:inline-block;margin-top:10px}
+.vk-direct-link[hidden],#vk-community-widget[hidden],#vk-community-fallback[hidden]{display:none!important}
+#vk-community-widget{width:100%;max-width:100%;overflow:hidden}
+#vk-community-widget iframe{display:block;max-width:100%}
+@media(max-width:880px){.connection-grid{gap:30px}.connection-newsletter form{flex-direction:column}}
+@media(max-width:640px){.connection-grid{grid-template-columns:1fr;gap:35px}.connection-newsletter form{margin-top:20px;max-width:none}.connection-community h2{margin-bottom:15px}}
+
+/* Compact VK link, with no remote script required in the footer. */
+.footer .footer-vk{display:inline-flex;align-items:center;gap:8px;margin-top:5px;color:#76533c;font-size:13px;font-weight:600}
+.footer .footer-vk:hover{color:#a96031}
+.footer .footer-vk svg{flex:0 0 24px}
+
 </style>
 </head>
 <body id="page-top">
@@ -722,8 +756,9 @@ body.mobile-menu-open{overflow:hidden}
     </div>
   </section>
   <section class="newsletter-section" aria-labelledby="newsletter-title">
-    <div class="container"><hr class="faq-newsletter-divider"></div>
-    <div class="container newsletter">
+  <div class="container"><hr class="faq-newsletter-divider"></div>
+  <div class="container connection-grid">
+    <div class="connection-newsletter">
       <div class="newsletter-copy">
         <span class="eyebrow">Письма только по делу</span>
         <h2 id="newsletter-title">Новинки и советы для пекарей</h2>
@@ -731,7 +766,23 @@ body.mobile-menu-open{overflow:hidden}
       </div>
       <form id="subscribe"><input type="email" required aria-label="Email для подписки" placeholder="Ваш email" autocomplete="email"><button type="submit">Подписаться ↗</button></form>
     </div>
-  </section>
+    <div id="community" class="connection-community" aria-labelledby="community-title">
+      <span class="eyebrow">Хлеб объединяет</span>
+      <h2 id="community-title">Наше сообщество</h2>
+      <div class="vk-community-card">
+        <div id="vk-community-widget" hidden></div>
+        <div id="vk-community-fallback">
+          <img class="vk-cover" src="assets/hero-bread.webp" alt="" loading="lazy" decoding="async">
+          <div class="vk-fallback-copy">
+            <div class="vk-community-brand"><span class="vk-brand-icon"><svg viewBox="0 0 32 32" width="24" height="24" fill="none" aria-hidden="true" focusable="false"><rect x="1.5" y="1.5" width="29" height="29" rx="8" stroke="currentColor" stroke-width="1.4"/><path d="M7 10c.5 7.1 4.2 11.7 10.8 12v-5.1c2.9.3 4.5 2.4 5.4 5.1H27c-1.1-3.5-3.1-5.6-5.1-6.8 2-1.4 3.6-3.4 4.4-5.2h-3.5c-1 2.4-2.7 4.3-5 4.7V10h-3.5v8.2c-2.3-.7-3.8-3.8-4-8.2Z" fill="currentColor"/></svg></span><div><strong>HLEB-FORMA ВКонтакте</strong><p>Сообщество любителей хлебопечения</p></div></div>
+            <a id="vk-community-link" class="vk-community-button" href="https://hleb-forma.ru/" target="_blank" rel="noopener noreferrer">Сообщество на прежнем сайте ↗</a>
+          </div>
+        </div>
+      </div>
+      <a class="vk-direct-link" data-vk-direct hidden target="_blank" rel="noopener noreferrer">Открыть сообщество ВКонтакте ↗</a>
+    </div>
+  </div>
+</section>
 </main>
 <footer class="footer" id="contacts">
   <div class="container footer-inner">
@@ -762,6 +813,7 @@ body.mobile-menu-open{overflow:hidden}
       <a class="footer-phone" href="tel:+79612211283">+7 (961) 221-12-83</a>
       <a class="footer-email" href="mailto:hleb-forma@bk.ru">hleb-forma@bk.ru</a>
       <a class="footer-contact-link" href="https://hleb-forma.ru/contact">Написать нам ↗</a>
+      <a class="footer-vk" data-vk-footer href="#community" aria-label="Наше сообщество ВКонтакте"><svg viewBox="0 0 32 32" width="24" height="24" fill="none" aria-hidden="true" focusable="false"><rect x="1.5" y="1.5" width="29" height="29" rx="8" stroke="currentColor" stroke-width="1.4"/><path d="M7 10c.5 7.1 4.2 11.7 10.8 12v-5.1c2.9.3 4.5 2.4 5.4 5.1H27c-1.1-3.5-3.1-5.6-5.1-6.8 2-1.4 3.6-3.4 4.4-5.2h-3.5c-1 2.4-2.7 4.3-5 4.7V10h-3.5v8.2c-2.3-.7-3.8-3.8-4-8.2Z" fill="currentColor"/></svg><span>ВКонтакте</span></a>
     </div>
   </div>
   <div class="container footer-legal">
@@ -943,4 +995,5 @@ show(0);play();
   sync();
 })();
 </script>
+<script src="../assets/community.js" defer></script>
 </body></html>
