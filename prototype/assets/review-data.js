@@ -34,13 +34,16 @@ bn22:['Удобно, что указаны длина, ширина и вес з
 canvas:['Холст удобен для разделения заготовок багетов.','Хорошее дополнение к моему набору для выпечки.','Нужно заранее подобрать место для расстойки.'],
 blade:['Удобно делать надрезы на сформованном хлебе.','Добавил к набору аксессуаров для домашней выпечки.','Понадобилось привыкнуть к инструменту.']
 };
+// Newly generated illustrations, used only for the demonstration gallery.
+const generated=new Set(["round","oval","baguette","heart","triangle"]);
+const illustration=shape=>generated.has(shape)?'assets/review-photos/'+shape+'.webp':'v3/assets/bread/'+shape+'.webp';
 function seed(products){
  const productReviews=products.flatMap((p,i)=>(specific[p.id]||['Интересная модель для выпечки.','Удобно сравнивать характеристики.','Хотелось бы больше примеров использования.']).map((body,j)=>({
  id:'sample-'+p.id+'-'+j,type:'product',productId:p.id,name:people[(i*3+j)%people.length],rating:j===2?(i%5===0?3:4):5,text:body,
  date:'2026-'+String(11-Math.floor((i*3+j)/25)).padStart(2,'0')+'-'+String(24-(i*3+j)%25||1).padStart(2,'0'),
- photos:j===0&&bread[p.shape]&&p.exact!==false?['v3/assets/bread/'+bread[p.shape]+'.webp']:[],demo:true
+ photos:j===0&&bread[p.shape]&&p.exact!==false?[illustration(bread[p.shape])]:[],demo:true
  })));
- const shopReviews=shop.map(([rating,name,text,img],i)=>({id:'sample-shop-'+i,type:'shop',name,rating,text,date:'2026-11-'+String(24-i).padStart(2,'0'),photos:img?['v3/assets/bread/'+img+'.webp']:[],demo:true}));
+ const shopReviews=shop.map(([rating,name,text,img],i)=>({id:'sample-shop-'+i,type:'shop',name,rating,text,date:'2026-11-'+String(24-i).padStart(2,'0'),photos:img?[illustration(img)]:[],demo:true}));
  return [...shopReviews,...productReviews].map(r=>({...r,date:r.date.replace(/-00$/,'-01')}));
 }
 window.HlebReviewData=Object.freeze({seed,bread});
