@@ -847,7 +847,8 @@ body.mobile-menu-open{overflow:hidden}
 <script>
 (()=>{'use strict';
 const catalogData=HlebDemo.products.map(p=>({...p,name:p.title,weight:p.weightText,url:'../index.html#product-'+p.id}));
-const productData=catalogData.slice(0,9);
+const featuredIds=["bn001","bn09","bn11","bn24","bn26","bn27","bn28","bn29","bn30"];
+const productData=featuredIds.map(id=>catalogData.find(p=>p.id===id)).filter(Boolean);
 const articles=[{title:'Как выбрать корзинку по весу теста',desc:'Формы и вместимость тестовой заготовки'},{title:'Круглая или овальная корзинка?',desc:'Формы хлеба и их особенности'},{title:'Как ухаживать за корзинкой из ротанга',desc:'Подготовка, чистка и хранение'}];
 let favorites=new Set(HlebDemo.list('favorites')),compare=new Set(HlebDemo.list('compare').slice(0,4)),cart=new Map(Object.entries(HlebDemo.basket())),drawerMode='cart',lastFocus=null;
 const $=(selector,root=document)=>root.querySelector(selector),$$=(selector,root=document)=>Array.from(root.querySelectorAll(selector));
@@ -861,12 +862,12 @@ const card=p=>'<article class="product-card v3-card" data-id="'+p.id+'">'+
 '<button type="button" class="wish" data-id="'+p.id+'" aria-label="В избранное: '+escapeHTML(p.name)+'" aria-pressed="false">♡</button>'+
 '<a class="v3-visual" href="'+p.url+'"><img class="basket-shot" src="'+p.image+'" alt="'+escapeHTML(p.name)+'" loading="lazy"><img class="bread-shot" src="'+p.bread+'" alt="Пример готового хлеба, иллюстративная фотография" loading="lazy"><span class="baked-hint">Пример готового хлеба · иллюстрация</span></a>'+
 '<div class="v3-product-body"> <h3><a href="'+p.url+'">'+escapeHTML(p.name)+'</a></h3>'+
-'<p class="spec">Для '+escapeHTML(p.weight)+' теста</p>'+(p.exact?'':'<small class="photo-analogue">Фото аналога</small>')+
+'<p class="spec">'+(p.weightText==='Вместимость уточняется'?escapeHTML(p.weightText):'Для '+escapeHTML(p.weight)+' теста')+'</p>'+(p.exact?'':'<small class="photo-analogue">Фото аналога</small>')+
 
-'<div class="v3-buy"><div class="v3-prices'+(p.oldPrice?' on-sale':'')+'">'+(p.oldPrice?'<del class="old-price" aria-label="Прежняя демонстрационная цена">'+format(p.oldPrice)+'</del>':'')+'<strong class="price">'+format(p.price)+'</strong>'+'</div><button class="buy" type="button" data-buy="'+p.id+'">В корзину ↗</button></div></div></article>'
+'<div class="v3-buy"><div class="v3-prices'+(p.oldPrice?' on-sale':'')+'">'+(p.oldPrice?'<del class="old-price" aria-label="Прежняя цена">'+format(p.oldPrice)+'</del>':'')+'<strong class="price">'+format(p.price)+'</strong>'+'</div><button class="buy" type="button" data-buy="'+p.id+'">В корзину ↗</button></div></div></article>'
 $('#products').innerHTML=productData.map(card).join('');
 $$('.wish').forEach(b=>b.addEventListener('click',()=>{favorites.has(b.dataset.id)?favorites.delete(b.dataset.id):favorites.add(b.dataset.id);refreshCounters();toast(favorites.has(b.dataset.id)?'Добавлено в избранное':'Удалено из избранного')}));
-$$('[data-buy]').forEach(b=>b.addEventListener('click',()=>{cart.set(b.dataset.buy,(cart.get(b.dataset.buy)||0)+1);refreshCounters();toast('Добавлено в демо-корзину');openDrawer('cart')}));
+$$('[data-buy]').forEach(b=>b.addEventListener('click',()=>{cart.set(b.dataset.buy,(cart.get(b.dataset.buy)||0)+1);refreshCounters();toast('Добавлено в корзину');openDrawer('cart')}));
 function openDrawer(mode){drawerMode=mode;$('#drawer-title').textContent=mode==='cart'?'Корзина':mode==='favorites'?'Избранное':'Сравнение';renderDrawer();$('#drawer').classList.add('open');$('#drawer-shade').classList.add('open');document.body.style.overflow='hidden'}
 function closeDrawer(){$('#drawer').classList.remove('open');$('#drawer-shade').classList.remove('open');document.body.style.overflow=''}
 function renderDrawer(){const ids=drawerMode==='cart'?Array.from(cart.keys()):Array.from(drawerMode==='favorites'?favorites:compare);const body=$('#drawer-body');if(!ids.length){body.innerHTML='<p>Здесь пока ничего нет.</p><a href="#catalog" class="button button-dark" id="to-popular">Посмотреть товары</a>';return}body.innerHTML=ids.map(id=>{const p=byId(id);return `<div class="drawer-item"><img src="${p.image}" alt=""><div><strong>${escapeHTML(p.name)}</strong><p>${format(p.price)} ${drawerMode==='cart'?'· '+cart.get(id)+' шт.':'· '+escapeHTML(p.weight)}</p></div><button type="button" data-remove="${id}" aria-label="Удалить">×</button></div>`}).join('')+(drawerMode==='cart'?`<p style="margin:18px 0"><strong>Товары: ${format(ids.reduce((s,id)=>s+byId(id).price*cart.get(id),0))}</strong><br><small>Доставка не рассчитана. Это демонстрационная корзина.</small></p><a href="../index.html#checkout" class="button button-dark">Перейти к демо-оформлению ↗</a>`:'<p class="note">Списки сохраняются в этой вкладке прототипа.</p>');}

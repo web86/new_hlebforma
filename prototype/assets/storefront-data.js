@@ -69,11 +69,12 @@
     "weight": 750,
     "weightText": "700–750 г",
     "size": "28 × 14 × 8 см",
-    "price": 795,
+    "price": 690,
+    "oldPrice": 795,
     "kind": "Овальные корзинки",
-    "image": "https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalunay-razmer-25-15-8-bn-10-65-260x210_0.jpg",
-    "exact": false,
-    "bread": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=2200&q=86"
+    "image": "products/bn-11.webp",
+    "exact": true,
+    "bread": "../v3/assets/bread/oval.webp"
   },
   {
     "id": "bn08",
@@ -134,15 +135,16 @@
   {
     "id": "bn28",
     "sku": "BN 28",
-    "title": "Корзинка в форме сердца 20 × 17 × 7,5 см",
+    "title": "Корзинка в форме сердца, 20 × 17 × 7,5 см",
     "shape": "heart",
     "weight": 500,
-    "weightText": "около 500 г",
+    "weightText": "500 г",
     "size": "20 × 17 × 7,5 см",
     "price": 890,
     "kind": "Фигурные корзинки",
-    "image": "https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-v-forme-serdta-razmer-20-17-7-5bn-28-78-260x210_0.jpg",
-    "exact": true
+    "image": "products/bn-28.webp",
+    "exact": true,
+    "bread": "../v3/assets/bread/heart.webp"
   },
   {
     "id": "canvas",
@@ -169,8 +171,114 @@
     "kind": "Инструменты пекаря",
     "image": "https://hleb-forma.ru/image/cache/catalog/bakery-nife-260x210_0.jpg",
     "exact": true
+  },
+  {
+    "id": "bn001",
+    "sku": "BN 001",
+    "title": "Корзинка круглая без гвоздиков, 21 × 9 см",
+    "shape": "round",
+    "weight": 700,
+    "weightText": "700 г",
+    "size": "21 × 9 см",
+    "price": 990,
+    "oldPrice": 1200,
+    "kind": "Круглые корзинки",
+    "image": "products/bn-001.webp",
+    "exact": true,
+    "bread": "../v3/assets/bread/round.webp"
+  },
+  {
+    "id": "bn09",
+    "sku": "BN 09",
+    "title": "Корзинка треугольная, 23 × 23 × 23 × 8 см",
+    "shape": "triangle",
+    "weight": 650,
+    "weightText": "600–650 г",
+    "size": "23 × 23 × 23 × 8 см",
+    "price": 650,
+    "oldPrice": 750,
+    "kind": "Треугольные корзинки",
+    "image": "products/bn-09.webp",
+    "exact": true,
+    "bread": "../v3/assets/bread/triangle.webp"
+  },
+  {
+    "id": "bn24",
+    "sku": "BN 24",
+    "title": "Корзинка треугольная, 20 × 20 × 20 × 6 см",
+    "shape": "triangle",
+    "weight": 500,
+    "weightText": "500 г",
+    "size": "20 × 20 × 20 × 6 см",
+    "price": 670,
+    "kind": "Треугольные корзинки",
+    "image": "products/bn-24.webp",
+    "exact": true,
+    "bread": "../v3/assets/bread/triangle.webp"
+  },
+  {
+    "id": "bn26",
+    "sku": "BN 26",
+    "title": "Корзинка овальная с колоском, 25 × 15 × 8 см",
+    "shape": "oval",
+    "weight": 600,
+    "weightText": "550–600 г",
+    "size": "25 × 15 × 8 см",
+    "price": 980,
+    "kind": "Овальные корзинки",
+    "image": "products/bn-26.webp",
+    "exact": true,
+    "bread": "../v3/assets/bread/oval.webp"
+  },
+  {
+    "id": "bn27",
+    "sku": "BN 27",
+    "title": "Корзинка круглая с рисунком солнца, 22 × 8,5 см",
+    "shape": "round",
+    "weight": 800,
+    "weightText": "800 г",
+    "size": "22 × 8,5 см",
+    "price": 950,
+    "kind": "Круглые корзинки",
+    "image": "products/bn-27.webp",
+    "exact": true,
+    "bread": "../v3/assets/bread/round.webp"
+  },
+  {
+    "id": "bn29",
+    "sku": "BN 29",
+    "title": "Корзинка в форме лодочки, 27 × 15 × 7,5 см",
+    "shape": "boat",
+    "weight": 0,
+    "weightText": "Вместимость уточняется",
+    "size": "27 × 15 × 7,5 см",
+    "price": 960,
+    "kind": "Фигурные корзинки",
+    "image": "products/bn-29.webp",
+    "exact": true,
+    "bread": "../v3/assets/bread/oval.webp"
+  },
+  {
+    "id": "bn30",
+    "sku": "BN 30",
+    "title": "Корзинка в форме ромба, 22 × 17 × 7,5 см",
+    "shape": "diamond",
+    "weight": 400,
+    "weightText": "400 г",
+    "size": "22 × 17 × 7,5 см",
+    "price": 780,
+    "kind": "Фигурные корзинки",
+    "image": "products/bn-30.webp",
+    "exact": true,
+    "bread": "../v3/assets/bread/diamond.webp"
   }
 ];
+  // Resolve catalogue assets relative to this shared script, not the page.
+  const assetBase=new URL('.',document.currentScript.src);
+  for(const p of products){
+    if(p.image.startsWith('products/'))p.image=new URL(p.image,assetBase).href;
+    if(p.bread&&p.bread.startsWith('../v3/assets/'))p.bread=new URL(p.bread,assetBase).href;
+  }
   const ids=new Set(products.map(p=>p.id));
   function read(name,fallback){try{return JSON.parse(sessionStorage.getItem('hleb-demo-v1:'+name))??fallback;}catch{return fallback;}}
   function write(name,value){try{sessionStorage.setItem('hleb-demo-v1:'+name,JSON.stringify(value));}catch{}}
