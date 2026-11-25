@@ -765,12 +765,13 @@ body.cart-drawer-open{overflow:hidden}
 </style>
 <link rel="stylesheet" href="assets/catalog.css">
 <link rel="stylesheet" href="assets/articles.css">
+<link rel="stylesheet" href="assets/reviews.css">
 <link rel="stylesheet" href="assets/wholesale.css">
 </head>
 <body id="page-top">
 <header class="header header-v3"><div class="container header-content">
   <a class="brand" href="v3/index.html" aria-label="Hleb-Forma — главная"><span class="brand-svg"><img src="v2/assets/logo.svg" width="54" height="54" alt=""></span><span class="brand-name">HLEB-FORMA<small>Для тех, кто печёт хлеб</small></span></a>
-  <nav id="navigation" class="nav" aria-label="Основная навигация"><a href="../katalog/">Каталог</a><a href="#sale" class="sale-link">Распродажа</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="v3/index.html#reviews">Отзывы</a><a href="#delivery">Доставка</a></nav>
+  <nav id="navigation" class="nav" aria-label="Основная навигация"><a href="../katalog/">Каталог</a><a href="#sale" class="sale-link">Распродажа</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="../otzyvy/">Отзывы</a><a href="#delivery">Доставка</a></nav>
   <div class="header-actions">
     <button class="icon-btn" id="search-trigger" aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.5"/><path d="m16.7 16.7 5 5"/></svg></button>
     <a class="icon-btn header-favorites" href="#favorites" aria-label="Избранное"><svg viewBox="0 0 24 24"><path d="M20.3 4.8a5.4 5.4 0 0 0-7.7 0L12 5.5l-.6-.7a5.4 5.4 0 1 0-7.7 7.6L12 21l8.3-8.6a5.4 5.4 0 0 0 0-7.6Z"/></svg><span class="count" id="enh-fav-count" hidden>0</span></a>
@@ -801,7 +802,7 @@ body.cart-drawer-open{overflow:hidden}
       <h4>О магазине</h4>
       <a href="../optom/">Оптовым покупателям</a>
       <a href="../blog/">Статьи о хлебе</a>
-      <a href="v3/index.html#reviews">Отзывы покупателей</a>
+      <a href="../otzyvy/">Отзывы покупателей</a>
       <a href="v3/index.html#faq">Частые вопросы</a>
       <a href="https://hleb-forma.ru/contact">Контакты</a>
     </nav>
@@ -834,7 +835,7 @@ body.cart-drawer-open{overflow:hidden}
 </footer>
 <dialog class="mobile-menu-dialog" id="mobile-menu-dialog" aria-labelledby="mobile-menu-title">
   <div class="mobile-menu-header"><a class="mobile-menu-brand" href="v3/index.html"><img src="v2/assets/logo.svg" width="46" height="46" alt=""><span><strong>HLEB-FORMA</strong><small>Для тех, кто печёт хлеб</small></span></a><button type="button" id="mobile-menu-close" aria-label="Закрыть меню" autofocus><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="../katalog/">Каталог</a><a href="#sale">Распродажа</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="v3/index.html#reviews">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
+  <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="../katalog/">Каталог</a><a href="#sale">Распродажа</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="../otzyvy/">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
   <div class="mobile-menu-contact"><a href="#contacts">Контакты ↗</a><a href="tel:+79612211283">+7 (961) 221-12-83</a></div>
 </dialog>
 <dialog class="cart-side" id="cart-side" aria-labelledby="cart-side-title"><div class="cart-side-head"><h2 id="cart-side-title">Корзина</h2><button type="button" class="cart-side-close" data-cart-side-close aria-label="Закрыть корзину" autofocus>×</button></div><div class="cart-side-body" data-cart-side-body></div></dialog>
@@ -844,6 +845,8 @@ body.cart-drawer-open{overflow:hidden}
   <script src="assets/wholesale.js"></script>
   <script src="assets/article-data.js"></script>
   <script src="assets/articles.js"></script>
+  <script src="assets/review-data.js"></script>
+  <script src="assets/reviews.js"></script>
 <script>
     (function(){
       "use strict";
@@ -860,6 +863,8 @@ body.cart-drawer-open{overflow:hidden}
       var app=document.getElementById("app");
       var catalogPage=document.documentElement.dataset.catalogPage||'';
       var articlePage=document.documentElement.dataset.articlePage||'';
+      var reviewsPage=document.documentElement.dataset.reviewsPage==='true';
+      var reviewsUI=HlebReviews.create({products:products,app:app,read:HlebDemo.read,write:HlebDemo.write,initialSku:reviewsPage?new URLSearchParams(location.search).get('sku')||'all':'all'});
       var articleUI=HlebArticles.create({products:products,app:app,page:articlePage||'listing'});
       var catalogUI=HlebCatalog.create({products:products,app:app,pageCode:catalogPage||'all',initialShape:catalogPage?new URLSearchParams(location.search).get('shape')||'all':'all'});
       var whParams=new URLSearchParams(location.search),whInitial=HlebWholesale.normalizeItems(products,HlebDemo.read("wholesale-items",{})),whPrefill=false;
@@ -950,21 +955,18 @@ body.cart-drawer-open{overflow:hidden}
       function pdpVariants(p){var options=pdpRelated(p,true).slice(0,4);if(!pdpBasket(p)||!options.length)return '';options.push(p);options.sort(function(a,b){return (a.weight||Infinity)-(b.weight||Infinity)||a.id.localeCompare(b.id);});return '<section class="pdp-variants" aria-label="Другие размеры"><h2>Другие модели этой формы</h2><p>Выберите подходящую модель по весу теста.</p><div class="pdp-variant-list">'+options.map(function(q){var label=q.weight?q.weightText:q.sku;var contents='<strong>'+safe(label)+'</strong><small>'+safe(q.sku)+' · '+safe(q.size)+'</small><b>'+fmt(q.price)+'</b>';return q.id===p.id?'<span class="pdp-variant" aria-current="page">'+contents+'</span>':'<a class="pdp-variant" href="#product-'+safe(q.id)+'">'+contents+'</a>';}).join('')+'</div></section>';}
       function pdpIcon(type){return type==='truck'?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 5h13v12H2zM15 9h4l3 4v4h-7"/><circle cx="6" cy="18" r="2" fill="white"/><circle cx="18" cy="18" r="2" fill="white"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19C3 8 12 4 21 3c0 10-6 18-16 16ZM5 19l10-10"/></svg>';}
 
-      function pdpReviewExamples(p){
-        if(!pdpBasket(p))return [{rating:5,text:'Удобно, что характеристики и назначение указаны прямо в карточке.'},{rating:5,text:'Хорошее дополнение к набору для домашней выпечки.'},{rating:4,text:'Хотелось бы больше фотографий инструмента в работе.'}];
-        return [{rating:5,text:'Удобно выбирать корзинку по весу теста. Нравится натуральная фактура ротанга.'},{rating:5,text:'Корзинка помогает сохранить форму заготовки во время расстойки. Удобно для домашнего хлеба.'},{rating:4,text:'Удобная форма для расстойки. Хотелось бы ещё больше примеров готового хлеба.'}];
-      }
       function pdpStoredReviews(id){var raw=HlebDemo.read('reviews:'+id,[]);return Array.isArray(raw)?raw.filter(function(r){return r&&Number.isInteger(r.rating)&&r.rating>=1&&r.rating<=5&&typeof r.text==='string'&&typeof r.name==='string';}).slice(0,20):[];}
       function pdpStars(n){return '<span class="pdp-review-stars" aria-label="Оценка '+n+' из 5" role="img">'+'★'.repeat(n)+'☆'.repeat(5-n)+'</span>';}
       function pdpReviewContent(p){
-        var examples=pdpReviewExamples(p),stored=pdpStoredReviews(p.id),all=stored.concat(examples),average=(all.reduce(function(sum,r){return sum+r.rating;},0)/all.length).toFixed(1).replace('.',',');
-        var summary='<strong>'+average+'</strong>'+pdpStars(Math.round(Number(average.replace(',','.'))))+'<span>из 5 · '+all.length+' '+(all.length===1?'отзыв':all.length>=2&&all.length<=4?'отзыва':'отзывов')+' в примере</span>';
-        var cards=all.map(function(r,i){var local=i<stored.length;return '<article class="pdp-review-card"><header><strong>'+safe(local?(r.name||'Ваш отзыв'):'Пример отзыва '+(i-stored.length+1))+'</strong>'+pdpStars(r.rating)+'</header><small>'+(local?'В этой вкладке':'Образец')+'</small><p>'+safe(r.text)+'</p></article>';}).join('');
+        var all=HlebReviews.select(HlebReviews.allReviews(products,HlebDemo.read),{type:'product',sku:p.id}),stats=HlebReviews.stats(all),average=stats.average.toFixed(1).replace('.',',');
+        var summary='<strong>'+average+'</strong>'+pdpStars(Math.round(stats.average))+'<span>из 5 · '+all.length+' '+HlebReviews.plural(all.length)+' в примере</span>';
+        var archive='../otzyvy/?sku='+encodeURIComponent(p.id);
+        var cards=all.map(function(r){return '<article class="pdp-review-card"><header><strong>'+safe(r.name)+'</strong>'+pdpStars(r.rating)+'</header><small>'+(r.local?'В этой вкладке':'Демо-отзыв')+'</small><p>'+safe(r.text)+'</p>'+(r.photos.length?'<a href="'+archive+'"><img class="pdp-review-photo" src="'+safe(r.photos[0])+'" alt="'+(r.local?'Добавленная фотография':'Демонстрационная иллюстрация хлеба')+'" loading="lazy"></a><small>'+(r.local?'Добавленное фото':'Иллюстрация')+'</small>':'')+'</article>';}).join('');
         return {summary:summary,cards:cards,count:all.length,rating:Math.round(Number(average.replace(',','.')))};
       }
-      function pdpReviews(p){var content=pdpReviewContent(p);return '<section class="pdp-reviews" id="product-reviews" aria-labelledby="pdp-review-title"><div class="pdp-review-head"><h2 id="pdp-review-title">Отзывы о товаре</h2></div><div class="pdp-review-summary" data-pdp-review-summary>'+content.summary+'</div><p class="pdp-review-note">Примеры отзывов для знакомства с разделом, не отзывы реальных покупателей.</p><div class="pdp-review-grid" data-pdp-review-grid>'+content.cards+'</div><details class="pdp-review-write"><summary>Оставить отзыв</summary><form class="pdp-review-form" data-pdp-review-form data-product="'+safe(p.id)+'"><fieldset><legend>Ваша оценка</legend><div class="pdp-rating-choices">'+[1,2,3,4,5].map(function(n){return '<label><input type="radio" name="rating" value="'+n+'" required aria-label="'+n+' из 5"><span aria-hidden="true">'+n+' ★</span></label>';}).join('')+'</div></fieldset><label class="pdp-review-field">Имя (необязательно)<input name="reviewName" maxlength="60" autocomplete="off" placeholder="Как к вам обращаться"></label><label class="pdp-review-field">Ваш отзыв<textarea name="reviewText" required minlength="10" maxlength="1200" rows="4" placeholder="Расскажите о своём опыте использования"></textarea></label><p>Отзыв сохраняется только в этой вкладке и не отправляется в магазин.</p><button type="submit" class="btn btn-primary">Добавить отзыв</button></form></details><p class="pdp-review-feedback" data-pdp-review-feedback role="status" aria-live="polite"></p></section>';}
+      function pdpReviews(p){var content=pdpReviewContent(p);return '<section class="pdp-reviews" id="product-reviews" aria-labelledby="pdp-review-title"><div class="pdp-review-head"><h2 id="pdp-review-title">Отзывы о товаре</h2></div><div class="pdp-review-summary" data-pdp-review-summary>'+content.summary+'</div><p class="pdp-review-note">Примеры отзывов для знакомства с разделом, не отзывы реальных покупателей.</p><div class="pdp-review-grid" data-pdp-review-grid>'+content.cards+'</div><a class="pdp-review-archive" href="../otzyvy/?sku='+encodeURIComponent(p.id)+'">Все отзывы об этой модели ↗</a><details class="pdp-review-write"><summary>Оставить отзыв</summary><form class="pdp-review-form" data-pdp-review-form data-product="'+safe(p.id)+'"><fieldset><legend>Ваша оценка</legend><div class="pdp-rating-choices">'+[1,2,3,4,5].map(function(n){return '<label><input type="radio" name="rating" value="'+n+'" required aria-label="'+n+' из 5"><span aria-hidden="true">'+n+' ★</span></label>';}).join('')+'</div></fieldset><label class="pdp-review-field">Имя (необязательно)<input name="reviewName" maxlength="60" autocomplete="off" placeholder="Как к вам обращаться"></label><label class="pdp-review-field">Ваш отзыв<textarea name="reviewText" required minlength="10" maxlength="1200" rows="4" placeholder="Расскажите о своём опыте использования"></textarea></label><p>Отзыв сохраняется только в этой вкладке и не отправляется в магазин.</p><button type="submit" class="btn btn-primary">Добавить отзыв</button></form></details><p class="pdp-review-feedback" data-pdp-review-feedback role="status" aria-live="polite"></p></section>';}
       app.addEventListener('click',function(e){var link=e.target.closest('[data-pdp-review-jump]');if(!link)return;var section=app.querySelector('#product-reviews');if(section)section.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});
-      app.addEventListener('submit',function(e){var form=e.target.closest('[data-pdp-review-form]');if(!form)return;e.preventDefault();var p=productById(form.dataset.product);if(!p)return;var values=new FormData(form),rating=Number(values.get('rating')),name=String(values.get('reviewName')||'').trim().slice(0,60),review=String(values.get('reviewText')||'').trim().slice(0,1200);if(!Number.isInteger(rating)||rating<1||rating>5||review.length<10){form.querySelector('textarea').setCustomValidity('Напишите не менее 10 символов и выберите оценку.');form.reportValidity();return;}var stored=pdpStoredReviews(p.id);stored.unshift({rating:rating,name:name,text:review});HlebDemo.write('reviews:'+p.id,stored.slice(0,20));var section=form.closest('.pdp-reviews'),content=pdpReviewContent(p);section.querySelector('[data-pdp-review-summary]').innerHTML=content.summary;section.querySelector('[data-pdp-review-grid]').innerHTML=content.cards;var jump=app.querySelector('[data-pdp-review-jump]');if(jump)jump.innerHTML=pdpStars(content.rating)+'<span>Отзывы ('+content.count+') · примеры</span>';form.reset();form.closest('details').open=false;section.querySelector('[data-pdp-review-feedback]').textContent='Спасибо! Отзыв добавлен в этой вкладке.';section.querySelector('.pdp-review-write summary').focus({preventScroll:true});});
+      app.addEventListener('submit',function(e){var form=e.target.closest('[data-pdp-review-form]');if(!form)return;e.preventDefault();var p=productById(form.dataset.product);if(!p)return;var values=new FormData(form),rating=Number(values.get('rating')),name=String(values.get('reviewName')||'').trim().slice(0,60),review=String(values.get('reviewText')||'').trim().slice(0,1200);if(!Number.isInteger(rating)||rating<1||rating>5||review.length<10){form.querySelector('textarea').setCustomValidity('Напишите не менее 10 символов и выберите оценку.');form.reportValidity();return;}var stored=pdpStoredReviews(p.id);stored.unshift({rating:rating,name:name,text:review,date:new Date().toISOString().slice(0,10),photos:[]});HlebDemo.write('reviews:'+p.id,stored.slice(0,20));var section=form.closest('.pdp-reviews'),content=pdpReviewContent(p);section.querySelector('[data-pdp-review-summary]').innerHTML=content.summary;section.querySelector('[data-pdp-review-grid]').innerHTML=content.cards;var jump=app.querySelector('[data-pdp-review-jump]');if(jump)jump.innerHTML=pdpStars(content.rating)+'<span>Отзывы ('+content.count+') · примеры</span>';form.reset();form.closest('details').open=false;section.querySelector('[data-pdp-review-feedback]').textContent='Спасибо! Отзыв добавлен в этой вкладке.';section.querySelector('.pdp-review-write summary').focus({preventScroll:true});});
       app.addEventListener('input',function(e){if(e.target.matches('[data-pdp-review-form] textarea'))e.target.setCustomValidity('');});
 
       function productPage(id){
@@ -1073,14 +1075,15 @@ body.cart-drawer-open{overflow:hidden}
       function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>В этом прототипе доступны основные экраны.</p><a class="btn btn-primary" href="v3/index.html">На главную</a></section></div>';}
       function route(){
         catalogUI.closeFilter(false);
-        var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(articlePage?"articles":wholesalePage?"wholesale":catalogPage?"catalog":"home"));
+        var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(reviewsPage?"reviews":articlePage?"articles":wholesalePage?"wholesale":catalogPage?"catalog":"home"));
+        if(!reviewsPage&&slug==="reviews"){location.replace(new URL("../otzyvy/",document.baseURI).href);return;}
         if(!articlePage&&slug==="articles"){location.replace(new URL("../blog/",document.baseURI).href);return;}
         if(!wholesalePage&&(slug==="wholesale"||slug==="quote-form")){location.replace(new URL("../optom/",document.baseURI).href);return;}
         if(wholesalePage&&slug==="quote-form")slug="wholesale";
         if(slug==="home"){location.replace("v3/index.html");return;} if(slug==="quote-form"){location.replace("#wholesale");return;} if(slug==="page-top"){history.replaceState(null,"",location.pathname+location.search+"#"+(app.dataset.route||"catalog"));window.scrollTo(0,0);return;} app.dataset.route=slug; var selected=slug.split("-")[0]; if(selected==="product")selected="catalog";
         document.querySelectorAll("#navigation a").forEach(function(a){
           a.removeAttribute("aria-current");
-          if(a.getAttribute("href")==="#"+selected||(selected==="catalog"&&a.getAttribute("href")==="../katalog/")||(selected==="wholesale"&&a.getAttribute("href")==="../optom/")||(selected==="articles"&&a.getAttribute("href")==="../blog/"))a.setAttribute("aria-current","page");
+          if(a.getAttribute("href")==="#"+selected||(selected==="catalog"&&a.getAttribute("href")==="../katalog/")||(selected==="wholesale"&&a.getAttribute("href")==="../optom/")||(selected==="articles"&&a.getAttribute("href")==="../blog/")||(selected==="reviews"&&a.getAttribute("href")==="../otzyvy/"))a.setAttribute("aria-current","page");
         });
         if(slug==="home"){app.innerHTML=home();}
         else if(slug==="catalog"){app.innerHTML=catalog();updateCatalog();}
@@ -1088,11 +1091,12 @@ body.cart-drawer-open{overflow:hidden}
         else if(slug==="wholesale"){app.innerHTML=wholesale();wholesaleUI.mount();}
         else if(slug==="checkout"){app.innerHTML=checkout();}
         else if(slug==="articles"){app.innerHTML=articleUI.render();}
+        else if(slug==="reviews"){app.innerHTML=reviewsUI.render();}
         else if(["delivery","contacts"].includes(slug)){app.innerHTML=infoPage(slug);}
         else{app.innerHTML=notFound();}
         document.dispatchEvent(new Event("hleb-route"));
         var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?(productById(slug.slice(8))?.title||"Товар"):"Раздел";
-        if(slug==="articles"){document.title=HlebArticles.get(articlePage)?HlebArticles.title(HlebArticles.get(articlePage)):HlebArticles.meta.title;}else if(slug==="wholesale"){document.title=HlebWholesale.meta.title;}else if(slug==="catalog"){document.title=(HlebCatalog.pages.find(p=>p.code===(catalogPage||"all"))||HlebCatalog.pages[0]).title;}else{document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";}
+        if(slug==="reviews"){document.title=HlebReviews.meta.title;}else if(slug==="articles"){document.title=HlebArticles.get(articlePage)?HlebArticles.title(HlebArticles.get(articlePage)):HlebArticles.meta.title;}else if(slug==="wholesale"){document.title=HlebWholesale.meta.title;}else if(slug==="catalog"){document.title=(HlebCatalog.pages.find(p=>p.code===(catalogPage||"all"))||HlebCatalog.pages[0]).title;}else{document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";}
         window.scrollTo(0,0);
         if(slug==="wholesale"&&whPrefill){whPrefill=false;requestAnimationFrame(()=>document.getElementById("quote-form")?.scrollIntoView({block:"start"}));}
       }
@@ -1160,7 +1164,7 @@ body.cart-drawer-open{overflow:hidden}
     var known=Object.fromEntries(HlebDemo.products.map(p=>[p.id,{id:p.id,name:p.title,price:p.price.toLocaleString('ru-RU')+' ₽',weight:p.weightText,size:p.size}]));var favorites=new Set(HlebDemo.list('favorites')),compares=new Set(HlebDemo.list('compare').slice(0,4)),signedInDemo=false;
     var root=document.getElementById('app');
     function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-    function current(){return decodeURIComponent(location.hash.slice(1)||(document.documentElement.dataset.articlePage?'articles':document.documentElement.dataset.wholesalePage==='true'?'wholesale':document.documentElement.dataset.catalogPage?'catalog':'home'));}
+    function current(){return decodeURIComponent(location.hash.slice(1)||(document.documentElement.dataset.reviewsPage==='true'?'reviews':document.documentElement.dataset.articlePage?'articles':document.documentElement.dataset.wholesalePage==='true'?'wholesale':document.documentElement.dataset.catalogPage?'catalog':'home'));}
     function notify(t){var n=document.getElementById('toast');n.textContent=t;n.classList.add('show');clearTimeout(notify.timeout);notify.timeout=setTimeout(function(){n.classList.remove('show');},3200);}
     function updateCounters(){
       var f=document.getElementById('enh-fav-count'),c=document.getElementById('enh-compare-count');

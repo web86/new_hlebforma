@@ -1,7 +1,7 @@
 /* Build static category HTML from the shared storefront template. */
 'use strict';
 const fs=require('node:fs'),path=require('node:path');
-function generate(template,catalogScript,dataScript,wholesaleScript,articleData,articleScript){
+function generate(template,catalogScript,dataScript,wholesaleScript,articleData,articleScript,reviewData,reviewScript){
   const window={matchMedia:()=>({matches:false,addEventListener(){}})};
   new Function('window',catalogScript)(window);
   const catalogue=window.HlebCatalog;
@@ -51,13 +51,26 @@ function generate(template,catalogScript,dataScript,wholesaleScript,articleData,
       result.push({path:dir+'index.html',html:rendered,code:page});
     }
   }
+  if(reviewData&&reviewScript){
+    new Function('window',reviewData)(window);new Function('window',reviewScript)(window);
+    const reviews=window.HlebReviews,page=reviews.meta;
+    const markup=reviews.create({products,app:{querySelector:()=>null,addEventListener(){}}}).render();
+    const rendered=template
+      .replace('<html lang="ru">','<html lang="ru" data-reviews-page="true">')
+      .replace('<meta charset="utf-8">','<meta charset="utf-8">\n  <base href="../prototype/index.html">')
+      .replace(/<title>[\s\S]*?<\/title>/,'<title>'+esc(page.title)+'</title>')
+      .replace(/<meta name="description" content="[^"]*">/,'<meta name="description" content="'+esc(page.description)+'">\n  <link rel="canonical" href="https://web86.github.io/new_hlebforma/otzyvy/">')
+      .replace('<main id="app" class="main-space" tabindex="-1"></main>','<main id="app" class="main-space" tabindex="-1">'+markup+'</main>');
+    if(!rendered.includes('data-reviews-page="true"')||!rendered.includes('<h1>'+esc(page.h1)+'</h1>'))throw Error('Could not render reviews');
+    result.push({path:'otzyvy/index.html',html:rendered,code:'reviews'});
+  }
   return result;
 }
 module.exports=generate;
 if(require.main===module){
   const out=process.argv[2]||'_site';
   const base=__dirname;
-  const pages=generate(fs.readFileSync(path.join(base,'index.html'),'utf8'),fs.readFileSync(path.join(base,'assets/catalog.js'),'utf8'),fs.readFileSync(path.join(base,'assets/storefront-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/wholesale.js'),'utf8'),fs.readFileSync(path.join(base,'assets/article-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/articles.js'),'utf8'));
+  const pages=generate(fs.readFileSync(path.join(base,'index.html'),'utf8'),fs.readFileSync(path.join(base,'assets/catalog.js'),'utf8'),fs.readFileSync(path.join(base,'assets/storefront-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/wholesale.js'),'utf8'),fs.readFileSync(path.join(base,'assets/article-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/articles.js'),'utf8'),fs.readFileSync(path.join(base,'assets/review-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/reviews.js'),'utf8'));
   for(const p of pages){const dest=path.join(out,p.path);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,p.html);}
   console.log('Generated '+pages.length+' standalone storefront pages');
 }
