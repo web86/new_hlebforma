@@ -8,7 +8,7 @@
 
 - [Главная v3](./prototype/v3/index.html) — полноширинный хлебный fade-слайдер, белая шапка, sticky-каталог из 9 товаров с hover «корзинка → хлеб».
 - [Предыдущая версия v2.2](./prototype/v2/index.html) — редакционный дизайн, натуральный ротанг, слайдшоу, поиск, корзина.
-- [Предыдущий прототип](./prototype/index.html) — старый интерфейс для сравнения.
+- [Каталог](https://web86.github.io/new_hlebforma/katalog/) и отдельные категории — общая вёрстка `prototype/index.html`, данные в `prototype/assets/storefront-data.js`, метаданные и навигация в `prototype/assets/catalog.js`.
 - [История изменений v3 и ограничения](./prototype/v3/README.md)
 
 ### Включить GitHub Pages

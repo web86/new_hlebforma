@@ -768,7 +768,7 @@ body.cart-drawer-open{overflow:hidden}
 <body id="page-top">
 <header class="header header-v3"><div class="container header-content">
   <a class="brand" href="v3/index.html" aria-label="Hleb-Forma — главная"><span class="brand-svg"><img src="v2/assets/logo.svg" width="54" height="54" alt=""></span><span class="brand-name">HLEB-FORMA<small>Для тех, кто печёт хлеб</small></span></a>
-  <nav id="navigation" class="nav" aria-label="Основная навигация"><a href="#catalog">Каталог</a><a href="#sale" class="sale-link">Распродажа</a><a href="#wholesale">Оптовикам</a><a href="v3/index.html#guides">Как выбрать</a><a href="v3/index.html#reviews">Отзывы</a><a href="#delivery">Доставка</a></nav>
+  <nav id="navigation" class="nav" aria-label="Основная навигация"><a href="../katalog/">Каталог</a><a href="#sale" class="sale-link">Распродажа</a><a href="#wholesale">Оптовикам</a><a href="v3/index.html#guides">Как выбрать</a><a href="v3/index.html#reviews">Отзывы</a><a href="#delivery">Доставка</a></nav>
   <div class="header-actions">
     <button class="icon-btn" id="search-trigger" aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.5"/><path d="m16.7 16.7 5 5"/></svg></button>
     <a class="icon-btn header-favorites" href="#favorites" aria-label="Избранное"><svg viewBox="0 0 24 24"><path d="M20.3 4.8a5.4 5.4 0 0 0-7.7 0L12 5.5l-.6-.7a5.4 5.4 0 1 0-7.7 7.6L12 21l8.3-8.6a5.4 5.4 0 0 0 0-7.6Z"/></svg><span class="count" id="enh-fav-count" hidden>0</span></a>
@@ -790,7 +790,7 @@ body.cart-drawer-open{overflow:hidden}
     </div>
     <nav class="footer-nav" aria-label="Покупателям">
       <h4>Покупателям</h4>
-      <a href="#catalog">Каталог</a>
+      <a href="../katalog/">Каталог</a>
       <a href="#sale">Распродажа</a>
       <a href="#delivery">Доставка и оплата</a>
       <a href="#account">Личный кабинет</a>
@@ -826,13 +826,13 @@ body.cart-drawer-open{overflow:hidden}
     <span>© Hleb-Forma, 2026. Все права защищены.</span>
     <div class="footer-bottom-right">
       <a class="footer-credit" href="https://web86.site/" target="_blank" rel="noopener noreferrer">Разработка сайта — <strong>web86.site</strong></a>
-      <a class="footer-up" href="#page-top" aria-label="Вернуться наверх" title="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+      <a class="footer-up" href="#page-top" data-scroll="page-top" aria-label="Вернуться наверх" title="Наверх"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
     </div>
   </div>
 </footer>
 <dialog class="mobile-menu-dialog" id="mobile-menu-dialog" aria-labelledby="mobile-menu-title">
   <div class="mobile-menu-header"><a class="mobile-menu-brand" href="v3/index.html"><img src="v2/assets/logo.svg" width="46" height="46" alt=""><span><strong>HLEB-FORMA</strong><small>Для тех, кто печёт хлеб</small></span></a><button type="button" id="mobile-menu-close" aria-label="Закрыть меню" autofocus><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="#catalog">Каталог</a><a href="#sale">Распродажа</a><a href="#wholesale">Оптовикам</a><a href="v3/index.html#guides">Как выбрать</a><a href="v3/index.html#reviews">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
+  <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="../katalog/">Каталог</a><a href="#sale">Распродажа</a><a href="#wholesale">Оптовикам</a><a href="v3/index.html#guides">Как выбрать</a><a href="v3/index.html#reviews">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
   <div class="mobile-menu-contact"><a href="#contacts">Контакты ↗</a><a href="tel:+79612211283">+7 (961) 221-12-83</a></div>
 </dialog>
 <dialog class="cart-side" id="cart-side" aria-labelledby="cart-side-title"><div class="cart-side-head"><h2 id="cart-side-title">Корзина</h2><button type="button" class="cart-side-close" data-cart-side-close aria-label="Закрыть корзину" autofocus>×</button></div><div class="cart-side-body" data-cart-side-body></div></dialog>
@@ -853,7 +853,8 @@ body.cart-drawer-open{overflow:hidden}
       var cart=HlebDemo.basket();
       var chosenWholesaleSku="";
       var app=document.getElementById("app");
-      var catalogUI=HlebCatalog.create({products:products,app:app});
+      var catalogPage=document.documentElement.dataset.catalogPage||'';
+      var catalogUI=HlebCatalog.create({products:products,app:app,pageCode:catalogPage||'all',initialShape:catalogPage?new URLSearchParams(location.search).get('shape')||'all':'all'});
       var fmt=function(v){return Number(v).toLocaleString("ru-RU")+" ₽";};
       var safe=function(v){return String(v).replace(/[&<>"']/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];});};
       function toast(message){
@@ -883,7 +884,7 @@ body.cart-drawer-open{overflow:hidden}
           '<span class="eyebrow">Для тех, кто печёт хлеб</span>'+
           '<h1>Корзинки для расстойки хлеба — подберите форму под ваше тесто</h1>'+
           '<p class="lead">Натуральный ротанг, разные формы и размеры. Помогаем выбрать корзинку для домашней выпечки или подобрать партию для пекарни.</p>'+
-          '<div class="btn-row"><a class="btn btn-primary" href="#catalog">Подобрать корзинку →</a><a class="btn btn-outline" href="#wholesale">Для пекарен и оптовиков</a></div>'+
+          '<div class="btn-row"><a class="btn btn-primary" href="../katalog/">Подобрать корзинку →</a><a class="btn btn-outline" href="#wholesale">Для пекарен и оптовиков</a></div>'+
           '</div><div class="hero-art" role="img" aria-label="Схематичное изображение корзинок из ротанга">'+
           '<div class="baskets"><div class="basket small"></div><div class="basket big"></div><div class="basket"></div></div>'+
           '<div class="art-label">Место для настоящего фото товаров / хлеба</div></div></section>'+
@@ -896,10 +897,10 @@ body.cart-drawer-open{overflow:hidden}
           '<div class="field"><label for="home-weight">Вес тестовой заготовки</label>'+weightSelect("home-weight")+'</div>'+
           '<div class="field"><label for="home-shape">Форма хлеба</label>'+shapeSelect("home-shape")+'</div>'+
           '<button class="btn btn-primary" data-action="find-home">Показать товары →</button></div></section>'+
-          '<section class="section"><div class="section-heading"><h2>Выберите категорию</h2><a href="#catalog">Весь каталог →</a></div><div class="category-grid">'+
-          categories.map(function(c){return '<a href="#catalog" class="category-card" data-shape="'+c.shape+'"><div class="category-icon">'+c.icon+'</div><strong>'+c.label+'</strong><small>'+c.desc+'</small></a>';}).join("")+
+          '<section class="section"><div class="section-heading"><h2>Выберите категорию</h2><a href="../katalog/">Весь каталог →</a></div><div class="category-grid">'+
+          categories.map(function(c){return '<a href="../katalog/" class="category-card" data-shape="'+c.shape+'"><div class="category-icon">'+c.icon+'</div><strong>'+c.label+'</strong><small>'+c.desc+'</small></a>';}).join("")+
           '</div></section>'+
-          '<section class="section"><div class="section-heading"><h2>Часто выбирают</h2><a href="#catalog">Смотреть всё →</a></div>'+
+          '<section class="section"><div class="section-heading"><h2>Часто выбирают</h2><a href="../katalog/">Смотреть всё →</a></div>'+
           '<div class="products-grid">'+products.slice(0,4).map(productCard).join("")+'</div></section>'+
           '<section class="section feature-band"><div><span class="eyebrow">Для профессиональных пекарен</span><h2>Нужна партия корзинок и инструментов?</h2>'+
           '<p>Поможем определить нужные формы и подготовить предложение по вашему ассортименту. Оставьте запрос с артикулами и количеством.</p>'+
@@ -958,7 +959,7 @@ body.cart-drawer-open{overflow:hidden}
         var mainTitle=pdpName(p),weight=p.weight?safe(p.weightText)+' теста':safe(p.weightText),price=fmt(p.price),size=safe(p.size);
         var related=pdpRelated(p,false).slice(0,4),accessories=basket?products.filter(function(q){return !pdpBasket(q);}).slice(0,4):[];
         var steps=[['Подготовьте корзинку','Присыпьте сухую корзинку мукой, чтобы тесто меньше прилипало.'],['Сформуйте заготовку','Поместите тесто в корзинку в соответствии с рецептом.'],['Дайте тесту расстояться','Ориентируйтесь на температуру, рецепт и состояние теста.'],['Переложите перед выпечкой','Аккуратно переверните корзинку на поверхность для выпечки.']];
-        return '<div class="container pdp">'+crumbs('<a href="#catalog">Каталог</a> / '+safe(p.kind)+' / '+safe(p.sku))+
+        return '<div class="container pdp">'+crumbs('<a href="../katalog/">Каталог</a> / '+safe(p.kind)+' / '+safe(p.sku))+
           '<div class="detail-grid">'+pdpGallery(p)+'<div class="detail-summary"><p class="pdp-kicker">'+safe(p.kind)+' · Артикул '+safe(p.sku)+'</p><h1>'+safe(mainTitle)+'</h1>'+
           '<button class="pdp-review-jump" type="button" data-pdp-review-jump>'+pdpStars(pdpReviewContent(p).rating)+'<span>Отзывы ('+pdpReviewContent(p).count+') · примеры</span></button>'+
            '<div class="detail-badges"><span class="meta-pill">'+weight+'</span><span class="meta-pill">'+size+'</span></div><p class="pdp-intro">'+safe(pdpIntro(p))+'</p>'+
@@ -970,8 +971,8 @@ body.cart-drawer-open{overflow:hidden}
           (basket&&bread?'<section class="pdp-story"><figure class="pdp-story-visual"><img src="'+bread+'" alt="Пример готового хлеба выбранной формы" loading="lazy" decoding="async"><figcaption>Пример выпечки · иллюстрация</figcaption></figure><div class="pdp-story-copy"><h2>Для какого хлеба подходит</h2><p>'+safe(pdpIntro(p))+'</p><p>Ротанговая корзинка поддерживает форму тестовой заготовки во время расстойки. Перед выпечкой хлеб вынимают из корзинки.</p></div></section>':'')+
           '<section class="pdp-information"><div><h2 class="pdp-section-title">'+(basket?'Как пользоваться корзинкой':'О товаре')+'</h2>'+(basket?'<ol class="pdp-instructions">'+steps.map(function(s,i){return '<li><b>0'+(i+1)+'</b><strong>'+s[0]+'</strong><p>'+s[1]+'</p></li>';}).join('')+'</ol>':'<p>'+safe(pdpIntro(p))+'</p>')+'</div><div class="pdp-facts"><h2>Полезно знать</h2>'+(basket?'<details open><summary>Материал и уход</summary><p>Ротанг используют для расстойки благодаря его фактуре и способности поддерживать форму теста. После расстойки удалите остатки муки сухой мягкой щёткой. Дайте корзинке полностью просохнуть перед хранением. Не ставьте её в духовку.</p></details><details><summary>Как подобрать размер?</summary><p>Ориентируйтесь на вес тестовой заготовки до выпечки. '+(p.weight?'Для этой модели указан вес '+safe(p.weightText)+'.':'Вместимость этой модели уточняется.')+'</p></details>':'')+'<details><summary>Доставка и оплата</summary><p><a href="#delivery">Условия доставки и оплаты</a>. По вопросам заказа можно <a href="#contacts">связаться с магазином</a>.</p></details></div></section>'+
           pdpReviews(p)+
-           (related.length?'<section class="section pdp-related"><div class="section-heading"><h2>'+(basket?'Другие формы и размеры':'Другие инструменты')+'</h2><a href="#catalog">В каталог ↗</a></div><div class="products-grid">'+related.map(productCard).join('')+'</div></section>':'')+
-          (accessories.length?'<section class="section pdp-related pdp-accessories"><div class="section-heading"><h2>Пригодится для выпечки</h2><a href="#catalog">В каталог ↗</a></div><div class="products-grid">'+accessories.map(productCard).join('')+'</div></section>':'')+
+           (related.length?'<section class="section pdp-related"><div class="section-heading"><h2>'+(basket?'Другие формы и размеры':'Другие инструменты')+'</h2><a href="../katalog/">В каталог ↗</a></div><div class="products-grid">'+related.map(productCard).join('')+'</div></section>':'')+
+          (accessories.length?'<section class="section pdp-related pdp-accessories"><div class="section-heading"><h2>Пригодится для выпечки</h2><a href="../katalog/">В каталог ↗</a></div><div class="products-grid">'+accessories.map(productCard).join('')+'</div></section>':'')+
           '<div class="pdp-sticky" aria-label="Покупка товара"><div class="pdp-sticky-price"><span data-pdp-total data-price="'+p.price+'">'+price+'</span><small data-pdp-qty-label>за 1 шт.</small></div><button class="btn btn-primary" type="button" data-action="add" data-id="'+safe(p.id)+'">В корзину</button></div></div>';
       }
       function pdpQuantity(value){return Math.max(1,Math.min(99,parseInt(value,10)||1));}
@@ -1019,7 +1020,7 @@ body.cart-drawer-open{overflow:hidden}
       var cartSide=document.getElementById('cart-side');
       function cartSideRender(){
         var area=cartSide.querySelector('[data-cart-side-body]'),items=products.filter(function(p){return cart[p.id]>0;});
-        if(!items.length){area.innerHTML='<p class="cart-side-empty">В корзине пока ничего нет.</p><div class="cart-side-actions"><a class="btn btn-primary" href="#catalog">Перейти в каталог ↗</a><button type="button" class="cart-side-continue" data-cart-side-close>Продолжить покупки</button></div>';return;}
+        if(!items.length){area.innerHTML='<p class="cart-side-empty">В корзине пока ничего нет.</p><div class="cart-side-actions"><a class="btn btn-primary" href="../katalog/">Перейти в каталог ↗</a><button type="button" class="cart-side-continue" data-cart-side-close>Продолжить покупки</button></div>';return;}
         area.innerHTML='<div class="cart-side-items">'+items.map(function(p){var n=cart[p.id];return '<article class="cart-side-item"><a href="#product-'+safe(p.id)+'"><img src="'+safe(p.image)+'" alt="'+safe(p.title)+'"></a><div><a href="#product-'+safe(p.id)+'">'+safe(p.title)+'</a><p>'+fmt(p.price)+' за шт.</p><strong class="cart-side-item-price">'+fmt(p.price*n)+'</strong><div class="cart-side-qty" aria-label="Количество '+safe(p.sku)+'"><button type="button" data-cart-side-qty="-1" data-id="'+safe(p.id)+'" aria-label="Уменьшить количество '+safe(p.sku)+'"'+(n<=1?' disabled':'')+'>−</button><span>'+n+'</span><button type="button" data-cart-side-qty="1" data-id="'+safe(p.id)+'" aria-label="Увеличить количество '+safe(p.sku)+'"'+(n>=99?' disabled':'')+'>+</button></div></div><button type="button" class="cart-side-remove" data-cart-side-remove data-id="'+safe(p.id)+'" aria-label="Удалить '+safe(p.sku)+'">×</button></article>';}).join('')+'</div><div class="cart-side-total"><span>Товары ('+cartCount()+')</span><strong>'+fmt(cartTotal())+'</strong></div><p class="cart-side-note">Стоимость доставки рассчитывается отдельно.</p><div class="cart-side-actions"><a class="btn btn-primary" href="#checkout">Перейти к оформлению ↗</a><button type="button" class="cart-side-continue" data-cart-side-close>Продолжить покупки</button></div>';
       }
       function openCartSide(){cartSideRender();if(!cartSide.open){cartSide.showModal();document.body.classList.add('cart-drawer-open');}}
@@ -1054,8 +1055,8 @@ body.cart-drawer-open{overflow:hidden}
           '<aside class="panel checkout-summary"><h2>Ваш заказ</h2><div class="small muted">Товаров: '+cartCount()+'</div>'+
           '<div class="total"><span>Товары</span><span>'+fmt(cartTotal())+'</span></div>'+
           '<div class="notice">Стоимость доставки не рассчитана. Финальный итог появится после запроса тарифа СДЭК на сервере.</div>'+
-          '<a class="btn btn-outline" style="width:100%;margin-top:16px" href="#catalog">Продолжить покупки</a></aside></div>':
-          '<div class="empty" style="margin:20px 0 70px"><h2>Корзина пока пуста</h2><p>Подберите корзинку по весу теста или посмотрите популярные модели.</p><a class="btn btn-primary" href="#catalog">Перейти в каталог</a></div>')+
+          '<a class="btn btn-outline" style="width:100%;margin-top:16px" href="../katalog/">Продолжить покупки</a></aside></div>':
+          '<div class="empty" style="margin:20px 0 70px"><h2>Корзина пока пуста</h2><p>Подберите корзинку по весу теста или посмотрите популярные модели.</p><a class="btn btn-primary" href="../katalog/">Перейти в каталог</a></div>')+
           '</div>';
       }
       function articleTiles(){
@@ -1065,7 +1066,7 @@ body.cart-drawer-open{overflow:hidden}
           {t:"Уход за ротанговой корзинкой",s:"Безопасная подготовка, хранение и чистка."}
         ];
         return '<div class="editorial-grid">'+a.map(function(item,i){
-          return '<article class="editorial"><span class="eyebrow">Руководство 0'+(i+1)+'</span><h3>'+item.t+'</h3><p class="small">'+item.s+'</p><a href="#catalog" class="small" style="font-weight:750;color:var(--brand)">К товарам →</a></article>';
+          return '<article class="editorial"><span class="eyebrow">Руководство 0'+(i+1)+'</span><h3>'+item.t+'</h3><p class="small">'+item.s+'</p><a href="../katalog/" class="small" style="font-weight:750;color:var(--brand)">К товарам →</a></article>';
         }).join("")+'</div>';
       }
       function infoPage(kind){
@@ -1078,16 +1079,16 @@ body.cart-drawer-open{overflow:hidden}
           contacts?'Здесь будут проверенные контакты, адрес и реквизиты. Данные действующего сайта требуют сверки перед переносом.':
           'Здесь будут актуальные условия СДЭК, способы оплаты ЮKassa, возврата и доставки. Противоречивые старые тексты не переносим.')+'</p></div>'+
           (articles?'<section class="section">'+articleTiles()+'</section>':'<div class="panel" style="max-width:760px"><h2>Что покажем здесь</h2><p>Достоверную информацию, согласованную с владельцем магазина, без устаревших обещаний о сроках или скидках.</p></div>')+
-          '<div style="margin:45px 0 90px"><a class="btn btn-primary" href="#catalog">Перейти в каталог</a></div></div>';
+          '<div style="margin:45px 0 90px"><a class="btn btn-primary" href="../katalog/">Перейти в каталог</a></div></div>';
       }
       function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>В этом прототипе доступны основные экраны.</p><a class="btn btn-primary" href="v3/index.html">На главную</a></section></div>';}
       function route(){
         catalogUI.closeFilter(false);
-        var slug=decodeURIComponent(location.hash.replace(/^#/,"")||"home");
+        var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(catalogPage?"catalog":"home"));
         if(slug==="home"){location.replace("v3/index.html");return;} if(slug==="quote-form"){location.replace("#wholesale");return;} if(slug==="page-top"){history.replaceState(null,"",location.pathname+location.search+"#"+(app.dataset.route||"catalog"));window.scrollTo(0,0);return;} app.dataset.route=slug; var selected=slug.split("-")[0]; if(selected==="product")selected="catalog";
         document.querySelectorAll("#navigation a").forEach(function(a){
           a.removeAttribute("aria-current");
-          if(a.getAttribute("href")==="#"+selected)a.setAttribute("aria-current","page");
+          if(a.getAttribute("href")==="#"+selected||(selected==="catalog"&&a.getAttribute("href")==="../katalog/"))a.setAttribute("aria-current","page");
         });
         if(slug==="home"){app.innerHTML=home();}
         else if(slug==="catalog"){app.innerHTML=catalog();updateCatalog();}
@@ -1098,7 +1099,7 @@ body.cart-drawer-open{overflow:hidden}
         else{app.innerHTML=notFound();}
         document.dispatchEvent(new Event("hleb-route"));
         var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?(productById(slug.slice(8))?.title||"Товар"):"Раздел";
-        document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";
+        if(slug==="catalog"){document.title=(HlebCatalog.pages.find(p=>p.code===(catalogPage||"all"))||HlebCatalog.pages[0]).title;}else{document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";}
         window.scrollTo(0,0);
       }
       document.addEventListener("click",function(e){
@@ -1170,7 +1171,7 @@ body.cart-drawer-open{overflow:hidden}
     var known=Object.fromEntries(HlebDemo.products.map(p=>[p.id,{id:p.id,name:p.title,price:p.price.toLocaleString('ru-RU')+' ₽',weight:p.weightText,size:p.size}]));var favorites=new Set(HlebDemo.list('favorites')),compares=new Set(HlebDemo.list('compare').slice(0,4)),signedInDemo=false;
     var root=document.getElementById('app');
     function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-    function current(){return decodeURIComponent(location.hash.slice(1)||'home');}
+    function current(){return decodeURIComponent(location.hash.slice(1)||(document.documentElement.dataset.catalogPage?'catalog':'home'));}
     function notify(t){var n=document.getElementById('toast');n.textContent=t;n.classList.add('show');clearTimeout(notify.timeout);notify.timeout=setTimeout(function(){n.classList.remove('show');},3200);}
     function updateCounters(){
       var f=document.getElementById('enh-fav-count'),c=document.getElementById('enh-compare-count');
@@ -1247,7 +1248,7 @@ body.cart-drawer-open{overflow:hidden}
       var items=Array.from(selected).map(function(id){return known[id]||{id:id,name:id,price:'',weight:'',size:''};});
       var h='<div class="container"><div class="page-head"><span class="eyebrow">Сохраняйте интересные модели</span><h1>'+title+'</h1>'+
         '<p>Списки сохраняются в этой вкладке прототипа.</p></div>';
-      if(!items.length)return h+'<div class="empty"><h2>Здесь пока пусто</h2><p>Добавляйте корзинки кнопками ♡ и ⚖ из каталога или карточек товаров.</p><a href="#catalog" class="btn btn-primary">В каталог →</a></div></div>';
+      if(!items.length)return h+'<div class="empty"><h2>Здесь пока пусто</h2><p>Добавляйте корзинки кнопками ♡ и ⚖ из каталога или карточек товаров.</p><a href="../katalog/" class="btn btn-primary">В каталог →</a></div></div>';
       if(kind==='favorites'){
         h+='<div class="saved-grid">'+items.map(function(p){return '<article class="saved-card"><span class="eyebrow">'+esc(p.id.toUpperCase())+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.weight)+' · '+esc(p.size)+'</p><strong>'+esc(p.price)+'</strong><div class="extras"><a href="#product-'+esc(p.id)+'" class="btn btn-outline btn-sm">Открыть</a><button class="extra-button" data-extra="favorite" data-id="'+esc(p.id)+'">Удалить ♡</button></div></article>';}).join('')+'</div>';
       }else{
@@ -1258,10 +1259,10 @@ body.cart-drawer-open{overflow:hidden}
           '<tr><th>Цена (демо)</th>'+items.map(function(p){return '<td>'+esc(p.price||'Уточняется')+'</td>';}).join('')+'</tr>'+
           '</tbody></table></div>';
       }
-      return h+'<div class="section"><a href="#catalog" class="btn btn-primary">Продолжить выбор →</a></div></div>';
+      return h+'<div class="section"><a href="../katalog/" class="btn btn-primary">Продолжить выбор →</a></div></div>';
     }
     function salePage(){
-      return '<div class="container"><div class="breadcrumb"><a href="v3/index.html">Главная</a> / Распродажа</div><section class="sale-banner"><div><span class="eyebrow">Специальные предложения</span><h1>Распродажа</h1><p>Корзинки для красивого домашнего хлеба.</p><a href="#catalog" class="btn btn-light">Весь каталог ↗</a></div><img src="v3/assets/hero-bread.webp" alt=""></section><p class="small muted sale-disclaimer">Демонстрационные цены и скидки. Перед запуском магазина их необходимо подтвердить.</p><div class="products-grid sale-products">'+HlebDemo.products.filter(p=>p.oldPrice).map(window.hlebRenderCard).join('')+'</div></div>';
+      return '<div class="container"><div class="breadcrumb"><a href="v3/index.html">Главная</a> / Распродажа</div><section class="sale-banner"><div><span class="eyebrow">Специальные предложения</span><h1>Распродажа</h1><p>Корзинки для красивого домашнего хлеба.</p><a href="../katalog/" class="btn btn-light">Весь каталог ↗</a></div><img src="v3/assets/hero-bread.webp" alt=""></section><p class="small muted sale-disclaimer">Демонстрационные цены и скидки. Перед запуском магазина их необходимо подтвердить.</p><div class="products-grid sale-products">'+HlebDemo.products.filter(p=>p.oldPrice).map(window.hlebRenderCard).join('')+'</div></div>';
     }
     function accountPage(){
       var header='<div class="container"><div class="page-head"><span class="eyebrow">Личный кабинет</span><h1>Ваши покупки и любимые товары</h1>'+
@@ -1271,7 +1272,7 @@ body.cart-drawer-open{overflow:hidden}
         '<button class="btn btn-primary" data-extra="login-demo">Открыть демо-кабинет</button></div></div>';
       return header+'<div class="account-grid"><nav class="account-menu" aria-label="Разделы кабинета">'+
         '<a href="#account">Мои заказы</a><a href="#favorites">♡ Избранное ('+favorites.size+')</a><a href="#compare">⚖ Сравнение ('+compares.size+')</a>'+
-        '<a href="#catalog">Каталог</a></nav><section class="account-preview"><h2>Мои заказы</h2>'+
+        '<a href="../katalog/">Каталог</a></nav><section class="account-preview"><h2>Мои заказы</h2>'+
         '<div class="empty-soft"><strong>История заказов появится после переноса.</strong><p class="small">Здесь будут номер, дата, состав, статус и кнопка повторного заказа.</p></div>'+
         '<h3>Личные данные и адреса</h3><p>Будут доступны редактирование профиля, адресов и безопасное управление паролем.</p>'+
         '<h3>Подписка на новости</h3><label class="checkbox-line"><input type="checkbox" id="demo-newsletter"> Получать новинки товаров и статьи блога (демонстрация, без сохранения)</label>'+
