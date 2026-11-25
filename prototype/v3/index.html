@@ -599,6 +599,65 @@ body.mobile-menu-open{overflow:hidden}
 .footer .footer-vk:hover{color:#a96031}
 .footer .footer-vk svg{flex:0 0 24px}
 
+
+/* v3.23 - compact mobile storefront hero; desktop rules remain unchanged */
+.wide-mobile-description,.mobile-extra-benefits{display:none}
+@media(max-width:640px){
+  .header-v3 .header-content{height:64px;gap:6px}
+  .header-v3 .brand-svg{width:38px;height:38px;flex-basis:38px}
+  .header-v3 .brand-name{font-size:15px;white-space:nowrap}
+  .header-v3 .brand-name small{font-size:14px;white-space:normal;line-height:1.1}
+  .header-v3 .header-actions .icon-btn{width:44px;height:44px}
+  .header-v3 .header-actions a[aria-label="Личный кабинет"]{display:none}
+  .wide-hero{height:auto;min-height:0;display:block;background:#f8f4ee;color:var(--ink);overflow:visible}
+  .wide-hero:after{display:none}
+  .wide-hero .wide-scene{display:none}
+  .wide-hero .wide-scene:first-child{display:block;position:relative;inset:auto;width:100%;height:clamp(170px,48vw,220px);opacity:1;transform:none;transition:none;z-index:0;background-size:cover;background-position:85% 59%;background-repeat:no-repeat}
+  .wide-hero-inner{height:auto;display:block}
+  .wide-copy{width:100%;max-width:none;padding:17px 0 8px}
+  .wide-copy h1{font-size:clamp(29px,8vw,34px);line-height:1.16;color:var(--ink);text-wrap:balance}
+  .wide-desktop-phrase,.wide-desktop-break,.wide-copy #wide-description{display:none}
+  .wide-copy .wide-mobile-description{display:block;min-height:0;max-width:none;font-size:14px;line-height:1.5;color:var(--ink2);margin:9px 0 14px}
+  .wide-links{flex-direction:column;align-items:stretch;gap:2px}
+  .wide-hero .wide-links .button-light{width:100%;min-height:48px;padding:12px 16px;border:1px solid #a96031;background:#a96031;color:#fff;font-size:14px}
+  .wide-hero .wide-links .button-light:hover,.wide-hero .wide-links .button-light:focus-visible{background:#884a25;border-color:#884a25;color:#fff}
+  .wide-hero .wide-links .wide-outline{width:100%;min-height:44px;padding:8px 0;border:0;background:transparent;color:#87522e;font-size:13px;font-weight:650;text-decoration:underline;text-underline-offset:4px}
+  .wide-hero .wide-links .wide-outline:hover,.wide-hero .wide-links .wide-outline:focus-visible{background:transparent;color:#683a24}
+  .wide-slide-tools,.wide-scene-caption{display:none}
+  .benefits-primary .benefit-link:nth-child(2),.benefits-primary .benefit-link:nth-child(4){display:none}
+  .benefits-primary .clear-benefits,.mobile-extra-benefits .clear-benefits{min-height:0;padding:10px 0;gap:12px;grid-template-columns:repeat(2,minmax(0,1fr));align-items:center}
+  .benefits-primary .benefit-link,.mobile-extra-benefits .benefit-link{gap:7px;min-height:44px}
+  .benefits-primary .benefit-icon,.mobile-extra-benefits .benefit-icon{width:28px;height:28px;flex-basis:28px}
+  .benefits-primary .benefit-copy strong,.mobile-extra-benefits .benefit-copy strong{font-size:12px;line-height:1.35}
+  .benefits-primary .benefit-copy small{display:none}
+  .mobile-extra-benefits{display:block;border-top:1px solid #eee5da;margin-bottom:26px}
+  .mobile-extra-benefits .clear-benefits{padding:14px 0}
+  #catalog.catalog-v3{padding-top:18px;padding-bottom:24px;scroll-margin-top:76px}
+  #catalog .sticky-catalog-layout{gap:12px}
+  #catalog .catalog-intro{padding-top:0}
+  #catalog .catalog-intro h2{font-size:clamp(24px,6.4vw,29px);line-height:1.2;margin:0 0 10px}
+  #catalog .catalog-desktop-break,#catalog .catalog-intro .handwritten,#catalog .catalog-intro p{display:none}
+  #catalog .catalog-actions{gap:8px}
+  #catalog .catalog-actions .button{min-height:44px;padding:9px 12px;font-size:12px}
+}
+@media(max-width:480px){
+  .wide-hero .wide-scene:first-child{background-size:132% auto;background-position:88% 59%}
+}
+@media(max-width:389px){
+  .header-v3 .header-actions .icon-btn{width:40px}
+  .header-v3 .brand-name{font-size:14px}
+}
+@media(max-width:350px){
+  .header-v3 .header-content{gap:4px}
+  .header-v3 .header-actions .icon-btn{width:36px}
+  .header-v3 .brand-svg{width:34px;height:34px;flex-basis:34px}
+  .header-v3 .brand-name small{font-size:13px}
+}
+@media(max-width:380px) and (max-height:700px){
+  .wide-hero .wide-scene:first-child{height:156px}
+  .wide-copy{padding-top:14px}
+}
+
 </style>
 </head>
 <body id="page-top">
@@ -650,8 +709,9 @@ body.mobile-menu-open{overflow:hidden}
   <div class="wide-scene" role="img" aria-label="Плетение корзинок из натурального ротанга" style="background-image:url('assets/hero-rattan.webp')"></div>
   <div class="wide-scene" role="img" aria-label="Корзинки с тестом в пекарне" style="background-image:url('assets/hero-bakery.webp')"></div>
   <div class="container wide-hero-inner"><div class="wide-copy">
-    <h1>Корзинки и формы<br>для расстойки теста</h1>
+    <h1>Корзинки<span class="wide-desktop-phrase"> и формы</span><br class="wide-desktop-break"> для расстойки теста</h1>
     <p id="wide-description">От круглой буханки до ароматного батона — подберите ротанговую корзинку под форму и вес вашего теста.</p>
+    <p class="wide-mobile-description">Из натурального ротанга. Для домашнего хлеба и профессиональных пекарен.</p>
     <div class="wide-links"><a class="button button-light" href="#catalog">Выбрать корзинку ↗</a><a class="button wide-outline" href="../index.html#wholesale">Оптовым покупателям</a></div>
   </div></div>
   <div class="wide-slide-tools" aria-label="Управление слайдшоу">
@@ -659,7 +719,7 @@ body.mobile-menu-open{overflow:hidden}
   </div>
   <div class="wide-scene-caption">Для красивого домашнего хлеба</div>
 </section>
-<div class="benefits-band" aria-label="Преимущества магазина">
+<div class="benefits-band benefits-primary" aria-label="Преимущества магазина">
   <div class="container clear-benefits">
     <a class="benefit-link" href="#guides"><svg class="benefit-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="30" cy="29" rx="25" ry="19"/><ellipse cx="30" cy="29" rx="20" ry="15.2"/><ellipse cx="30" cy="29" rx="15" ry="11.4"/><ellipse cx="30" cy="29" rx="10" ry="7.6"/><ellipse cx="30" cy="29" rx="5" ry="3.8"/><path d="M6 34 Q9 54 30 55 Q51 54 54 34 M9 42 Q30 61 51 42 M13 48 Q30 59 47 48 M46 16 Q45 4 61 3 Q62 16 46 16 M46 16 L56 8"/></svg><span class="benefit-copy"><strong>100% натуральный ротанг</strong><small>Природная фактура и традиции хлебопечения</small></span></a>
     <a class="benefit-link" href="#shapes"><svg class="benefit-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="27" width="46" height="30" rx="6"/><circle cx="32" cy="41" r="9"/><path d="M32 41 L37 35 M19 47 H21 M43 47 H45 M8 23 H56 M15 23 C15 3 49 3 49 23 M25 10 L30 16 M35 9 L40 15"/></svg><span class="benefit-copy"><strong>Под любой рецепт</strong><small>Разные формы, размеры и вес теста</small></span></a>
@@ -670,7 +730,7 @@ body.mobile-menu-open{overflow:hidden}
 <section class="catalog-v3 container" id="catalog">
  <div class="sticky-catalog-layout">
   <div class="catalog-intro">
-   <h2>Корзинки для<br>твоего хлеба</h2>
+   <h2>Корзинки для<br class="catalog-desktop-break"> твоего хлеба</h2>
    <div class="handwritten">Форма имеет значение</div>
    <p>От маленькой круглой буханки до большого овального хлеба. Найди корзинку под вес теста и форму, которую хочешь получить.</p>
    <div class="catalog-actions"><a class="button catalog-all" href="../index.html#catalog">Весь каталог ↗</a><a class="button catalog-sale" href="../index.html#sale">Распродажа</a></div>
@@ -678,6 +738,11 @@ body.mobile-menu-open{overflow:hidden}
   <div class="products-grid product-v3-grid" id="products"></div>
  </div>
 </section>
+<div class="benefits-band mobile-extra-benefits" aria-label="Помощь с выбором корзинок"><div class="container clear-benefits">
+    <a class="benefit-link" href="#shapes"><svg class="benefit-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="27" width="46" height="30" rx="6"/><circle cx="32" cy="41" r="9"/><path d="M32 41 L37 35 M19 47 H21 M43 47 H45 M8 23 H56 M15 23 C15 3 49 3 49 23 M25 10 L30 16 M35 9 L40 15"/></svg><span class="benefit-copy"><strong>Под любой рецепт</strong><small>Разные формы, размеры и вес теста</small></span></a>
+    <a class="benefit-link" href="#contacts"><svg class="benefit-icon" viewBox="0 0 64 64" aria-hidden="true" focusable="false" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M7 23 Q7 7 28 7 Q49 7 49 23 Q49 39 28 39 H19 L8 47 L11 32 Q7 28 7 23Z M52 23 Q61 28 61 40 Q61 49 54 53 L56 61 L44 56 Q30 57 25 45 M20 23 L26 29 L37 17"/></svg><span class="benefit-copy"><strong>Знаем своё дело</strong><small>Поможем подобрать подходящую корзинку</small></span></a>
+  </div></div>
+
   <section class="shape-selector" id="shapes" aria-labelledby="shapes-title">
     <div class="container shape-inner">
     <div class="shape-heading"><div><span class="eyebrow">Выберите свою форму</span><h2 id="shapes-title">Какой хлеб будем печь?</h2><p>От привычной круглой буханки до необычных фигурных изделий. Найдите форму для хлеба, который хотите испечь.</p></div></div>
@@ -968,19 +1033,22 @@ let active=0,paused=window.matchMedia('(prefers-reduced-motion: reduce)').matche
 const descriptions=["От круглой буханки до ароматного батона — подберите ротанговую корзинку под форму и вес вашего теста.","Природная красота ротанга, выразительная фактура плетения и традиции ремесленного хлебопечения.","Для домашней выпечки и профессиональных пекарен. Подберём нужные формы, размеры и количество корзинок."],captions=["Для красивого домашнего хлеба","Натуральный ротанг","Для профессиональных пекарен"];
 const description=host.querySelector('#wide-description'),caption=host.querySelector('.wide-scene-caption');
 const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
+const mobileHero=window.matchMedia('(max-width: 640px)');
 let textTimer=null;
-function show(i){active=(i+scenes.length)%scenes.length;scenes.forEach((el,j)=>{el.classList.toggle('current',j===active);el.setAttribute('aria-hidden',String(j!==active));});dots.forEach((el,j)=>{el.classList.toggle('current',j===active);el.setAttribute('aria-current',String(j===active));});
+function show(i){active=mobileHero.matches?0:(i+scenes.length)%scenes.length;scenes.forEach((el,j)=>{el.classList.toggle('current',j===active);el.setAttribute('aria-hidden',String(j!==active));});dots.forEach((el,j)=>{el.classList.toggle('current',j===active);el.setAttribute('aria-current',String(j===active));});
 clearTimeout(textTimer);
 if(caption)caption.textContent=captions[active];
-if(description.textContent===descriptions[active]||reducedMotion.matches){description.textContent=descriptions[active];description.classList.remove('changing');return;}
+if(mobileHero.matches||description.textContent===descriptions[active]||reducedMotion.matches){description.textContent=descriptions[active];description.classList.remove('changing');return;}
 description.classList.add('changing');
 textTimer=setTimeout(()=>{description.textContent=descriptions[active];description.classList.remove('changing');},220);
 }
 function stop(){if(timer){clearInterval(timer);timer=null;}}
-function play(){stop();if(!paused&&!reducedMotion.matches&&!document.hidden&&!host.contains(document.activeElement))timer=setInterval(()=>show(active+1),7000);}
+function play(){stop();if(!mobileHero.matches&&!paused&&!reducedMotion.matches&&!document.hidden&&!host.contains(document.activeElement))timer=setInterval(()=>show(active+1),7000);}
 dots.forEach((b,i)=>{b.setAttribute('aria-label',`Показать слайд ${i+1} и остановить автопереключение`);b.addEventListener('click',()=>{paused=true;stop();show(i);});});
 host.addEventListener('focusin',stop);host.addEventListener('focusout',e=>{if(!host.contains(e.relatedTarget))play();});
 document.addEventListener('visibilitychange',play);
+const syncMobileHero=()=>{if(mobileHero.matches){stop();show(0);}else{play();}};
+if(mobileHero.addEventListener)mobileHero.addEventListener('change',syncMobileHero);else if(mobileHero.addListener)mobileHero.addListener(syncMobileHero);
 
 show(0);play();
 })();
