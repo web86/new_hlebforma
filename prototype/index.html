@@ -763,6 +763,7 @@ body.cart-drawer-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){.cart-side[open]{animation:none}}
 
 </style>
+<link rel="stylesheet" href="assets/catalog.css">
 </head>
 <body id="page-top">
 <header class="header header-v3"><div class="container header-content">
@@ -837,6 +838,7 @@ body.cart-drawer-open{overflow:hidden}
 <dialog class="cart-side" id="cart-side" aria-labelledby="cart-side-title"><div class="cart-side-head"><h2 id="cart-side-title">Корзина</h2><button type="button" class="cart-side-close" data-cart-side-close aria-label="Закрыть корзину" autofocus>×</button></div><div class="cart-side-body" data-cart-side-body></div></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="assets/storefront-data.js"></script>
+  <script src="assets/catalog.js"></script>
 <script>
     (function(){
       "use strict";
@@ -845,13 +847,13 @@ body.cart-drawer-open{overflow:hidden}
         {label:"Круглые",shape:"round",icon:"◯",desc:"Формы для круглого хлеба"},
         {label:"Овальные",shape:"oval",icon:"⬭",desc:"Формы для батонов"},
         {label:"Багетные",shape:"baguette",icon:"▭",desc:"Для длинных заготовок"},
-        {label:"Фигурные",shape:"heart",icon:"♡",desc:"Необычная выпечка"},
+        {label:"Фигурные",shape:"figure",icon:"♡",desc:"Необычная выпечка"},
         {label:"Инструменты",shape:"tools",icon:"♧",desc:"Аксессуары пекаря"}
       ];
-      var filters={shape:"all",weight:"all",q:""};
       var cart=HlebDemo.basket();
       var chosenWholesaleSku="";
       var app=document.getElementById("app");
+      var catalogUI=HlebCatalog.create({products:products,app:app});
       var fmt=function(v){return Number(v).toLocaleString("ru-RU")+" ₽";};
       var safe=function(v){return String(v).replace(/[&<>"']/g,function(ch){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];});};
       function toast(message){
@@ -911,39 +913,10 @@ body.cart-drawer-open{overflow:hidden}
         return '<select id="'+id+'"><option value="all">Любой вес</option><option value="small">До 400 г</option><option value="mid">400–600 г</option><option value="large">600–850 г</option><option value="xl">От 850 г</option></select>';
       }
       function shapeSelect(id){
-        return '<select id="'+id+'"><option value="all">Любая форма</option><option value="round">Круглая</option><option value="oval">Овальная</option><option value="baguette">Багетная</option><option value="heart">Фигурная</option><option value="tools">Инструменты</option></select>';
+        return '<select id="'+id+'"><option value="all">Любая форма</option><option value="round">Круглая</option><option value="oval">Овальная</option><option value="baguette">Багетная</option><option value="figure">Фигурная</option><option value="tools">Инструменты</option></select>';
       }
-      function catalog(){
-        return '<div class="container">'+crumbs('Каталог')+
-          '<div class="page-head"><span class="eyebrow">Подберите форму под свою выпечку</span>'+
-          '<h1>Каталог корзинок и инструментов</h1><p class="lead">Укажите вес тестовой заготовки или форму, чтобы быстрее найти подходящий товар. </p></div>'+
-          '<div class="catalog-layout"><aside class="filter-pane" aria-label="Фильтр каталога">'+
-          '<h3 style="margin:0">Быстрый подбор</h3><div class="field"><label for="filter-weight">Вес теста</label>'+weightSelect('filter-weight')+'</div>'+
-          '<div class="field"><label for="filter-shape">Форма</label>'+shapeSelect('filter-shape')+'</div>'+
-          '<div class="field"><label for="filter-query">Поиск / артикул</label><input type="search" id="filter-query" placeholder="Например, BN 10"></div>'+
-          '<button class="btn btn-outline btn-sm" data-action="reset-filters">Сбросить фильтры</button>'+
-          '</aside>'+
-          '<div class="catalog-main"><div class="catalog-top"><span id="results-counter" class="results"></span></div><div id="catalog-results" class="products-grid"></div></div></div></div>';
-      }
-      function matches(p){
-        if(filters.shape!=="all" && !(filters.shape==="tools" && ["tool","cloth"].includes(p.shape)) && p.shape!==filters.shape){return false;}
-        if(filters.weight!=="all"){
-          if(p.weight===0){return false;}
-          if(filters.weight==="small" && p.weight>400){return false;}
-          if(filters.weight==="mid" && (p.weight<=400 || p.weight>600)){return false;}
-          if(filters.weight==="large" && (p.weight<=600 || p.weight>850)){return false;}
-          if(filters.weight==="xl" && p.weight<=850){return false;}
-        }
-        var query=filters.q.trim().toLowerCase();
-        return !query || (p.title+" "+p.sku+" "+p.kind).toLowerCase().includes(query);
-      }
-      function updateCatalog(){
-        var area=document.getElementById("catalog-results");
-        if(!area)return;
-        var found=products.filter(matches);
-        area.innerHTML=found.length?found.map(productCard).join(""):'<div class="empty" style="grid-column:1/-1"><h3>Пока нет подходящих образцов</h3><p>Попробуйте изменить вес или форму.</p><button class="btn btn-outline" data-action="reset-filters">Сбросить подбор</button></div>';
-        document.getElementById("results-counter").textContent="Найдено моделей в прототипе: "+found.length;
-      }
+      function catalog(){return catalogUI.render();}
+      function updateCatalog(){catalogUI.refresh();}
 
       function pdpBasket(p){return !['tool','cloth'].includes(p.shape);}
       function pdpBread(p){var shapes={round:'round',oval:'oval',baguette:'baguette',triangle:'triangle',heart:'heart',diamond:'diamond',boat:'oval',square:'square',rectangle:'rectangle',ring:'ring'};return pdpBasket(p)&&shapes[p.shape]?'v3/assets/bread/'+shapes[p.shape]+'.webp':'';}
@@ -1109,6 +1082,7 @@ body.cart-drawer-open{overflow:hidden}
       }
       function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>В этом прототипе доступны основные экраны.</p><a class="btn btn-primary" href="v3/index.html">На главную</a></section></div>';}
       function route(){
+        catalogUI.closeFilter(false);
         var slug=decodeURIComponent(location.hash.replace(/^#/,"")||"home");
         if(slug==="home"){location.replace("v3/index.html");return;} if(slug==="quote-form"){location.replace("#wholesale");return;} if(slug==="page-top"){history.replaceState(null,"",location.pathname+location.search+"#"+(app.dataset.route||"catalog"));window.scrollTo(0,0);return;} app.dataset.route=slug; var selected=slug.split("-")[0]; if(selected==="product")selected="catalog";
         document.querySelectorAll("#navigation a").forEach(function(a){
@@ -1116,7 +1090,7 @@ body.cart-drawer-open{overflow:hidden}
           if(a.getAttribute("href")==="#"+selected)a.setAttribute("aria-current","page");
         });
         if(slug==="home"){app.innerHTML=home();}
-        else if(slug==="catalog"){app.innerHTML=catalog();syncFilters();updateCatalog();}
+        else if(slug==="catalog"){app.innerHTML=catalog();updateCatalog();}
         else if(slug.indexOf("product-")===0){app.innerHTML=productPage(slug.slice(8));}
         else if(slug==="wholesale"){app.innerHTML=wholesale();}
         else if(slug==="checkout"){app.innerHTML=checkout();}
@@ -1126,12 +1100,6 @@ body.cart-drawer-open{overflow:hidden}
         var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?(productById(slug.slice(8))?.title||"Товар"):"Раздел";
         document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";
         window.scrollTo(0,0);
-      }
-      function syncFilters(){
-        var weight=document.getElementById("filter-weight"),shape=document.getElementById("filter-shape"),q=document.getElementById("filter-query");
-        if(weight)weight.value=filters.weight;
-        if(shape)shape.value=filters.shape;
-        if(q)q.value=filters.q;
       }
       document.addEventListener("click",function(e){
         var cartLink=e.target.closest(".header-cart");if(cartLink&&location.hash!=="#checkout"&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey){e.preventDefault();openCartSide();return;}
@@ -1144,7 +1112,7 @@ body.cart-drawer-open{overflow:hidden}
         }
         var scrollLink=e.target.closest("a[data-scroll]");if(scrollLink){e.preventDefault();document.getElementById(scrollLink.dataset.scroll)?.scrollIntoView({behavior:"smooth",block:"start"});return;}
         var cat=e.target.closest(".category-card[data-shape]");
-        if(cat){filters.shape=cat.getAttribute("data-shape");filters.weight="all";filters.q="";}
+        if(cat){catalogUI.set({shape:cat.getAttribute("data-shape")},true);}
         var btn=e.target.closest("[data-action]");if(!btn)return;
         var action=btn.dataset.action,id=btn.dataset.id;
         if(action==="add"){
@@ -1158,12 +1126,11 @@ body.cart-drawer-open{overflow:hidden}
           if(location.hash==="#wholesale" && document.getElementById("quote-item"))document.getElementById("quote-item").value=id;
         }
         if(action==="find-home"){
-          filters.weight=document.getElementById("home-weight").value;
-          filters.shape=document.getElementById("home-shape").value;filters.q="";
+          catalogUI.set({weight:document.getElementById("home-weight").value,shape:document.getElementById("home-shape").value},true);
           location.hash="#catalog";
         }
         if(action==="reset-filters"){
-          filters={shape:"all",weight:"all",q:""};syncFilters();updateCatalog();
+          catalogUI.reset();
         }
         if(action==="inc"||action==="dec"||action==="remove"){
           if(action==="remove")delete cart[id];
@@ -1172,16 +1139,9 @@ body.cart-drawer-open{overflow:hidden}
           updateCartCounter();app.innerHTML=checkout();
         }
       });
-      document.addEventListener("change",function(e){
-        if(e.target.id==="filter-weight"){filters.weight=e.target.value;updateCatalog();}
-        if(e.target.id==="filter-shape"){filters.shape=e.target.value;updateCatalog();}
-      });
-      document.addEventListener("input",function(e){
-        if(e.target.id==="filter-query"){filters.q=e.target.value;updateCatalog();}
-      });
       document.addEventListener("submit",function(e){
         if(e.target.id==="header-search"){
-          e.preventDefault();filters={shape:"all",weight:"all",q:document.getElementById("header-query").value};location.hash="#catalog";if(location.hash==="#catalog"){route();}return;
+          e.preventDefault();catalogUI.set({q:document.getElementById("header-query").value},true);location.hash="#catalog";if(location.hash==="#catalog"){route();}return;
         }
         if(e.target.id==="newsletter-form"){
           e.preventDefault();toast("Демонстрация: подписка не оформлена. В рабочей версии — подтверждение email.");return;
