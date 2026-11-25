@@ -128,8 +128,37 @@
   const fmt=n=>Number(n).toLocaleString('ru-RU')+' ₽';
   const sale=p=>Number(p.oldPrice)>Number(p.price);
   const discount=p=>sale(p)?Math.round(100*(p.oldPrice-p.price)/p.oldPrice):0;
-  const promotionMeta=Object.freeze({h1:'Акции',title:'Акции и скидки на корзинки для расстойки хлеба — HLEB-FORMA',description:'Корзинки для расстойки хлеба по специальным ценам. Сравните модели, размеры, цены и экономию.'});
+  const promotionMeta=Object.freeze({h1:'Акции',title:'Акции и скидки на корзинки для расстойки хлеба — HLEB-FORMA',description:'Скидки, распродажа, выгодные подборки корзинок и акция за отзыв с фотографией. Сравните предложения Hleb-Forma.'});
   function promotionStats(products){const items=products.filter(sale);return {items,count:items.length,maxSaving:items.reduce((n,p)=>Math.max(n,Number(p.oldPrice)-Number(p.price)),0)};}
+  // Explicit preview placement, not inventory status. Prices come from the shared catalogue.
+  const clearancePreviewIds=new Set(['bn001','bn09']);
+  const bundleDefinitions=Object.freeze([
+    {id:'first-bread',name:'Мой первый хлеб',description:'Круглая и овальная формы для начала.',ids:['bn01','bn10']},
+    {id:'every-day',name:'Хлеб на каждый день',description:'Два формата для любимых рецептов.',ids:['bn001','bn11']},
+    {id:'baguette-set',name:'Для любителей багетов',description:'Длинная корзинка и холст для расстойки.',ids:['bn06','canvas']},
+    {id:'creative-bread',name:'Хлеб с характером',description:'Треугольная форма и сердце для необычной выпечки.',ids:['bn09','bn28']}
+  ]);
+  function promotionSections(products){
+    const stats=promotionStats(products),clearance=stats.items.filter(p=>clearancePreviewIds.has(p.id)),discounts=stats.items.filter(p=>!clearancePreviewIds.has(p.id));
+    return {...stats,discounts,clearance};
+  }
+  function promotionBundles(products){
+    const byId=new Map(products.map(p=>[p.id,p]));
+    return bundleDefinitions.map(b=>{
+      const items=b.ids.map(id=>byId.get(id));
+      if(items.some(p=>!p||!Number.isFinite(Number(p.price))||Number(p.price)<=0))return null;
+      const price=items.reduce((n,p)=>n+Number(p.price),0);
+      const ordinary=items.reduce((n,p)=>n+Math.max(Number(p.oldPrice)||0,Number(p.price)),0);
+      return {...b,items,price,ordinary,saving:ordinary-price};
+    }).filter(b=>b&&b.saving>0);
+  }
+  function bundleCart(cart,products,id){
+    const bundle=promotionBundles(products).find(b=>b.id===id);
+    if(!bundle)return null;
+    const next={...cart};
+    for(const p of bundle.items){const n=Number(next[p.id]||0);if(!Number.isInteger(n)||n<0||n>=99)return null;next[p.id]=n+1;}
+    return next;
+  }
   const normalize=s=>String(s??'').toLocaleLowerCase('ru').replace(/ё/g,'е').replace(/×/g,'x').trim();
   const compact=s=>normalize(s).replace(/[^\p{L}\p{N}]/gu,'');
   const defaults=()=>({shape:'all',weight:'all',price:'all',sale:false,q:'',sort:'featured'});
@@ -194,11 +223,22 @@
       const image=p.image?`<img class="real-photo cat-main-photo" src="${escape(p.image)}" alt="${escape(p.exact===false?'Фото аналогичной модели':p.title)}" loading="${loading}" decoding="async">`:'';
       return `<article class="product-card cat-card" data-product-id="${escape(p.id)}"><div class="cat-picture-wrap"><a class="card-picture" href="${href}" aria-label="${escape('Подробнее: '+p.title)}"><div class="product-art cat-art"><div class="woven ${escape(p.shape)}" aria-hidden="true"></div>${image}${bread?`<img class="bread-preview cat-bread-photo" src="${bread}" alt="" aria-hidden="true" loading="lazy" decoding="async">`:''}</div></a>${sale(p)?`<span class="cat-discount">−${discount(p)}%</span>`:''}${bread?'<button type="button" class="cat-preview" data-cat-action="preview" aria-pressed="false" aria-label="Показать пример готового хлеба">Хлеб ↔</button><span class="cat-bread-note">Пример выпечки</span>':''}</div><div class="product-card-content"><span class="cat-sku">${escape(p.sku)}</span><a href="${href}"><h3>${escape(name)}</h3></a><div class="cat-specs"><span class="cat-weight">${escape(p.weight?p.weightText+' теста':p.weightText)}</span><span>${escape(p.size)}</span></div>${p.exact===false?'<small class="photo-analogue">Фото аналога</small>':''}${withSavings===true&&sale(p)?`<span class="cat-saving">Экономия ${fmt(p.oldPrice-p.price)}</span>`:''}<div class="card-buy"><div class="card-prices${sale(p)?' on-sale':''}">${sale(p)?`<del>${fmt(p.oldPrice)}</del>`:''}<strong class="price">${fmt(p.price)}</strong></div><button type="button" class="btn btn-primary btn-sm" data-action="add" data-id="${escape(p.id)}">В корзину ↗</button></div></div></article>`;
     }
+    function bundleCard(b,i){
+      const images=b.items.map(p=>`<a href="#product-${escape(p.id)}" class="pr-bundle-photo" aria-label="${escape('Подробнее: '+p.title)}"><img src="${escape(p.image)}" alt="${escape(p.exact===false?'Фото аналогичной модели':p.title)}" loading="lazy" decoding="async"></a>`).join('<span class="pr-bundle-plus" aria-hidden="true">+</span>');
+      return `<article class="pr-bundle"><div class="pr-bundle-visual"><span class="pr-bundle-label">2 товара</span><div class="pr-bundle-images">${images}</div></div><div class="pr-bundle-content"><span class="cat-sku">Комплект</span><h3>${escape(b.name)}</h3><p>${escape(b.description)}</p><div class="pr-bundle-items">${b.items.map(p=>`<a href="#product-${escape(p.id)}">${escape(p.sku==='Аксессуар'?p.title:p.sku)}</a>`).join('<span aria-hidden="true"> + </span>')}</div><span class="cat-saving">Экономия ${fmt(b.saving)}</span><div class="pr-bundle-price"><strong>${fmt(b.price)}</strong><del>${fmt(b.ordinary)}</del></div><button type="button" class="btn btn-primary btn-sm" data-action="add-bundle" data-id="${escape(b.id)}">В корзину комплект ↗</button></div></article>`;
+    }
     function renderPromotions(){
-      const {items,count,maxSaving}=promotionStats(products), countLabel=count+' '+plural(count);
+      const {count,maxSaving,discounts,clearance}=promotionSections(products),bundles=promotionBundles(products);
+      const sections=[['pr-discounts','Скидки',discounts.length],['pr-clearance','Распродажа',clearance.length],['pr-bundles','Вместе дешевле',bundles.length],['pr-review','Скидка за отзыв и фото',null]];
+      const productsGrid=(items,emptyText)=>`<div class="products-grid pr-grid">${items.length?items.map((p,i)=>card(p,i,true)).join(''):`<div class="cat-empty"><p>${escape(emptyText)}</p><a class="btn btn-outline" href="../katalog/">В каталог ↗</a></div>`}</div>`;
       return `<div class="container catalog-shop promotions-shop"><div class="breadcrumb"><a href="v3/index.html">Главная</a> / Акции</div>
-      <header class="pr-hero"><div class="pr-copy"><span class="pr-kicker">Специальные предложения</span><h1>Акции</h1><p class="pr-tagline">Больше хлеба. Меньше затрат.</p><p>Любимые формы для расстойки по выгодным ценам.</p></div><div class="pr-summary">${count?`<div class="pr-amount"><span>Экономия до</span><strong>${fmt(maxSaving)}</strong></div><span class="pr-count">${countLabel} по специальной цене</span>`:'<span class="pr-count">Новые предложения готовятся</span>'}</div></header>
-      <section class="pr-products" aria-label="Товары по специальной цене"><div class="pr-section-head"><div><h2>Товары по специальным ценам</h2><p>${count?countLabel:'Пока нет действующих предложений'}</p></div><a class="cat-guide" href="../katalog/">Весь каталог ↗</a></div><div class="products-grid pr-grid">${items.length?items.map((p,i)=>card(p,i,true)).join(''):'<div class="cat-empty"><h2>Сейчас нет товаров со скидкой</h2><p>Посмотрите весь ассортимент корзинок для расстойки.</p><a class="btn btn-primary" href="../katalog/">В каталог ↗</a></div>'}</div>${count?'<p class="pr-note">Цены и скидки демонстрационные. Условия предложений необходимо подтвердить перед запуском магазина.</p>':''}</section>
+      <header class="pr-hero"><div class="pr-copy"><span class="pr-kicker">Специальные предложения</span><h1>Акции</h1><p class="pr-tagline">Больше хлеба. Меньше затрат.</p><p>Выгодные предложения для тех, кто печёт хлеб.</p></div><div class="pr-summary">${count?`<div class="pr-amount"><span>Экономия на товаре до</span><strong>${fmt(maxSaving)}</strong></div><span class="pr-count">${count} ${plural(count)} по специальной цене</span>`:'<span class="pr-count">Новые предложения готовятся</span>'}</div></header>
+      <nav class="pr-nav" aria-label="Разделы акций">${sections.map(([id,label,n],i)=>`<a href="../akcii/#${id}" data-scroll="${id}"><span class="pr-nav-icon" aria-hidden="true">${['%','↘','+','♡'][i]}</span><span><strong>${label}</strong><small>${n===null?'5% на следующий заказ · пример':n+' '+(i===2?(n===1?'комплект':n>=2&&n<=4?'комплекта':'комплектов'):plural(n))}</small></span><span class="pr-nav-arrow" aria-hidden="true">↓</span></a>`).join('')}</nav>
+      <section class="pr-products pr-section" id="pr-discounts" aria-labelledby="pr-discounts-title"><div class="pr-section-head"><div><h2 id="pr-discounts-title">Скидки</h2><p>Любимые корзинки по сниженным ценам.</p></div><a class="cat-guide" href="../katalog/">Весь каталог ↗</a></div>${productsGrid(discounts,'Сейчас нет товаров со скидкой.')}</section>
+      <section class="pr-products pr-section" id="pr-clearance" aria-labelledby="pr-clearance-title"><div class="pr-section-head"><div><h2 id="pr-clearance-title">Распродажа</h2><p>Отдельная подборка выгодных моделей.</p></div><span class="pr-section-note">Демо-подборка</span></div>${productsGrid(clearance,'Подборка обновляется.')}<p class="pr-note">Модели для распродажи показаны для примера; наличие остатков и условия предложения уточняются.</p></section>
+      <section class="pr-products pr-section" id="pr-bundles" aria-labelledby="pr-bundles-title"><div class="pr-section-head"><div><h2 id="pr-bundles-title">Вместе дешевле</h2><p>Готовые сочетания корзинок и аксессуаров под разные задачи.</p></div></div><div class="products-grid pr-grid pr-bundles">${bundles.length?bundles.map(bundleCard).join(''):'<div class="cat-empty"><p>Готовые подборки появятся здесь, когда в каталоге будут подходящие предложения.</p></div>'}</div><p class="pr-note">Экономия комплекта — разница между суммой обычных и действующих цен его товаров. Дополнительная скидка за комплект не начисляется.</p></section>
+      <section class="pr-section pr-review" id="pr-review" aria-labelledby="pr-review-title"><div class="pr-review-copy"><span class="pr-kicker">Благодарность за ваш опыт</span><h2 id="pr-review-title">Скидка за отзыв и фото</h2><p>Расскажите о своём опыте и покажите хлеб, который испекли. Честный отзыв с фотографией поможет другим хлебопекам выбрать форму.</p><div class="pr-review-steps"><span><b>1</b> Оставьте отзыв</span><span><b>2</b> Добавьте фото</span><span><b>3</b> Получите скидку</span></div><a class="btn btn-primary" href="../otzyvy/?write=1">Оставить отзыв ↗</a><p class="pr-note">Пример будущей акции. Скидка не зависит от оценки; условия и выдача промокодов пока не подключены.</p></div><div class="pr-review-visual"><div class="pr-review-pictures"><img src="assets/review-photos/round-thumb.webp" alt="Демонстрационная иллюстрация круглого хлеба" loading="lazy" decoding="async"><img src="assets/review-photos/oval-thumb.webp" alt="Демонстрационная иллюстрация овального хлеба" loading="lazy" decoding="async"></div><div class="pr-review-reward"><strong>−5%</strong><span>на следующий заказ</span><small>Пример предложения</small></div></div></section>
+      <p class="pr-note pr-terms">Цены, распределение товаров по акциям и условия программ — демонстрационные. Перед запуском магазина их необходимо подтвердить.</p>
       <section class="pr-help"><div><h2>Не уверены, какая корзинка подойдёт?</h2><p>Подберите форму и размер по весу теста в нашем интерактивном руководстве.</p></div><a class="btn btn-outline" href="../blog/kak-vybrat-korzinku/">Как выбрать корзинку ↗</a></section></div>`;
     }
     function sync(){const r=root();if(!r)return;r.querySelectorAll('[data-cat-filter]').forEach(el=>{const k=el.dataset.catFilter;if(el.type==='checkbox'){el.checked=!!state[k];}else if(el.value!==String(state[k]))el.value=String(state[k]);});const a=active();const b=r.querySelector('[data-cat-filter-count]');if(b){const count=a.filter(x=>x[0]!=='q').length;b.hidden=!count;b.textContent=count||'';}r.querySelectorAll('[data-cat-chips]').forEach(el=>{el.innerHTML=a.map(([k,v])=>`<button type="button" data-cat-clear="${k}" class="cat-chip" aria-label="Убрать фильтр: ${escape(v)}"><span>${escape(v)}</span><span aria-hidden="true">×</span></button>`).join('')+(a.length>1?'<button type="button" class="cat-text-button" data-cat-action="reset">Сбросить всё</button>':'');});}
@@ -219,5 +259,5 @@
     const mq=window.matchMedia('(max-width: 880px)');const onResize=()=>{if(!mq.matches&&query('#catalog-filter-dialog')?.open)closeFilter(false);};if(mq.addEventListener)mq.addEventListener('change',onResize);else mq.addListener(onResize);
     return Object.freeze({render,renderPromotions,refresh,sync,set,reset,closeFilter,getFilters:()=>({...state})});
   }
-  window.HlebCatalog=Object.freeze({create,defaults,matches,selectProducts,shapeMatch,pages,promotionMeta,promotionStats});
+  window.HlebCatalog=Object.freeze({create,defaults,matches,selectProducts,shapeMatch,pages,promotionMeta,promotionStats,promotionSections,promotionBundles,bundleCart});
 })();

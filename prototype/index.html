@@ -865,6 +865,7 @@ body.cart-drawer-open{overflow:hidden}
       var articlePage=document.documentElement.dataset.articlePage||'';
       var reviewsPage=document.documentElement.dataset.reviewsPage==='true';
       var promotionsPage=document.documentElement.dataset.promotionsPage==='true';
+      var reviewWrite=reviewsPage&&new URLSearchParams(location.search).get('write')==='1';
       var reviewsUI=HlebReviews.create({products:products,app:app,read:HlebDemo.read,write:HlebDemo.write,initialSku:reviewsPage?new URLSearchParams(location.search).get('sku')||'all':'all'});
       var articleUI=HlebArticles.create({products:products,app:app,page:articlePage||'listing'});
       var catalogUI=HlebCatalog.create({products:products,app:app,pageCode:catalogPage||'all',initialShape:catalogPage?new URLSearchParams(location.search).get('shape')||'all':'all'});
@@ -1077,6 +1078,7 @@ body.cart-drawer-open{overflow:hidden}
       function route(){
         catalogUI.closeFilter(false);
         var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(promotionsPage?"sale":reviewsPage?"reviews":articlePage?"articles":wholesalePage?"wholesale":catalogPage?"catalog":"home"));
+        var promotionAnchor=promotionsPage&&["pr-discounts","pr-clearance","pr-bundles","pr-review"].includes(slug)?slug:"";if(promotionAnchor)slug="sale";
         if(!promotionsPage&&slug==="sale"){location.replace(new URL("../akcii/",document.baseURI).href);return;}
         if(!reviewsPage&&slug==="reviews"){location.replace(new URL("../otzyvy/",document.baseURI).href);return;}
         if(!articlePage&&slug==="articles"){location.replace(new URL("../blog/",document.baseURI).href);return;}
@@ -1101,6 +1103,8 @@ body.cart-drawer-open{overflow:hidden}
         var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?(productById(slug.slice(8))?.title||"Товар"):"Раздел";
         if(slug==="sale"){document.title=HlebCatalog.promotionMeta.title;}else if(slug==="reviews"){document.title=HlebReviews.meta.title;}else if(slug==="articles"){document.title=HlebArticles.get(articlePage)?HlebArticles.title(HlebArticles.get(articlePage)):HlebArticles.meta.title;}else if(slug==="wholesale"){document.title=HlebWholesale.meta.title;}else if(slug==="catalog"){document.title=(HlebCatalog.pages.find(p=>p.code===(catalogPage||"all"))||HlebCatalog.pages[0]).title;}else{document.title=({sale:"Акции",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";}
         window.scrollTo(0,0);
+        if(promotionAnchor)requestAnimationFrame(()=>document.getElementById(promotionAnchor)?.scrollIntoView({block:"start"}));
+        if(slug==="reviews"&&reviewWrite){reviewWrite=false;var reviewUrl=new URL(location.href);reviewUrl.searchParams.delete("write");history.replaceState(null,"",reviewUrl.href);reviewsUI.openForm();}
         if(slug==="wholesale"&&whPrefill){whPrefill=false;requestAnimationFrame(()=>document.getElementById("quote-form")?.scrollIntoView({block:"start"}));}
       }
       document.addEventListener("click",function(e){
@@ -1121,6 +1125,9 @@ body.cart-drawer-open{overflow:hidden}
           var qty=btn.closest(".pdp-buy,.pdp-sticky")?document.getElementById("detail-qty"):null;
           var n=qty?pdpQuantity(qty.value):1;
           if(!productById(id))return;cart[id]=Math.min(99,(cart[id]||0)+n);updateCartCounter();openCartSide();
+        }
+        if(action==="add-bundle"){
+          var next=HlebCatalog.bundleCart(cart,products,id);if(!next){toast("Не удалось добавить комплект: проверьте количество товаров.");return;}cart=next;updateCartCounter();openCartSide();return;
         }
         if(action==="quote"){
           if(!productById(id))return;
@@ -1167,7 +1174,7 @@ body.cart-drawer-open{overflow:hidden}
     var known=Object.fromEntries(HlebDemo.products.map(p=>[p.id,{id:p.id,name:p.title,price:p.price.toLocaleString('ru-RU')+' ₽',weight:p.weightText,size:p.size}]));var favorites=new Set(HlebDemo.list('favorites')),compares=new Set(HlebDemo.list('compare').slice(0,4)),signedInDemo=false;
     var root=document.getElementById('app');
     function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-    function current(){return decodeURIComponent(location.hash.slice(1)||(document.documentElement.dataset.promotionsPage==='true'?'sale':document.documentElement.dataset.reviewsPage==='true'?'reviews':document.documentElement.dataset.articlePage?'articles':document.documentElement.dataset.wholesalePage==='true'?'wholesale':document.documentElement.dataset.catalogPage?'catalog':'home'));}
+    function current(){if(document.documentElement.dataset.promotionsPage==='true'&&/^#pr-(discounts|clearance|bundles|review)$/.test(location.hash))return 'sale';return decodeURIComponent(location.hash.slice(1)||(document.documentElement.dataset.promotionsPage==='true'?'sale':document.documentElement.dataset.reviewsPage==='true'?'reviews':document.documentElement.dataset.articlePage?'articles':document.documentElement.dataset.wholesalePage==='true'?'wholesale':document.documentElement.dataset.catalogPage?'catalog':'home'));}
     function notify(t){var n=document.getElementById('toast');n.textContent=t;n.classList.add('show');clearTimeout(notify.timeout);notify.timeout=setTimeout(function(){n.classList.remove('show');},3200);}
     function updateCounters(){
       var f=document.getElementById('enh-fav-count'),c=document.getElementById('enh-compare-count');
