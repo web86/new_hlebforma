@@ -1,7 +1,7 @@
 /* Build static category HTML from the shared storefront template. */
 'use strict';
 const fs=require('node:fs'),path=require('node:path');
-function generate(template,catalogScript,dataScript){
+function generate(template,catalogScript,dataScript,wholesaleScript){
   const window={matchMedia:()=>({matches:false,addEventListener(){}})};
   new Function('window',catalogScript)(window);
   const catalogue=window.HlebCatalog;
@@ -9,7 +9,7 @@ function generate(template,catalogScript,dataScript){
   if(!productMatch)throw Error('Missing catalogue data');
   const products=JSON.parse(productMatch[1]).map(p=>({...p,image:p.image.startsWith('products/')?'assets/'+p.image:p.image}));
   const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  return catalogue.pages.map(page=>{
+  const result=catalogue.pages.map(page=>{
     const base=page.alias?'../../prototype/index.html':'../prototype/index.html';
     const url='https://web86.github.io/new_hlebforma/katalog/'+(page.alias?page.alias+'/':'');
     const markup=catalogue.create({products,app:{querySelector:()=>null,addEventListener(){}},pageCode:page.code}).render();
@@ -22,12 +22,26 @@ function generate(template,catalogScript,dataScript){
     if(!rendered.includes('data-catalog-page="'+page.code+'"')||!rendered.includes('<h1>'+esc(page.h1)+'</h1>')||!rendered.includes('<link rel="canonical"'))throw Error('Could not render '+page.code);
     return {path:'katalog/'+(page.alias?page.alias+'/':'')+'index.html',html:rendered,code:page.code};
   });
+  if(wholesaleScript){
+    new Function('window',wholesaleScript)(window);
+    const wholesale=window.HlebWholesale, page=wholesale.meta;
+    const markup=wholesale.create({products,app:{querySelector:()=>null,addEventListener(){}}}).render();
+    const rendered=template
+      .replace('<html lang="ru">','<html lang="ru" data-wholesale-page="true">')
+      .replace('<meta charset="utf-8">','<meta charset="utf-8">\n  <base href="../prototype/index.html">')
+      .replace(/<title>[\s\S]*?<\/title>/,'<title>'+esc(page.title)+'</title>')
+      .replace(/<meta name="description" content="[^"]*">/,'<meta name="description" content="'+esc(page.description)+'">\n  <link rel="canonical" href="https://web86.github.io/new_hlebforma/optom/">')
+      .replace('<main id="app" class="main-space" tabindex="-1"></main>','<main id="app" class="main-space" tabindex="-1">'+markup+'</main>');
+    if(!rendered.includes('data-wholesale-page="true"')||!rendered.includes('<h1>'+esc(page.h1)+'</h1>')||!rendered.includes('id="quote-form"'))throw Error('Could not render wholesale page');
+    result.push({path:'optom/index.html',html:rendered,code:'wholesale'});
+  }
+  return result;
 }
 module.exports=generate;
 if(require.main===module){
   const out=process.argv[2]||'_site';
   const base=__dirname;
-  const pages=generate(fs.readFileSync(path.join(base,'index.html'),'utf8'),fs.readFileSync(path.join(base,'assets/catalog.js'),'utf8'),fs.readFileSync(path.join(base,'assets/storefront-data.js'),'utf8'));
+  const pages=generate(fs.readFileSync(path.join(base,'index.html'),'utf8'),fs.readFileSync(path.join(base,'assets/catalog.js'),'utf8'),fs.readFileSync(path.join(base,'assets/storefront-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/wholesale.js'),'utf8'));
   for(const p of pages){const dest=path.join(out,p.path);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,p.html);}
-  console.log('Generated '+pages.length+' standalone catalogue pages');
+  console.log('Generated '+pages.length+' standalone storefront pages');
 }
