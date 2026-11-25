@@ -5,7 +5,7 @@ window.HlebArticleData=[
     "category": "choice",
     "title": "Как выбрать корзинку для расстойки хлеба?",
     "desc": "Форма, размер, материал и вес теста. Подберите подходящую модель по своему рецепту.",
-    "image": "v3/assets/hero-bread.webp",
+    "image": "assets/article-covers/choose-basket.webp",
     "related": [
       "bn001",
       "bn11",
@@ -29,14 +29,15 @@ window.HlebArticleData=[
         "Перед расстойкой равномерно присыпьте внутреннюю поверхность мукой. По завершении расстойки переверните заготовку на поверхность для выпечки. Высушите корзинку и очистите сухой мягкой щёткой."
       ]
     ],
-    "legacy": false
+    "legacy": false,
+    "imageAlt": "Тесто на кухонных весах и ротанговые корзинки разных размеров"
   },
   {
     "alias": "11-kak-obrabatyvat-korzinki-pered-pervym-ispolzovaniem",
     "category": "care",
     "title": "Как обрабатывать корзинки перед первым использованием и после",
     "desc": "Подготовка, мука, чехлы и бережная сухая очистка.",
-    "image": "assets/products/bn-001.webp",
+    "image": "assets/article-covers/rattan-care.webp",
     "related": [
       "bn001",
       "bn26",
@@ -56,7 +57,8 @@ window.HlebArticleData=[
         "Переложите заготовку на поверхность для выпечки. Полностью просушите корзинку, затем уберите остатки муки мягкой сухой щёткой. Вытряхните чехол и храните его отдельно в сухом месте."
       ]
     ],
-    "legacy": true
+    "legacy": true,
+    "imageAlt": "Очистка ротанговой корзинки сухой мягкой щёткой"
   },
   {
     "alias": "6-chto-takoe-rasstojka-testa-i-kak-ee-delat",
@@ -199,7 +201,7 @@ window.HlebArticleData=[
     "category": "choice",
     "title": "Круглая или овальная корзинка?",
     "desc": "Две классические формы: сравните их и выберите под свой хлеб.",
-    "image": "v3/assets/bread/oval.webp",
+    "image": "assets/article-covers/round-or-oval.webp",
     "related": [
       "bn001",
       "bn27",
@@ -220,6 +222,7 @@ window.HlebArticleData=[
         "Форма не заменяет правильное формование и расстойку. Если вы печёте по разным рецептам, полезно иметь корзинки разных размеров."
       ]
     ],
-    "legacy": false
+    "legacy": false,
+    "imageAlt": "Круглая и овальная корзинки рядом с готовым хлебом двух форм"
   }
 ];
