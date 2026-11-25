@@ -722,6 +722,46 @@ body.mobile-menu-open{overflow:hidden}
 }
 @media(max-width:350px){.pdp .detail-summary h1{font-size:24px}.pdp .detail-features div{font-size:12px}.pdp-sticky{gap:8px;padding-left:12px;padding-right:12px}.pdp-sticky-price{font-size:19px;max-width:135px;white-space:normal}.pdp-sticky .btn{font-size:13px}}
 
+
+/* Product detail refinements: unclipped photography, reviews and cart drawer. */
+.pdp-panel{min-height:0;overflow:hidden}
+.pdp-zoom{position:absolute;inset:0;display:block;min-width:0;min-height:0;overflow:hidden}
+.pdp-zoom img{position:absolute;inset:0;width:100%;height:100%;min-width:0;min-height:0;max-width:100%;max-height:100%;object-fit:contain;object-position:center;display:block}
+.pdp-zoom .pdp-photo-unavailable{height:100%}
+.pdp-reviews{margin:0 0 48px;scroll-margin-top:100px;border-top:1px solid var(--pdp-line);padding-top:27px}
+.pdp-review-head{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:15px}
+.pdp-review-head h2{margin:0;font-family:var(--display-font,Georgia,serif);font-size:clamp(24px,2.6vw,35px)}
+.pdp-review-jump{align-self:flex-start;display:inline-flex;align-items:center;gap:7px;border:0;background:transparent;padding:3px 0 7px;color:#72503a;font:600 12px/1.5 system-ui,sans-serif;text-align:left;cursor:pointer}
+.pdp-review-jump:hover{text-decoration:underline;text-underline-offset:3px}
+.pdp-review-stars{color:#a96031;letter-spacing:.07em;font-size:16px;white-space:nowrap}
+.pdp-review-summary{display:flex;align-items:center;gap:10px;flex-wrap:wrap;color:#6d625a;font-size:12px;margin:0 0 12px}
+.pdp-review-summary strong{font:800 25px/1.2 system-ui,sans-serif;color:#29231f}
+.pdp-review-note{color:#76685d;font-size:12px;margin:0 0 16px;line-height:1.5}
+.pdp-review-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pdp-review-card{min-width:0;border:1px solid var(--pdp-line);border-radius:8px;background:#fff;padding:18px;display:flex;flex-direction:column;gap:8px;overflow-wrap:anywhere}
+.pdp-review-card header{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;background:none;position:static}
+.pdp-review-card strong{font-size:14px;color:#392c24}.pdp-review-card small{font-size:11px;color:#76685d}.pdp-review-card p{font-size:13px;line-height:1.65;margin:0;color:#625449;white-space:pre-wrap}
+.pdp-review-write{border:0;padding:0;margin:16px 0 0}.pdp-review-write>summary{list-style:none;display:inline-flex;gap:10px;min-height:46px;align-items:center;justify-content:center;padding:10px 18px;border:1px solid #cbb7a5;border-radius:6px;background:white;color:#8b4e28;font:700 13px/1.35 system-ui,sans-serif;cursor:pointer}.pdp-review-write>summary::-webkit-details-marker{display:none}.pdp-review-write>summary::after{content:'+';font-size:18px}.pdp-review-write[open]>summary::after{content:'−'}
+.pdp-review-form{margin-top:12px;padding:20px;background:var(--pdp-paper);border:1px solid var(--pdp-line);border-radius:8px;max-width:680px;display:grid;gap:12px}
+.pdp-review-form fieldset{border:0;padding:0;margin:0;min-width:0}.pdp-review-form legend,.pdp-review-form label{font-size:13px;font-weight:650;color:#483b32}.pdp-review-form legend{margin-bottom:7px}
+.pdp-rating-choices{display:flex;flex-wrap:wrap;gap:6px}.pdp-rating-choices label{position:relative;display:grid;place-items:center;min-width:43px;height:43px;border:1px solid #d9cfc4;border-radius:6px;background:white;cursor:pointer;font-size:14px;color:#a96031}.pdp-rating-choices input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer;width:100%;height:100%}.pdp-rating-choices label:has(input:checked){background:#f3e3d4;border-color:#a96031;box-shadow:0 0 0 1px #a96031}.pdp-rating-choices label:has(input:focus-visible){outline:2px solid #a96031;outline-offset:2px}
+.pdp-review-form .pdp-review-field{display:grid;gap:5px;min-width:0}.pdp-review-field input,.pdp-review-field textarea{font:inherit;font-size:14px;min-width:0;width:100%;padding:10px 12px;background:white;border:1px solid #d9cfc4;border-radius:6px;color:#29231f}.pdp-review-field textarea{resize:vertical;min-height:100px}.pdp-review-form .btn{justify-self:start;min-height:44px}.pdp-review-form p{margin:0;font-size:11px;color:#76685d}.pdp-review-feedback{margin:9px 0 0;font-size:13px;color:#865024}.pdp-review-feedback:empty{display:none}
+/* Same visual language as the homepage cart; native dialog keeps focus and stacking safe. */
+body.cart-drawer-open{overflow:hidden}
+.cart-side{position:fixed;inset:0 0 0 auto;margin:0;padding:28px;width:min(445px,100%);max-width:100%;height:100vh;height:100dvh;max-height:none;box-sizing:border-box;border:0;background:#fffcf7;color:#29231f;overflow:auto;overscroll-behavior:contain;box-shadow:-10px 0 40px #291c1622}
+.cart-side:not([open]){display:none}.cart-side[open]{display:flex;flex-direction:column;animation:cart-side-in .25s ease-out both}.cart-side::backdrop{background:#1d140ea1}@keyframes cart-side-in{from{transform:translateX(100%)}to{transform:translateX(0)}}
+.cart-side-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}.cart-side-head h2{font-family:var(--display-font,Georgia,serif);font-size:31px;margin:0}.cart-side-close{background:transparent;border:0;border-radius:6px;width:42px;height:42px;color:#47382e;font-size:28px;line-height:1;cursor:pointer}
+.cart-side-body{flex:1;min-width:0;display:flex;flex-direction:column}.cart-side-items{display:grid;gap:0}.cart-side-item{border-bottom:1px solid #e4ddd4;padding:13px 0;display:grid;grid-template-columns:70px minmax(0,1fr) 36px;gap:12px;align-items:start}.cart-side-item img{display:block;width:70px;height:70px;object-fit:contain;background:white;border-radius:7px}.cart-side-item a{display:block;font-size:13px;line-height:1.45;font-weight:700;overflow-wrap:anywhere}.cart-side-item p{font-size:11px;margin:4px 0;color:#6d625a}.cart-side-item-price{font-size:14px;color:#29231f;white-space:nowrap}.cart-side-qty{display:inline-grid;grid-template-columns:34px minmax(26px,auto) 34px;align-items:center;border:1px solid #e4ddd4;border-radius:6px;background:white;overflow:hidden;margin-top:7px}.cart-side-qty button{border:0;background:white;color:#654732;min-height:34px;font-size:18px;line-height:1;padding:0}.cart-side-qty span{text-align:center;font-size:12px;font-weight:700}.cart-side-qty button:disabled{opacity:.35;cursor:not-allowed}.cart-side-remove{width:36px;height:36px;border:1px solid #e4ddd4;border-radius:6px;background:white;color:#76685d;font-size:20px;line-height:1;padding:0;cursor:pointer}
+.cart-side-total{margin:20px 0 8px;display:flex;align-items:baseline;justify-content:space-between;gap:10px;font-size:15px}.cart-side-total strong{font-size:23px;white-space:nowrap}.cart-side-note{font-size:12px;color:#76685d;margin:0 0 16px}.cart-side-actions{display:grid;gap:8px;margin:0 0 10px}.cart-side-actions .btn{width:100%;justify-content:center;min-height:46px;margin:0}.cart-side-actions .btn-primary{background:#292521;color:#fff}.cart-side-actions .btn-primary:hover{background:#a96031}.cart-side-continue{background:transparent;border:0;color:#79533b;font-size:13px;min-height:44px;text-decoration:underline;text-underline-offset:4px;cursor:pointer}.cart-side-empty{padding:16px 0 23px;font-size:14px;color:#6d625a}
+@media(max-width:880px){.pdp-review-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:640px){
+ .pdp-stage{height:auto;min-height:0;max-height:380px;aspect-ratio:1.12}.pdp-panel[data-kind="product"] .pdp-zoom img,.pdp-panel[data-kind="bread"] .pdp-zoom img{object-fit:contain;padding:8px}
+ .pdp-size-visual{padding:16px 37px;gap:8px}.pdp-size-visual svg{width:min(138px,60%)}
+ .pdp-reviews{margin-bottom:30px;padding-top:20px;scroll-margin-top:78px}.pdp-review-head{margin-bottom:10px}.pdp-review-grid{grid-template-columns:minmax(0,1fr);gap:9px}.pdp-review-card{padding:14px}.pdp-review-form{padding:14px}.pdp-review-write>summary{width:100%}.pdp-review-form .btn{justify-self:stretch}
+ .cart-side{padding:20px 16px calc(20px + env(safe-area-inset-bottom,0px))}.cart-side-head{margin-bottom:14px}.cart-side-head h2{font-size:28px}.cart-side-item{grid-template-columns:64px minmax(0,1fr) 34px;gap:9px}.cart-side-item img{width:64px;height:64px}.cart-side-remove{width:34px;height:36px}
+}
+@media(prefers-reduced-motion:reduce){.cart-side[open]{animation:none}}
+
 </style>
 </head>
 <body id="page-top">
@@ -794,6 +834,7 @@ body.mobile-menu-open{overflow:hidden}
   <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="#catalog">Каталог</a><a href="#sale">Распродажа</a><a href="#wholesale">Оптовикам</a><a href="v3/index.html#guides">Как выбрать</a><a href="v3/index.html#reviews">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
   <div class="mobile-menu-contact"><a href="#contacts">Контакты ↗</a><a href="tel:+79612211283">+7 (961) 221-12-83</a></div>
 </dialog>
+<dialog class="cart-side" id="cart-side" aria-labelledby="cart-side-title"><div class="cart-side-head"><h2 id="cart-side-title">Корзина</h2><button type="button" class="cart-side-close" data-cart-side-close aria-label="Закрыть корзину" autofocus>×</button></div><div class="cart-side-body" data-cart-side-body></div></dialog>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="assets/storefront-data.js"></script>
 <script>
@@ -921,6 +962,24 @@ body.mobile-menu-open{overflow:hidden}
       }
       function pdpVariants(p){var options=pdpRelated(p,true).slice(0,4);if(!pdpBasket(p)||!options.length)return '';options.push(p);options.sort(function(a,b){return (a.weight||Infinity)-(b.weight||Infinity)||a.id.localeCompare(b.id);});return '<section class="pdp-variants" aria-label="Другие размеры"><h2>Другие модели этой формы</h2><p>Выберите подходящую модель по весу теста.</p><div class="pdp-variant-list">'+options.map(function(q){var label=q.weight?q.weightText:q.sku;var contents='<strong>'+safe(label)+'</strong><small>'+safe(q.sku)+' · '+safe(q.size)+'</small><b>'+fmt(q.price)+'</b>';return q.id===p.id?'<span class="pdp-variant" aria-current="page">'+contents+'</span>':'<a class="pdp-variant" href="#product-'+safe(q.id)+'">'+contents+'</a>';}).join('')+'</div></section>';}
       function pdpIcon(type){return type==='truck'?'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2 5h13v12H2zM15 9h4l3 4v4h-7"/><circle cx="6" cy="18" r="2" fill="white"/><circle cx="18" cy="18" r="2" fill="white"/></svg>':'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 19C3 8 12 4 21 3c0 10-6 18-16 16ZM5 19l10-10"/></svg>';}
+
+      function pdpReviewExamples(p){
+        if(!pdpBasket(p))return [{rating:5,text:'Удобно, что характеристики и назначение указаны прямо в карточке.'},{rating:5,text:'Хорошее дополнение к набору для домашней выпечки.'},{rating:4,text:'Хотелось бы больше фотографий инструмента в работе.'}];
+        return [{rating:5,text:'Удобно выбирать корзинку по весу теста. Нравится натуральная фактура ротанга.'},{rating:5,text:'Корзинка помогает сохранить форму заготовки во время расстойки. Удобно для домашнего хлеба.'},{rating:4,text:'Удобная форма для расстойки. Хотелось бы ещё больше примеров готового хлеба.'}];
+      }
+      function pdpStoredReviews(id){var raw=HlebDemo.read('reviews:'+id,[]);return Array.isArray(raw)?raw.filter(function(r){return r&&Number.isInteger(r.rating)&&r.rating>=1&&r.rating<=5&&typeof r.text==='string'&&typeof r.name==='string';}).slice(0,20):[];}
+      function pdpStars(n){return '<span class="pdp-review-stars" aria-label="Оценка '+n+' из 5" role="img">'+'★'.repeat(n)+'☆'.repeat(5-n)+'</span>';}
+      function pdpReviewContent(p){
+        var examples=pdpReviewExamples(p),stored=pdpStoredReviews(p.id),all=stored.concat(examples),average=(all.reduce(function(sum,r){return sum+r.rating;},0)/all.length).toFixed(1).replace('.',',');
+        var summary='<strong>'+average+'</strong>'+pdpStars(Math.round(Number(average.replace(',','.'))))+'<span>из 5 · '+all.length+' '+(all.length===1?'отзыв':all.length>=2&&all.length<=4?'отзыва':'отзывов')+' в примере</span>';
+        var cards=all.map(function(r,i){var local=i<stored.length;return '<article class="pdp-review-card"><header><strong>'+safe(local?(r.name||'Ваш отзыв'):'Пример отзыва '+(i-stored.length+1))+'</strong>'+pdpStars(r.rating)+'</header><small>'+(local?'В этой вкладке':'Образец')+'</small><p>'+safe(r.text)+'</p></article>';}).join('');
+        return {summary:summary,cards:cards,count:all.length,rating:Math.round(Number(average.replace(',','.')))};
+      }
+      function pdpReviews(p){var content=pdpReviewContent(p);return '<section class="pdp-reviews" id="product-reviews" aria-labelledby="pdp-review-title"><div class="pdp-review-head"><h2 id="pdp-review-title">Отзывы о товаре</h2></div><div class="pdp-review-summary" data-pdp-review-summary>'+content.summary+'</div><p class="pdp-review-note">Примеры отзывов для знакомства с разделом, не отзывы реальных покупателей.</p><div class="pdp-review-grid" data-pdp-review-grid>'+content.cards+'</div><details class="pdp-review-write"><summary>Оставить отзыв</summary><form class="pdp-review-form" data-pdp-review-form data-product="'+safe(p.id)+'"><fieldset><legend>Ваша оценка</legend><div class="pdp-rating-choices">'+[1,2,3,4,5].map(function(n){return '<label><input type="radio" name="rating" value="'+n+'" required aria-label="'+n+' из 5"><span aria-hidden="true">'+n+' ★</span></label>';}).join('')+'</div></fieldset><label class="pdp-review-field">Имя (необязательно)<input name="reviewName" maxlength="60" autocomplete="off" placeholder="Как к вам обращаться"></label><label class="pdp-review-field">Ваш отзыв<textarea name="reviewText" required minlength="10" maxlength="1200" rows="4" placeholder="Расскажите о своём опыте использования"></textarea></label><p>Отзыв сохраняется только в этой вкладке и не отправляется в магазин.</p><button type="submit" class="btn btn-primary">Добавить отзыв</button></form></details><p class="pdp-review-feedback" data-pdp-review-feedback role="status" aria-live="polite"></p></section>';}
+      app.addEventListener('click',function(e){var link=e.target.closest('[data-pdp-review-jump]');if(!link)return;var section=app.querySelector('#product-reviews');if(section)section.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});
+      app.addEventListener('submit',function(e){var form=e.target.closest('[data-pdp-review-form]');if(!form)return;e.preventDefault();var p=productById(form.dataset.product);if(!p)return;var values=new FormData(form),rating=Number(values.get('rating')),name=String(values.get('reviewName')||'').trim().slice(0,60),review=String(values.get('reviewText')||'').trim().slice(0,1200);if(!Number.isInteger(rating)||rating<1||rating>5||review.length<10){form.querySelector('textarea').setCustomValidity('Напишите не менее 10 символов и выберите оценку.');form.reportValidity();return;}var stored=pdpStoredReviews(p.id);stored.unshift({rating:rating,name:name,text:review});HlebDemo.write('reviews:'+p.id,stored.slice(0,20));var section=form.closest('.pdp-reviews'),content=pdpReviewContent(p);section.querySelector('[data-pdp-review-summary]').innerHTML=content.summary;section.querySelector('[data-pdp-review-grid]').innerHTML=content.cards;var jump=app.querySelector('[data-pdp-review-jump]');if(jump)jump.innerHTML=pdpStars(content.rating)+'<span>Отзывы ('+content.count+') · примеры</span>';form.reset();form.closest('details').open=false;section.querySelector('[data-pdp-review-feedback]').textContent='Спасибо! Отзыв добавлен в этой вкладке.';section.querySelector('.pdp-review-write summary').focus({preventScroll:true});});
+      app.addEventListener('input',function(e){if(e.target.matches('[data-pdp-review-form] textarea'))e.target.setCustomValidity('');});
+
       function productPage(id){
         var p=productById(id);if(!p)return notFound();var basket=pdpBasket(p),bread=pdpBread(p),discount=p.oldPrice>p.price?Math.round((1-p.price/p.oldPrice)*100):0;
         var mainTitle=pdpName(p),weight=p.weight?safe(p.weightText)+' теста':safe(p.weightText),price=fmt(p.price),size=safe(p.size);
@@ -928,7 +987,8 @@ body.mobile-menu-open{overflow:hidden}
         var steps=[['Подготовьте корзинку','Присыпьте сухую корзинку мукой, чтобы тесто меньше прилипало.'],['Сформуйте заготовку','Поместите тесто в корзинку в соответствии с рецептом.'],['Дайте тесту расстояться','Ориентируйтесь на температуру, рецепт и состояние теста.'],['Переложите перед выпечкой','Аккуратно переверните корзинку на поверхность для выпечки.']];
         return '<div class="container pdp">'+crumbs('<a href="#catalog">Каталог</a> / '+safe(p.kind)+' / '+safe(p.sku))+
           '<div class="detail-grid">'+pdpGallery(p)+'<div class="detail-summary"><p class="pdp-kicker">'+safe(p.kind)+' · Артикул '+safe(p.sku)+'</p><h1>'+safe(mainTitle)+'</h1>'+
-          '<div class="detail-badges"><span class="meta-pill">'+weight+'</span><span class="meta-pill">'+size+'</span></div><p class="pdp-intro">'+safe(pdpIntro(p))+'</p>'+
+          '<button class="pdp-review-jump" type="button" data-pdp-review-jump>'+pdpStars(pdpReviewContent(p).rating)+'<span>Отзывы ('+pdpReviewContent(p).count+') · примеры</span></button>'+
+           '<div class="detail-badges"><span class="meta-pill">'+weight+'</span><span class="meta-pill">'+size+'</span></div><p class="pdp-intro">'+safe(pdpIntro(p))+'</p>'+
           '<div class="detail-price'+(discount?' on-sale':'')+'"><span>'+price+'</span>'+(discount?'<del class="detail-old-price">'+fmt(p.oldPrice)+'</del><span class="pdp-discount">−'+discount+'%</span>':'')+'</div>'+(discount?'<p class="pdp-saving">Выгода '+fmt(p.oldPrice-p.price)+'</p>':'')+
           '<div class="btn-row pdp-buy"><div class="pdp-qty"><button type="button" data-pdp-qty="-1" aria-label="Уменьшить количество">−</button><input class="quantity" type="number" id="detail-qty" min="1" max="99" value="1" inputmode="numeric" aria-label="Количество товара"><button type="button" data-pdp-qty="1" aria-label="Увеличить количество">+</button></div><button class="btn btn-primary" type="button" data-action="add" data-id="'+safe(p.id)+'">В корзину</button></div>'+
           '<div class="pdp-quick-info">'+(basket?'<div>'+pdpIcon('leaf')+'<span>Натуральный ротанг</span></div>':'')+'<div>'+pdpIcon('truck')+'<span>Доставка по России · <a href="#delivery">Подробнее</a></span></div></div>'+
@@ -936,7 +996,8 @@ body.mobile-menu-open{overflow:hidden}
           '<div class="pdp-wholesale"><strong>Покупаете для пекарни?</strong><button type="button" data-action="quote" data-id="'+safe(p.id)+'">Запросить оптовую цену ↗</button></div></div></div>'+
           (basket&&bread?'<section class="pdp-story"><figure class="pdp-story-visual"><img src="'+bread+'" alt="Пример готового хлеба выбранной формы" loading="lazy" decoding="async"><figcaption>Пример выпечки · иллюстрация</figcaption></figure><div class="pdp-story-copy"><h2>Для какого хлеба подходит</h2><p>'+safe(pdpIntro(p))+'</p><p>Ротанговая корзинка поддерживает форму тестовой заготовки во время расстойки. Перед выпечкой хлеб вынимают из корзинки.</p></div></section>':'')+
           '<section class="pdp-information"><div><h2 class="pdp-section-title">'+(basket?'Как пользоваться корзинкой':'О товаре')+'</h2>'+(basket?'<ol class="pdp-instructions">'+steps.map(function(s,i){return '<li><b>0'+(i+1)+'</b><strong>'+s[0]+'</strong><p>'+s[1]+'</p></li>';}).join('')+'</ol>':'<p>'+safe(pdpIntro(p))+'</p>')+'</div><div class="pdp-facts"><h2>Полезно знать</h2>'+(basket?'<details open><summary>Материал и уход</summary><p>Ротанг используют для расстойки благодаря его фактуре и способности поддерживать форму теста. После расстойки удалите остатки муки сухой мягкой щёткой. Дайте корзинке полностью просохнуть перед хранением. Не ставьте её в духовку.</p></details><details><summary>Как подобрать размер?</summary><p>Ориентируйтесь на вес тестовой заготовки до выпечки. '+(p.weight?'Для этой модели указан вес '+safe(p.weightText)+'.':'Вместимость этой модели уточняется.')+'</p></details>':'')+'<details><summary>Доставка и оплата</summary><p><a href="#delivery">Условия доставки и оплаты</a>. По вопросам заказа можно <a href="#contacts">связаться с магазином</a>.</p></details></div></section>'+
-          (related.length?'<section class="section pdp-related"><div class="section-heading"><h2>'+(basket?'Другие формы и размеры':'Другие инструменты')+'</h2><a href="#catalog">В каталог ↗</a></div><div class="products-grid">'+related.map(productCard).join('')+'</div></section>':'')+
+          pdpReviews(p)+
+           (related.length?'<section class="section pdp-related"><div class="section-heading"><h2>'+(basket?'Другие формы и размеры':'Другие инструменты')+'</h2><a href="#catalog">В каталог ↗</a></div><div class="products-grid">'+related.map(productCard).join('')+'</div></section>':'')+
           (accessories.length?'<section class="section pdp-related pdp-accessories"><div class="section-heading"><h2>Пригодится для выпечки</h2><a href="#catalog">В каталог ↗</a></div><div class="products-grid">'+accessories.map(productCard).join('')+'</div></section>':'')+
           '<div class="pdp-sticky" aria-label="Покупка товара"><div class="pdp-sticky-price"><span data-pdp-total data-price="'+p.price+'">'+price+'</span><small data-pdp-qty-label>за 1 шт.</small></div><button class="btn btn-primary" type="button" data-action="add" data-id="'+safe(p.id)+'">В корзину</button></div></div>';
       }
@@ -981,6 +1042,19 @@ body.mobile-menu-open{overflow:hidden}
       function cartCount(){return Object.values(cart).reduce(function(s,n){return s+n;},0);}
       function cartTotal(){return products.reduce(function(s,p){return s+p.price*(cart[p.id]||0);},0);}
       function updateCartCounter(){var c=document.getElementById("cart-count");c.textContent=cartCount();c.hidden=!cartCount();HlebDemo.write("cart",cart);}
+
+      var cartSide=document.getElementById('cart-side');
+      function cartSideRender(){
+        var area=cartSide.querySelector('[data-cart-side-body]'),items=products.filter(function(p){return cart[p.id]>0;});
+        if(!items.length){area.innerHTML='<p class="cart-side-empty">В корзине пока ничего нет.</p><div class="cart-side-actions"><a class="btn btn-primary" href="#catalog">Перейти в каталог ↗</a><button type="button" class="cart-side-continue" data-cart-side-close>Продолжить покупки</button></div>';return;}
+        area.innerHTML='<div class="cart-side-items">'+items.map(function(p){var n=cart[p.id];return '<article class="cart-side-item"><a href="#product-'+safe(p.id)+'"><img src="'+safe(p.image)+'" alt="'+safe(p.title)+'"></a><div><a href="#product-'+safe(p.id)+'">'+safe(p.title)+'</a><p>'+fmt(p.price)+' за шт.</p><strong class="cart-side-item-price">'+fmt(p.price*n)+'</strong><div class="cart-side-qty" aria-label="Количество '+safe(p.sku)+'"><button type="button" data-cart-side-qty="-1" data-id="'+safe(p.id)+'" aria-label="Уменьшить количество '+safe(p.sku)+'"'+(n<=1?' disabled':'')+'>−</button><span>'+n+'</span><button type="button" data-cart-side-qty="1" data-id="'+safe(p.id)+'" aria-label="Увеличить количество '+safe(p.sku)+'"'+(n>=99?' disabled':'')+'>+</button></div></div><button type="button" class="cart-side-remove" data-cart-side-remove data-id="'+safe(p.id)+'" aria-label="Удалить '+safe(p.sku)+'">×</button></article>';}).join('')+'</div><div class="cart-side-total"><span>Товары ('+cartCount()+')</span><strong>'+fmt(cartTotal())+'</strong></div><p class="cart-side-note">Стоимость доставки рассчитывается отдельно.</p><div class="cart-side-actions"><a class="btn btn-primary" href="#checkout">Перейти к оформлению ↗</a><button type="button" class="cart-side-continue" data-cart-side-close>Продолжить покупки</button></div>';
+      }
+      function openCartSide(){cartSideRender();if(!cartSide.open){cartSide.showModal();document.body.classList.add('cart-drawer-open');}}
+      function closeCartSide(){if(cartSide.open)cartSide.close();}
+      cartSide.addEventListener('close',function(){document.body.classList.remove('cart-drawer-open');});
+      cartSide.addEventListener('click',function(e){var button=e.target.closest('[data-cart-side-qty],[data-cart-side-remove],[data-cart-side-close]');if(button){if(button.hasAttribute('data-cart-side-close')){closeCartSide();return;}var id=button.dataset.id;if(!productById(id)||!cart[id])return;var step=button.dataset.cartSideQty;if(button.hasAttribute('data-cart-side-remove'))delete cart[id];else cart[id]=Math.max(1,Math.min(99,cart[id]+Number(step)));updateCartCounter();cartSideRender();var next=Array.from(cartSide.querySelectorAll('[data-cart-side-qty]')).find(function(b){return b.dataset.id===id&&b.dataset.cartSideQty===step&&!b.disabled;});(next||cartSide.querySelector('.cart-side-close')).focus({preventScroll:true});return;}if(e.target.closest('a[href^="#"]')){closeCartSide();return;}if(e.target===cartSide){var rect=cartSide.getBoundingClientRect();if(e.clientX<rect.left||e.clientX>rect.right||e.clientY<rect.top||e.clientY>rect.bottom)closeCartSide();}});
+      document.addEventListener('hleb-route',closeCartSide);
+
       function checkout(){
         var inCart=products.filter(function(p){return cart[p.id]>0;});
         var rows=inCart.map(function(p){
@@ -1060,6 +1134,7 @@ body.mobile-menu-open{overflow:hidden}
         if(q)q.value=filters.q;
       }
       document.addEventListener("click",function(e){
+        var cartLink=e.target.closest(".header-cart");if(cartLink&&location.hash!=="#checkout"&&!e.ctrlKey&&!e.metaKey&&!e.shiftKey&&!e.altKey){e.preventDefault();openCartSide();return;}
         var menu=e.target.closest("#menu-toggle");
         if(menu){
           document.getElementById("mobile-menu-dialog").showModal();
@@ -1075,7 +1150,7 @@ body.mobile-menu-open{overflow:hidden}
         if(action==="add"){
           var qty=btn.closest(".pdp-buy,.pdp-sticky")?document.getElementById("detail-qty"):null;
           var n=qty?pdpQuantity(qty.value):1;
-          cart[id]=Math.min(99,(cart[id]||0)+n);updateCartCounter();toast("Добавлено в корзину: "+productById(id).sku);
+          if(!productById(id))return;cart[id]=Math.min(99,(cart[id]||0)+n);updateCartCounter();openCartSide();
         }
         if(action==="quote"){
           chosenWholesaleSku=id;
