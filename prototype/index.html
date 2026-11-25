@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <title>Hleb-Forma — каталог и внутренние страницы · v3.21</title>
-  <meta name="description" content="Кликабельный демонстрационный прототип будущего магазина Hleb-Forma. Не принимает реальные заказы и заявки.">
+  <meta name="description" content="Корзинки и формы из ротанга для расстойки хлеба, принадлежности для домашней выпечки и профессиональных пекарен.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Lora:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
@@ -926,7 +926,7 @@ body.cart-drawer-open{overflow:hidden}
           '<p>Поможем определить нужные формы и подготовить предложение по вашему ассортименту. Оставьте запрос с артикулами и количеством.</p>'+
           '<a class="btn btn-light" href="../optom/">Получить оптовое предложение →</a></div><div class="feature-art" aria-hidden="true">✳</div></section>'+
           '<section class="section"><div class="section-heading"><h2>Советы по хлебопечению</h2><a href="../blog/">Все статьи →</a></div>'+articleTiles()+'</section>'+
-          '<section class="section"><div class="newsletter"><div><span class="eyebrow">Полезное — без лишних писем</span><h2>Новинки и советы для пекарей</h2><p class="small">Подписка появится в рабочем магазине с подтверждением email.</p></div>'+
+          '<section class="section"><div class="newsletter"><div><span class="eyebrow">Полезное — без лишних писем</span><h2>Новинки и советы для пекарей</h2><p class="small">Узнавайте о новых корзинках и советах по хлебопечению.</p></div>'+
           '<form id="newsletter-form"><input type="email" required placeholder="Ваш email" aria-label="Email для подписки"><button class="btn btn-primary">Подписаться</button></form></div></section>'+
           '</div>';
       }
@@ -963,12 +963,12 @@ body.cart-drawer-open{overflow:hidden}
         var all=HlebReviews.select(HlebReviews.allReviews(products,HlebDemo.read),{type:'product',sku:p.id}),stats=HlebReviews.stats(all),average=stats.average.toFixed(1).replace('.',',');
         var summary='<strong>'+average+'</strong>'+pdpStars(Math.round(stats.average))+'<span>из 5 · '+all.length+' '+HlebReviews.plural(all.length)+' в примере</span>';
         var archive='../otzyvy/?sku='+encodeURIComponent(p.id);
-        var cards=all.map(function(r){return '<article class="pdp-review-card"><header><strong>'+safe(r.name)+'</strong>'+pdpStars(r.rating)+'</header><small>'+(r.local?'В этой вкладке':'Демо-отзыв')+'</small><p>'+safe(r.text)+'</p>'+(r.photos.length?'<a href="'+archive+'"><img class="pdp-review-photo" src="'+safe(HlebReviews.thumbnail(r.photos[0]))+'" alt="'+(r.local?'Добавленная фотография':'Демонстрационная иллюстрация хлеба')+'" loading="lazy"></a><small>'+(r.local?'Добавленное фото':'Иллюстрация')+'</small>':'')+'</article>';}).join('');
+        var cards=all.map(function(r){return '<article class="pdp-review-card"><header><strong>'+safe(r.name)+'</strong>'+pdpStars(r.rating)+'</header><small>'+(r.local?'Ваш отзыв':'Пример отзыва')+'</small><p>'+safe(r.text)+'</p>'+(r.photos.length?'<a href="'+archive+'"><img class="pdp-review-photo" src="'+safe(HlebReviews.thumbnail(r.photos[0]))+'" alt="'+(r.local?'Добавленная фотография':'Иллюстрация хлеба')+'" loading="lazy"></a><small>'+(r.local?'Добавленное фото':'Иллюстрация')+'</small>':'')+'</article>';}).join('');
         return {summary:summary,cards:cards,count:all.length,rating:Math.round(Number(average.replace(',','.')))};
       }
-      function pdpReviews(p){var content=pdpReviewContent(p);return '<section class="pdp-reviews" id="product-reviews" aria-labelledby="pdp-review-title"><div class="pdp-review-head"><h2 id="pdp-review-title">Отзывы о товаре</h2></div><div class="pdp-review-summary" data-pdp-review-summary>'+content.summary+'</div><p class="pdp-review-note">Примеры отзывов для знакомства с разделом, не отзывы реальных покупателей.</p><div class="pdp-review-grid" data-pdp-review-grid>'+content.cards+'</div><a class="pdp-review-archive" href="../otzyvy/?sku='+encodeURIComponent(p.id)+'">Все отзывы об этой модели ↗</a><details class="pdp-review-write"><summary>Оставить отзыв</summary><form class="pdp-review-form" data-pdp-review-form data-product="'+safe(p.id)+'"><fieldset><legend>Ваша оценка</legend><div class="pdp-rating-choices">'+[1,2,3,4,5].map(function(n){return '<label><input type="radio" name="rating" value="'+n+'" required aria-label="'+n+' из 5"><span aria-hidden="true">'+n+' ★</span></label>';}).join('')+'</div></fieldset><label class="pdp-review-field">Имя (необязательно)<input name="reviewName" maxlength="60" autocomplete="off" placeholder="Как к вам обращаться"></label><label class="pdp-review-field">Ваш отзыв<textarea name="reviewText" required minlength="10" maxlength="1200" rows="4" placeholder="Расскажите о своём опыте использования"></textarea></label><p>Отзыв сохраняется только в этой вкладке и не отправляется в магазин.</p><button type="submit" class="btn btn-primary">Добавить отзыв</button></form></details><p class="pdp-review-feedback" data-pdp-review-feedback role="status" aria-live="polite"></p></section>';}
+      function pdpReviews(p){var content=pdpReviewContent(p);return '<section class="pdp-reviews" id="product-reviews" aria-labelledby="pdp-review-title"><div class="pdp-review-head"><h2 id="pdp-review-title">Отзывы о товаре</h2></div><div class="pdp-review-summary" data-pdp-review-summary>'+content.summary+'</div><p class="pdp-review-note">Вымышленные примеры отзывов. Фото — иллюстрации.</p><div class="pdp-review-grid" data-pdp-review-grid>'+content.cards+'</div><a class="pdp-review-archive" href="../otzyvy/?sku='+encodeURIComponent(p.id)+'">Все отзывы об этой модели ↗</a><details class="pdp-review-write"><summary>Оставить отзыв</summary><form class="pdp-review-form" data-pdp-review-form data-product="'+safe(p.id)+'"><fieldset><legend>Ваша оценка</legend><div class="pdp-rating-choices">'+[1,2,3,4,5].map(function(n){return '<label><input type="radio" name="rating" value="'+n+'" required aria-label="'+n+' из 5"><span aria-hidden="true">'+n+' ★</span></label>';}).join('')+'</div></fieldset><label class="pdp-review-field">Имя (необязательно)<input name="reviewName" maxlength="60" autocomplete="off" placeholder="Как к вам обращаться"></label><label class="pdp-review-field">Ваш отзыв<textarea name="reviewText" required minlength="10" maxlength="1200" rows="4" placeholder="Расскажите о своём опыте использования"></textarea></label><p>Отзыв сохранится в этой вкладке, без публикации.</p><button type="submit" class="btn btn-primary">Добавить отзыв</button></form></details><p class="pdp-review-feedback" data-pdp-review-feedback role="status" aria-live="polite"></p></section>';}
       app.addEventListener('click',function(e){var link=e.target.closest('[data-pdp-review-jump]');if(!link)return;var section=app.querySelector('#product-reviews');if(section)section.scrollIntoView({block:'start',behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});});
-      app.addEventListener('submit',function(e){var form=e.target.closest('[data-pdp-review-form]');if(!form)return;e.preventDefault();var p=productById(form.dataset.product);if(!p)return;var values=new FormData(form),rating=Number(values.get('rating')),name=String(values.get('reviewName')||'').trim().slice(0,60),review=String(values.get('reviewText')||'').trim().slice(0,1200);if(!Number.isInteger(rating)||rating<1||rating>5||review.length<10){form.querySelector('textarea').setCustomValidity('Напишите не менее 10 символов и выберите оценку.');form.reportValidity();return;}var stored=pdpStoredReviews(p.id);stored.unshift({rating:rating,name:name,text:review,date:new Date().toISOString().slice(0,10),photos:[]});HlebDemo.write('reviews:'+p.id,stored.slice(0,20));var section=form.closest('.pdp-reviews'),content=pdpReviewContent(p);section.querySelector('[data-pdp-review-summary]').innerHTML=content.summary;section.querySelector('[data-pdp-review-grid]').innerHTML=content.cards;var jump=app.querySelector('[data-pdp-review-jump]');if(jump)jump.innerHTML=pdpStars(content.rating)+'<span>Отзывы ('+content.count+') · примеры</span>';form.reset();form.closest('details').open=false;section.querySelector('[data-pdp-review-feedback]').textContent='Спасибо! Отзыв добавлен в этой вкладке.';section.querySelector('.pdp-review-write summary').focus({preventScroll:true});});
+      app.addEventListener('submit',function(e){var form=e.target.closest('[data-pdp-review-form]');if(!form)return;e.preventDefault();var p=productById(form.dataset.product);if(!p)return;var values=new FormData(form),rating=Number(values.get('rating')),name=String(values.get('reviewName')||'').trim().slice(0,60),review=String(values.get('reviewText')||'').trim().slice(0,1200);if(!Number.isInteger(rating)||rating<1||rating>5||review.length<10){form.querySelector('textarea').setCustomValidity('Напишите не менее 10 символов и выберите оценку.');form.reportValidity();return;}var stored=pdpStoredReviews(p.id);stored.unshift({rating:rating,name:name,text:review,date:new Date().toISOString().slice(0,10),photos:[]});HlebDemo.write('reviews:'+p.id,stored.slice(0,20));var section=form.closest('.pdp-reviews'),content=pdpReviewContent(p);section.querySelector('[data-pdp-review-summary]').innerHTML=content.summary;section.querySelector('[data-pdp-review-grid]').innerHTML=content.cards;var jump=app.querySelector('[data-pdp-review-jump]');if(jump)jump.innerHTML=pdpStars(content.rating)+'<span>Отзывы ('+content.count+') · примеры</span>';form.reset();form.closest('details').open=false;section.querySelector('[data-pdp-review-feedback]').textContent='Отзыв сохранён в этой вкладке.';section.querySelector('.pdp-review-write summary').focus({preventScroll:true});});
       app.addEventListener('input',function(e){if(e.target.matches('[data-pdp-review-form] textarea'))e.target.setCustomValidity('');});
 
       function productPage(id){
@@ -1033,21 +1033,21 @@ body.cart-drawer-open{overflow:hidden}
         }).join("");
         return '<div class="container">'+crumbs('Корзина / оформление')+
           '<div class="page-head"><span class="eyebrow">Покупка без лишних шагов</span><h1>Корзина и оформление</h1>'+
-          '<p>Демонстрация интерфейса. СДЭК и ЮKassa не подключены, реальные заказы и платежи не принимаются.</p></div>'+
+          '<p>Приём заказов и оплата пока недоступны. Данные не отправляются.</p></div>'+
           (inCart.length?'<div class="cart-layout"><div><div class="panel"><h2>Ваши товары</h2>'+rows+'</div>'+
           '<div class="panel" style="margin-top:20px"><h2>Контакты и доставка</h2>'+
           '<form id="checkout-demo" class="form-grid">'+
           '<div class="field"><label for="buyer-name">Имя</label><input required id="buyer-name" autocomplete="name"></div>'+
           '<div class="field"><label for="buyer-email">Email</label><input type="email" required id="buyer-email" autocomplete="email"></div>'+
           '<div class="field wide"><label for="buyer-city">Город / населённый пункт</label><input required id="buyer-city" autocomplete="address-level2"></div>'+
-          '<div class="field wide"><label>Способ доставки</label><select><option>СДЭК — тариф и ПВЗ будут рассчитаны сервером</option></select></div>'+
-          '<div class="field wide"><label>Оплата</label><select><option>ЮKassa — онлайн-оплата в рабочем магазине</option></select></div>'+
-          '<label class="checkbox-line wide"><input type="checkbox" required> Согласен с обработкой данных для оформления заказа (в рабочей версии — ссылка на политику)</label>'+
-          '<div class="wide"><button class="btn btn-primary" type="submit">Проверить демонстрационное оформление</button><div id="checkout-result"></div></div>'+
+          '<div class="field wide"><label>Способ доставки</label><select><option>СДЭК — стоимость и пункт выдачи уточняются</option></select></div>'+
+          '<div class="field wide"><label>Оплата</label><select><option>Онлайн-оплата пока недоступна</option></select></div>'+
+          '<label class="checkbox-line wide"><input type="checkbox" required> Понимаю, что заказ не будет отправлен</label>'+
+          '<div class="wide"><button class="btn btn-primary" type="submit">Проверить данные заказа</button><div id="checkout-result"></div></div>'+
           '</form></div></div>'+
           '<aside class="panel checkout-summary"><h2>Ваш заказ</h2><div class="small muted">Товаров: '+cartCount()+'</div>'+
           '<div class="total"><span>Товары</span><span>'+fmt(cartTotal())+'</span></div>'+
-          '<div class="notice">Стоимость доставки не рассчитана. Финальный итог появится после запроса тарифа СДЭК на сервере.</div>'+
+          '<div class="notice">Стоимость доставки не рассчитана.</div>'+
           '<a class="btn btn-outline" style="width:100%;margin-top:16px" href="../katalog/">Продолжить покупки</a></aside></div>':
           '<div class="empty" style="margin:20px 0 70px"><h2>Корзина пока пуста</h2><p>Подберите корзинку по весу теста или посмотрите популярные модели.</p><a class="btn btn-primary" href="../katalog/">Перейти в каталог</a></div>')+
           '</div>';
@@ -1063,18 +1063,13 @@ body.cart-drawer-open{overflow:hidden}
         }).join("")+'</div>';
       }
       function infoPage(kind){
-        var articles=kind==="articles";
         var contacts=kind==="contacts";
-        return '<div class="container">'+crumbs(articles?'Статьи':contacts?'Контакты':'Доставка и оплата')+
-          '<div class="page-head"><span class="eyebrow">Информационный раздел</span>'+
-          '<h1>'+(articles?'Полезные статьи о хлебопечении':contacts?'Контакты Hleb-Forma':'Доставка и оплата')+'</h1>'+
-          '<p class="lead">'+(articles?'Статьи помогут выбрать корзинки и научиться ими пользоваться. В рабочей версии сохраняем прежние URL и переносим содержимое блога.':
-          contacts?'Здесь будут проверенные контакты, адрес и реквизиты. Данные действующего сайта требуют сверки перед переносом.':
-          'Здесь будут актуальные условия СДЭК, способы оплаты ЮKassa, возврата и доставки. Противоречивые старые тексты не переносим.')+'</p></div>'+
-          (articles?'<section class="section">'+articleTiles()+'</section>':'<div class="panel" style="max-width:760px"><h2>Что покажем здесь</h2><p>Достоверную информацию, согласованную с владельцем магазина, без устаревших обещаний о сроках или скидках.</p></div>')+
-          '<div style="margin:45px 0 90px"><a class="btn btn-primary" href="../katalog/">Перейти в каталог</a></div></div>';
+        var heading=contacts?'Контакты Hleb-Forma':'Доставка и оплата';
+        return '<div class="container">'+crumbs(heading)+'<div class="page-head"><span class="eyebrow">'+(contacts?'Свяжитесь с нами':'Покупки без лишних шагов')+'</span><h1>'+heading+'</h1><p class="lead">'+(contacts?'Поможем подобрать форму и ответим на вопросы о товарах.':'Доставка по России. Стоимость, сроки и способы получения уточняются при оформлении.')+'</p></div>'+
+          '<div class="panel" style="max-width:760px"><h2>'+(contacts?'Как с нами связаться':'Уточнить условия доставки и оплаты')+'</h2><p>Свяжитесь с нами, чтобы обсудить ваш заказ.</p><p><a href="tel:+79612211283">+7 (961) 221-12-83</a> · <a href="mailto:hleb-forma@bk.ru">hleb-forma@bk.ru</a></p><p class="small muted">Онлайн-заказы и оплата на этой странице пока недоступны.</p><a class="btn btn-outline" href="https://hleb-forma.ru/">Действующий магазин ↗</a></div>'+
+          '<div style="margin:30px 0 65px"><a class="btn btn-primary" href="../katalog/">Перейти в каталог</a></div></div>';
       }
-      function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>В этом прототипе доступны основные экраны.</p><a class="btn btn-primary" href="v3/index.html">На главную</a></section></div>';}
+      function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>Возможно, адрес изменился. Перейдите на главную или в каталог.</p><a class="btn btn-primary" href="v3/index.html">На главную</a></section></div>';}
       function route(){
         catalogUI.closeFilter(false);
         var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(promotionsPage?"sale":reviewsPage?"reviews":articlePage?"articles":wholesalePage?"wholesale":catalogPage?"catalog":"home"));
@@ -1153,11 +1148,11 @@ body.cart-drawer-open{overflow:hidden}
           e.preventDefault();var target=new URL("../katalog/",document.baseURI);target.searchParams.set("q",document.getElementById("header-query").value);location.assign(target.href);return;
         }
         if(e.target.id==="newsletter-form"){
-          e.preventDefault();toast("Демонстрация: подписка не оформлена. В рабочей версии — подтверждение email.");return;
+          e.preventDefault();toast("Подписка сейчас недоступна. Email не отправлен.");return;
         }
         if(e.target.id==="checkout-demo"){
           e.preventDefault();
-          document.getElementById("checkout-result").innerHTML='<div class="result-box">Поля заполнены для демонстрации. Реальные тариф СДЭК, оплата ЮKassa и создание заказа сейчас отключены.</div>';return;
+          document.getElementById("checkout-result").innerHTML='<div class="result-box">Данные проверены. Заказ не отправлен, оплата не списана.</div>';return;
         }
       });
       window.addEventListener("hashchange",route);
@@ -1210,11 +1205,7 @@ body.cart-drawer-open{overflow:hidden}
              '<button class="extra-button" type="button" data-extra="compare" data-id="'+esc(id)+'" aria-label="Сравнить" aria-pressed="'+comp+'">'+(compact?(comp?'✓':'⚖'):(comp?'✓ Сравнивается':'⚖ Сравнить'))+'</button>';
     }
     function reviewBlock(product){
-      return '<div class="section-heading"><h2>'+(product?'Отзывы о товаре':'Отзывы покупателей')+'</h2><span class="small muted">Реальные отзывы импортируем из OpenCart</span></div>'+
-      '<div class="reviews-grid">'+
-      '<article class="review-placeholder"><span class="quote-mark">“</span><strong>Отзывы о качестве корзинок</strong><p>Здесь появится реальный текст покупателя с датой и товаром после переноса отзывов.</p></article>'+
-      '<article class="review-placeholder"><span class="quote-mark">“</span><strong>Отзывы об оформлении заказа</strong><p>Переносим подтверждённые отзывы без выдуманных оценок и имён.</p></article>'+
-      '<article class="review-placeholder"><span class="quote-mark">“</span><strong>Опыт домашних пекарей</strong><p>Реальные фотографии выпечки покупателей можно добавить после получения разрешения.</p></article></div>';
+      return '<div class="section-heading"><h2>'+(product?'Отзывы о товаре':'Отзывы покупателей')+'</h2><a class="small" href="../otzyvy/">Все отзывы ↗</a></div><p>Расскажите о своём опыте хлебопечения и поделитесь фотографиями.</p><a class="btn btn-outline" href="../otzyvy/?write=1">Оставить отзыв ↗</a>';
     }
     function createHomeSections(){
       if(!root.querySelector('.hero')||root.querySelector('#enh-promo'))return;
@@ -1222,7 +1213,7 @@ body.cart-drawer-open{overflow:hidden}
       var finder=root.querySelector('.finder');
       var promo=document.createElement('section');promo.className='promo-bar';promo.id='enh-promo';
       promo.innerHTML='<div><span class="eyebrow">Специальные предложения</span><h2>Акции</h2>'+
-        '<p>Отдельный раздел для товаров по специальным ценам. Перед запуском подставим действующие акции и проверенные скидки.</p>'+
+        '<p>Подберите любимые формы по специальным ценам.</p>'+
         '<a class="btn btn-primary" href="../akcii/">Посмотреть акции →</a></div><div class="promo-art" aria-hidden="true">✳ ♨</div>';
       if(finder&&finder.closest('.section'))finder.closest('.section').after(promo);else container.prepend(promo);
       var sections=root.querySelectorAll('section.section');
@@ -1250,7 +1241,7 @@ body.cart-drawer-open{overflow:hidden}
       var title=kind==='favorites'?'Избранные товары':'Сравнение товаров';
       var items=Array.from(selected).map(function(id){return known[id]||{id:id,name:id,price:'',weight:'',size:''};});
       var h='<div class="container"><div class="page-head"><span class="eyebrow">Сохраняйте интересные модели</span><h1>'+title+'</h1>'+
-        '<p>Списки сохраняются в этой вкладке прототипа.</p></div>';
+        '<p>Списки сохраняются в текущем сеансе.</p></div>';
       if(!items.length)return h+'<div class="empty"><h2>Здесь пока пусто</h2><p>Добавляйте корзинки кнопками ♡ и ⚖ из каталога или карточек товаров.</p><a href="../katalog/" class="btn btn-primary">В каталог →</a></div></div>';
       if(kind==='favorites'){
         h+='<div class="saved-grid">'+items.map(function(p){return '<article class="saved-card"><span class="eyebrow">'+esc(p.id.toUpperCase())+'</span><h3>'+esc(p.name)+'</h3><p>'+esc(p.weight)+' · '+esc(p.size)+'</p><strong>'+esc(p.price)+'</strong><div class="extras"><a href="#product-'+esc(p.id)+'" class="btn btn-outline btn-sm">Открыть</a><button class="extra-button" data-extra="favorite" data-id="'+esc(p.id)+'">Удалить ♡</button></div></article>';}).join('')+'</div>';
@@ -1259,24 +1250,24 @@ body.cart-drawer-open{overflow:hidden}
         h+='<div class="compare-table-wrap"><table class="compare-table"><thead><tr><th>Параметр</th>'+columns+'</tr></thead><tbody>'+
           '<tr><th>Вес теста</th>'+items.map(function(p){return '<td>'+esc(p.weight||'Не указан')+'</td>';}).join('')+'</tr>'+
           '<tr><th>Размер / SKU</th>'+items.map(function(p){return '<td>'+esc(p.size||'Уточняется')+'</td>';}).join('')+'</tr>'+
-          '<tr><th>Цена (демо)</th>'+items.map(function(p){return '<td>'+esc(p.price||'Уточняется')+'</td>';}).join('')+'</tr>'+
+          '<tr><th>Цена</th>'+items.map(function(p){return '<td>'+esc(p.price||'Уточняется')+'</td>';}).join('')+'</tr>'+
           '</tbody></table></div>';
       }
       return h+'<div class="section"><a href="../katalog/" class="btn btn-primary">Продолжить выбор →</a></div></div>';
     }
     function accountPage(){
       var header='<div class="container"><div class="page-head"><span class="eyebrow">Личный кабинет</span><h1>Ваши покупки и любимые товары</h1>'+
-        '<p>Схема личного кабинета MiniShop3. Авторизация, история заказов и данные покупателей пока не подключены.</p></div>';
+        '<p>Управляйте избранным и сравнивайте понравившиеся товары.</p></div>';
       if(!signedInDemo)return header+'<div class="account-preview" style="max-width:630px"><h2>С возвращением!</h2>'+
-        '<p>В рабочем магазине здесь будет безопасный вход с сохранением старых аккаунтов OpenCart. Сейчас можно открыть демонстрационный интерфейс без email или пароля.</p>'+
-        '<button class="btn btn-primary" data-extra="login-demo">Открыть демо-кабинет</button></div></div>';
+        '<p>Вход в аккаунт пока недоступен. Избранное и сравнение доступны без регистрации.</p>'+
+        '<button class="btn btn-primary" data-extra="login-demo">Открыть личный кабинет</button></div></div>';
       return header+'<div class="account-grid"><nav class="account-menu" aria-label="Разделы кабинета">'+
         '<a href="#account">Мои заказы</a><a href="#favorites">♡ Избранное ('+favorites.size+')</a><a href="#compare">⚖ Сравнение ('+compares.size+')</a>'+
         '<a href="../katalog/">Каталог</a></nav><section class="account-preview"><h2>Мои заказы</h2>'+
-        '<div class="empty-soft"><strong>История заказов появится после переноса.</strong><p class="small">Здесь будут номер, дата, состав, статус и кнопка повторного заказа.</p></div>'+
+        '<div class="empty-soft"><strong>История заказов недоступна</strong><p class="small">Вы можете сохранить понравившиеся товары и вернуться к ним позднее.</p></div>'+
         '<h3>Личные данные и адреса</h3><p>Будут доступны редактирование профиля, адресов и безопасное управление паролем.</p>'+
-        '<h3>Подписка на новости</h3><label class="checkbox-line"><input type="checkbox" id="demo-newsletter"> Получать новинки товаров и статьи блога (демонстрация, без сохранения)</label>'+
-        '<div style="margin-top:23px"><button class="btn btn-outline" data-extra="logout-demo">Закрыть демо-кабинет</button></div>'+
+        '<h3>Подписка на новости</h3><label class="checkbox-line"><input type="checkbox" id="demo-newsletter" disabled> Получать новинки товаров и статьи блога (подписка пока недоступна)</label>'+
+        '<div style="margin-top:23px"><button class="btn btn-outline" data-extra="logout-demo">Закрыть личный кабинет</button></div>'+
         '</section></div></div>';
     }
     function customPage(slug){
@@ -1373,7 +1364,7 @@ body.cart-drawer-open{overflow:hidden}
       '<img class="hero-photo" alt="Овальная корзинка для расстойки" src="'+imgs.bn10+'">'+
       '<img class="hero-photo" alt="Круглая корзинка для расстойки" src="'+imgs.bn01+'">'+
       '<img class="hero-photo" alt="Багетная корзинка для расстойки" src="'+imgs.bn06+'">'+
-      '</div><span class="hero-picture-caption">Корзинки из ротанга · реальные товары магазина</span>';
+      '</div><span class="hero-picture-caption">Корзинки из натурального ротанга</span>';
     hero.querySelectorAll("img").forEach(function(img){
       img.addEventListener("error",function(){img.style.display="none";});
     });
