@@ -13,7 +13,7 @@
     "price": 690,
     "oldPrice": 790,
     "kind": "Овальные корзинки",
-    "image": "https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalunay-razmer-25-15-8-bn-10-65-260x210_0.jpg",
+    "image": "products/bn-10.webp",
     "exact": true,
     "bread": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=2200&q=86"
   },
@@ -57,7 +57,7 @@
     "size": "30 × 15 × 8 см",
     "price": 880,
     "kind": "Овальные корзинки",
-    "image": "https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalnay-razmer-30-15-8-bn-32-50-260x210_0.jpg",
+    "image": "products/bn-32.webp",
     "exact": true,
     "bread": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=2200&q=86"
   },
@@ -114,8 +114,8 @@
     "size": "35 × 15 × 7 см",
     "price": 990,
     "kind": "Овальные корзинки",
-    "image": "https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalnay-razmer-30-15-8-bn-32-50-260x210_0.jpg",
-    "exact": false,
+    "image": "products/bn-04.webp",
+    "exact": true,
     "bread": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=2200&q=86"
   },
   {
@@ -128,8 +128,8 @@
     "size": "32 × 15 × 8,5 см",
     "price": 980,
     "kind": "Овальные корзинки",
-    "image": "https://hleb-forma.ru/image/cache//catalog/korzinka-iz-rotanga-ovalnay-razmer-30-15-8-bn-32-50-260x210_0.jpg",
-    "exact": false,
+    "image": "products/bn-22.webp",
+    "exact": true,
     "bread": "https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&w=2200&q=86"
   },
   {
