@@ -64,6 +64,16 @@ function generate(template,catalogScript,dataScript,wholesaleScript,articleData,
     if(!rendered.includes('data-reviews-page="true"')||!rendered.includes('<h1>'+esc(page.h1)+'</h1>'))throw Error('Could not render reviews');
     result.push({path:'otzyvy/index.html',html:rendered,code:'reviews'});
   }
+  const promo=catalogue.promotionMeta;
+  const promoMarkup=catalogue.create({products,app:{querySelector:()=>null,addEventListener(){}}}).renderPromotions();
+  const promoHtml=template
+    .replace('<html lang="ru">','<html lang="ru" data-promotions-page="true">')
+    .replace('<meta charset="utf-8">','<meta charset="utf-8">\n  <base href="../prototype/index.html">')
+    .replace(/<title>[\s\S]*?<\/title>/,'<title>'+esc(promo.title)+'</title>')
+    .replace(/<meta name="description" content="[^"]*">/,'<meta name="description" content="'+esc(promo.description)+'">\n  <link rel="canonical" href="https://web86.github.io/new_hlebforma/akcii/">')
+    .replace('<main id="app" class="main-space" tabindex="-1"></main>','<main id="app" class="main-space" tabindex="-1">'+promoMarkup+'</main>');
+  if(!promoHtml.includes('data-promotions-page="true"')||!promoHtml.includes('<h1>'+esc(promo.h1)+'</h1>'))throw Error('Could not render promotions');
+  result.push({path:'akcii/index.html',html:promoHtml,code:'sale'});
   return result;
 }
 module.exports=generate;

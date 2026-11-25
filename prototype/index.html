@@ -771,7 +771,7 @@ body.cart-drawer-open{overflow:hidden}
 <body id="page-top">
 <header class="header header-v3"><div class="container header-content">
   <a class="brand" href="v3/index.html" aria-label="Hleb-Forma — главная"><span class="brand-svg"><img src="v2/assets/logo.svg" width="54" height="54" alt=""></span><span class="brand-name">HLEB-FORMA<small>Для тех, кто печёт хлеб</small></span></a>
-  <nav id="navigation" class="nav" aria-label="Основная навигация"><a href="../katalog/">Каталог</a><a href="#sale" class="sale-link">Распродажа</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="../otzyvy/">Отзывы</a><a href="#delivery">Доставка</a></nav>
+  <nav id="navigation" class="nav" aria-label="Основная навигация"><a href="../katalog/">Каталог</a><a href="../akcii/" class="sale-link">Акции</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="../otzyvy/">Отзывы</a><a href="#delivery">Доставка</a></nav>
   <div class="header-actions">
     <button class="icon-btn" id="search-trigger" aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.5"/><path d="m16.7 16.7 5 5"/></svg></button>
     <a class="icon-btn header-favorites" href="#favorites" aria-label="Избранное"><svg viewBox="0 0 24 24"><path d="M20.3 4.8a5.4 5.4 0 0 0-7.7 0L12 5.5l-.6-.7a5.4 5.4 0 1 0-7.7 7.6L12 21l8.3-8.6a5.4 5.4 0 0 0 0-7.6Z"/></svg><span class="count" id="enh-fav-count" hidden>0</span></a>
@@ -794,7 +794,7 @@ body.cart-drawer-open{overflow:hidden}
     <nav class="footer-nav" aria-label="Покупателям">
       <h4>Покупателям</h4>
       <a href="../katalog/">Каталог</a>
-      <a href="#sale">Распродажа</a>
+      <a href="../akcii/">Акции</a>
       <a href="#delivery">Доставка и оплата</a>
       <a href="#account">Личный кабинет</a>
     </nav>
@@ -835,7 +835,7 @@ body.cart-drawer-open{overflow:hidden}
 </footer>
 <dialog class="mobile-menu-dialog" id="mobile-menu-dialog" aria-labelledby="mobile-menu-title">
   <div class="mobile-menu-header"><a class="mobile-menu-brand" href="v3/index.html"><img src="v2/assets/logo.svg" width="46" height="46" alt=""><span><strong>HLEB-FORMA</strong><small>Для тех, кто печёт хлеб</small></span></a><button type="button" id="mobile-menu-close" aria-label="Закрыть меню" autofocus><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="../katalog/">Каталог</a><a href="#sale">Распродажа</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="../otzyvy/">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
+  <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="../katalog/">Каталог</a><a href="../akcii/">Акции</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="../otzyvy/">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
   <div class="mobile-menu-contact"><a href="#contacts">Контакты ↗</a><a href="tel:+79612211283">+7 (961) 221-12-83</a></div>
 </dialog>
 <dialog class="cart-side" id="cart-side" aria-labelledby="cart-side-title"><div class="cart-side-head"><h2 id="cart-side-title">Корзина</h2><button type="button" class="cart-side-close" data-cart-side-close aria-label="Закрыть корзину" autofocus>×</button></div><div class="cart-side-body" data-cart-side-body></div></dialog>
@@ -864,6 +864,7 @@ body.cart-drawer-open{overflow:hidden}
       var catalogPage=document.documentElement.dataset.catalogPage||'';
       var articlePage=document.documentElement.dataset.articlePage||'';
       var reviewsPage=document.documentElement.dataset.reviewsPage==='true';
+      var promotionsPage=document.documentElement.dataset.promotionsPage==='true';
       var reviewsUI=HlebReviews.create({products:products,app:app,read:HlebDemo.read,write:HlebDemo.write,initialSku:reviewsPage?new URLSearchParams(location.search).get('sku')||'all':'all'});
       var articleUI=HlebArticles.create({products:products,app:app,page:articlePage||'listing'});
       var catalogUI=HlebCatalog.create({products:products,app:app,pageCode:catalogPage||'all',initialShape:catalogPage?new URLSearchParams(location.search).get('shape')||'all':'all'});
@@ -1075,7 +1076,8 @@ body.cart-drawer-open{overflow:hidden}
       function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>В этом прототипе доступны основные экраны.</p><a class="btn btn-primary" href="v3/index.html">На главную</a></section></div>';}
       function route(){
         catalogUI.closeFilter(false);
-        var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(reviewsPage?"reviews":articlePage?"articles":wholesalePage?"wholesale":catalogPage?"catalog":"home"));
+        var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(promotionsPage?"sale":reviewsPage?"reviews":articlePage?"articles":wholesalePage?"wholesale":catalogPage?"catalog":"home"));
+        if(!promotionsPage&&slug==="sale"){location.replace(new URL("../akcii/",document.baseURI).href);return;}
         if(!reviewsPage&&slug==="reviews"){location.replace(new URL("../otzyvy/",document.baseURI).href);return;}
         if(!articlePage&&slug==="articles"){location.replace(new URL("../blog/",document.baseURI).href);return;}
         if(!wholesalePage&&(slug==="wholesale"||slug==="quote-form")){location.replace(new URL("../optom/",document.baseURI).href);return;}
@@ -1083,10 +1085,11 @@ body.cart-drawer-open{overflow:hidden}
         if(slug==="home"){location.replace("v3/index.html");return;} if(slug==="quote-form"){location.replace("#wholesale");return;} if(slug==="page-top"){history.replaceState(null,"",location.pathname+location.search+"#"+(app.dataset.route||"catalog"));window.scrollTo(0,0);return;} app.dataset.route=slug; var selected=slug.split("-")[0]; if(selected==="product")selected="catalog";
         document.querySelectorAll("#navigation a").forEach(function(a){
           a.removeAttribute("aria-current");
-          if(a.getAttribute("href")==="#"+selected||(selected==="catalog"&&a.getAttribute("href")==="../katalog/")||(selected==="wholesale"&&a.getAttribute("href")==="../optom/")||(selected==="articles"&&a.getAttribute("href")==="../blog/")||(selected==="reviews"&&a.getAttribute("href")==="../otzyvy/"))a.setAttribute("aria-current","page");
+          if(a.getAttribute("href")==="#"+selected||(selected==="catalog"&&a.getAttribute("href")==="../katalog/")||(selected==="wholesale"&&a.getAttribute("href")==="../optom/")||(selected==="articles"&&a.getAttribute("href")==="../blog/")||(selected==="reviews"&&a.getAttribute("href")==="../otzyvy/")||(selected==="sale"&&a.getAttribute("href")==="../akcii/"))a.setAttribute("aria-current","page");
         });
         if(slug==="home"){app.innerHTML=home();}
         else if(slug==="catalog"){app.innerHTML=catalog();updateCatalog();}
+        else if(slug==="sale"){app.innerHTML=catalogUI.renderPromotions();}
         else if(slug.indexOf("product-")===0){app.innerHTML=productPage(slug.slice(8));}
         else if(slug==="wholesale"){app.innerHTML=wholesale();wholesaleUI.mount();}
         else if(slug==="checkout"){app.innerHTML=checkout();}
@@ -1096,7 +1099,7 @@ body.cart-drawer-open{overflow:hidden}
         else{app.innerHTML=notFound();}
         document.dispatchEvent(new Event("hleb-route"));
         var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?(productById(slug.slice(8))?.title||"Товар"):"Раздел";
-        if(slug==="reviews"){document.title=HlebReviews.meta.title;}else if(slug==="articles"){document.title=HlebArticles.get(articlePage)?HlebArticles.title(HlebArticles.get(articlePage)):HlebArticles.meta.title;}else if(slug==="wholesale"){document.title=HlebWholesale.meta.title;}else if(slug==="catalog"){document.title=(HlebCatalog.pages.find(p=>p.code===(catalogPage||"all"))||HlebCatalog.pages[0]).title;}else{document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";}
+        if(slug==="sale"){document.title=HlebCatalog.promotionMeta.title;}else if(slug==="reviews"){document.title=HlebReviews.meta.title;}else if(slug==="articles"){document.title=HlebArticles.get(articlePage)?HlebArticles.title(HlebArticles.get(articlePage)):HlebArticles.meta.title;}else if(slug==="wholesale"){document.title=HlebWholesale.meta.title;}else if(slug==="catalog"){document.title=(HlebCatalog.pages.find(p=>p.code===(catalogPage||"all"))||HlebCatalog.pages[0]).title;}else{document.title=({sale:"Акции",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";}
         window.scrollTo(0,0);
         if(slug==="wholesale"&&whPrefill){whPrefill=false;requestAnimationFrame(()=>document.getElementById("quote-form")?.scrollIntoView({block:"start"}));}
       }
@@ -1164,7 +1167,7 @@ body.cart-drawer-open{overflow:hidden}
     var known=Object.fromEntries(HlebDemo.products.map(p=>[p.id,{id:p.id,name:p.title,price:p.price.toLocaleString('ru-RU')+' ₽',weight:p.weightText,size:p.size}]));var favorites=new Set(HlebDemo.list('favorites')),compares=new Set(HlebDemo.list('compare').slice(0,4)),signedInDemo=false;
     var root=document.getElementById('app');
     function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-    function current(){return decodeURIComponent(location.hash.slice(1)||(document.documentElement.dataset.reviewsPage==='true'?'reviews':document.documentElement.dataset.articlePage?'articles':document.documentElement.dataset.wholesalePage==='true'?'wholesale':document.documentElement.dataset.catalogPage?'catalog':'home'));}
+    function current(){return decodeURIComponent(location.hash.slice(1)||(document.documentElement.dataset.promotionsPage==='true'?'sale':document.documentElement.dataset.reviewsPage==='true'?'reviews':document.documentElement.dataset.articlePage?'articles':document.documentElement.dataset.wholesalePage==='true'?'wholesale':document.documentElement.dataset.catalogPage?'catalog':'home'));}
     function notify(t){var n=document.getElementById('toast');n.textContent=t;n.classList.add('show');clearTimeout(notify.timeout);notify.timeout=setTimeout(function(){n.classList.remove('show');},3200);}
     function updateCounters(){
       var f=document.getElementById('enh-fav-count'),c=document.getElementById('enh-compare-count');
@@ -1211,9 +1214,9 @@ body.cart-drawer-open{overflow:hidden}
       var container=root.querySelector('.container');
       var finder=root.querySelector('.finder');
       var promo=document.createElement('section');promo.className='promo-bar';promo.id='enh-promo';
-      promo.innerHTML='<div><span class="eyebrow">Специальные предложения</span><h2>Акции и распродажа</h2>'+
+      promo.innerHTML='<div><span class="eyebrow">Специальные предложения</span><h2>Акции</h2>'+
         '<p>Отдельный раздел для товаров по специальным ценам. Перед запуском подставим действующие акции и проверенные скидки.</p>'+
-        '<a class="btn btn-primary" href="#sale">Посмотреть распродажу →</a></div><div class="promo-art" aria-hidden="true">✳ ♨</div>';
+        '<a class="btn btn-primary" href="../akcii/">Посмотреть акции →</a></div><div class="promo-art" aria-hidden="true">✳ ♨</div>';
       if(finder&&finder.closest('.section'))finder.closest('.section').after(promo);else container.prepend(promo);
       var sections=root.querySelectorAll('section.section');
       var popular=Array.from(sections).find(function(s){return (s.querySelector('h2')||{}).textContent==='Часто выбирают';});
@@ -1254,9 +1257,6 @@ body.cart-drawer-open{overflow:hidden}
       }
       return h+'<div class="section"><a href="../katalog/" class="btn btn-primary">Продолжить выбор →</a></div></div>';
     }
-    function salePage(){
-      return '<div class="container"><div class="breadcrumb"><a href="v3/index.html">Главная</a> / Распродажа</div><section class="sale-banner"><div><span class="eyebrow">Специальные предложения</span><h1>Распродажа</h1><p>Корзинки для красивого домашнего хлеба.</p><a href="../katalog/" class="btn btn-light">Весь каталог ↗</a></div><img src="v3/assets/hero-bread.webp" alt=""></section><p class="small muted sale-disclaimer">Демонстрационные цены и скидки. Перед запуском магазина их необходимо подтвердить.</p><div class="products-grid sale-products">'+HlebDemo.products.filter(p=>p.oldPrice).map(window.hlebRenderCard).join('')+'</div></div>';
-    }
     function accountPage(){
       var header='<div class="container"><div class="page-head"><span class="eyebrow">Личный кабинет</span><h1>Ваши покупки и любимые товары</h1>'+
         '<p>Схема личного кабинета MiniShop3. Авторизация, история заказов и данные покупателей пока не подключены.</p></div>';
@@ -1273,7 +1273,7 @@ body.cart-drawer-open{overflow:hidden}
         '</section></div></div>';
     }
     function customPage(slug){
-      return slug==='sale'?salePage():slug==='account'?accountPage():listPage(slug);
+      return slug==='account'?accountPage():listPage(slug);
     }
     var running=false;
     function enhance(){
@@ -1281,7 +1281,7 @@ body.cart-drawer-open{overflow:hidden}
       try{
         initFrame();
         var slug=current();
-        if(['sale','account','favorites','compare'].includes(slug)){
+        if(['account','favorites','compare'].includes(slug)){
           if(root.dataset.extraPage!==slug || !root.firstElementChild || root.querySelector('.empty') && slug==='account'){
             root.innerHTML=customPage(slug);root.dataset.extraPage=slug;
           }
@@ -1291,13 +1291,12 @@ body.cart-drawer-open{overflow:hidden}
           if(slug.indexOf('product-')===0)enrichDetail();
           enrichCards();
         }
-        if(slug==='sale')enrichCards();
         updateCounters();
       }finally{running=false;}
     }
     function rerender(){
       var slug=current();
-      if(['sale','account','favorites','compare'].includes(slug)){
+      if(['account','favorites','compare'].includes(slug)){
         root.innerHTML=customPage(slug);root.dataset.extraPage=slug;
       }else{
         root.querySelectorAll('[data-extra="favorite"],[data-extra="compare"]').forEach(function(b){
@@ -1306,7 +1305,6 @@ body.cart-drawer-open{overflow:hidden}
           var compact=!!b.closest('.card-tools');b.textContent=fav?(compact?(checked?'♥':'♡'):(checked?'♥ В избранном':'♡ В избранное')):(compact?(checked?'✓':'⚖'):(checked?'✓ Сравнивается':'⚖ Сравнить'));
         });
       }
-      if(slug==='sale')enrichCards();
       updateCounters();
     }
     document.addEventListener('click',function(e){
