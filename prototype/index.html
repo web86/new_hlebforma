@@ -764,12 +764,13 @@ body.cart-drawer-open{overflow:hidden}
 
 </style>
 <link rel="stylesheet" href="assets/catalog.css">
+<link rel="stylesheet" href="assets/articles.css">
 <link rel="stylesheet" href="assets/wholesale.css">
 </head>
 <body id="page-top">
 <header class="header header-v3"><div class="container header-content">
   <a class="brand" href="v3/index.html" aria-label="Hleb-Forma — главная"><span class="brand-svg"><img src="v2/assets/logo.svg" width="54" height="54" alt=""></span><span class="brand-name">HLEB-FORMA<small>Для тех, кто печёт хлеб</small></span></a>
-  <nav id="navigation" class="nav" aria-label="Основная навигация"><a href="../katalog/">Каталог</a><a href="#sale" class="sale-link">Распродажа</a><a href="../optom/">Оптовикам</a><a href="v3/index.html#guides">Как выбрать</a><a href="v3/index.html#reviews">Отзывы</a><a href="#delivery">Доставка</a></nav>
+  <nav id="navigation" class="nav" aria-label="Основная навигация"><a href="../katalog/">Каталог</a><a href="#sale" class="sale-link">Распродажа</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="v3/index.html#reviews">Отзывы</a><a href="#delivery">Доставка</a></nav>
   <div class="header-actions">
     <button class="icon-btn" id="search-trigger" aria-label="Поиск"><svg viewBox="0 0 24 24"><circle cx="10.8" cy="10.8" r="7.5"/><path d="m16.7 16.7 5 5"/></svg></button>
     <a class="icon-btn header-favorites" href="#favorites" aria-label="Избранное"><svg viewBox="0 0 24 24"><path d="M20.3 4.8a5.4 5.4 0 0 0-7.7 0L12 5.5l-.6-.7a5.4 5.4 0 1 0-7.7 7.6L12 21l8.3-8.6a5.4 5.4 0 0 0 0-7.6Z"/></svg><span class="count" id="enh-fav-count" hidden>0</span></a>
@@ -799,7 +800,7 @@ body.cart-drawer-open{overflow:hidden}
     <nav class="footer-nav" aria-label="О магазине">
       <h4>О магазине</h4>
       <a href="../optom/">Оптовым покупателям</a>
-      <a href="#articles">Статьи о хлебе</a>
+      <a href="../blog/">Статьи о хлебе</a>
       <a href="v3/index.html#reviews">Отзывы покупателей</a>
       <a href="v3/index.html#faq">Частые вопросы</a>
       <a href="https://hleb-forma.ru/contact">Контакты</a>
@@ -833,7 +834,7 @@ body.cart-drawer-open{overflow:hidden}
 </footer>
 <dialog class="mobile-menu-dialog" id="mobile-menu-dialog" aria-labelledby="mobile-menu-title">
   <div class="mobile-menu-header"><a class="mobile-menu-brand" href="v3/index.html"><img src="v2/assets/logo.svg" width="46" height="46" alt=""><span><strong>HLEB-FORMA</strong><small>Для тех, кто печёт хлеб</small></span></a><button type="button" id="mobile-menu-close" aria-label="Закрыть меню" autofocus><svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div>
-  <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="../katalog/">Каталог</a><a href="#sale">Распродажа</a><a href="../optom/">Оптовикам</a><a href="v3/index.html#guides">Как выбрать</a><a href="v3/index.html#reviews">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
+  <nav class="mobile-sidebar-nav" aria-label="Мобильное меню"><h2 id="mobile-menu-title">Меню</h2><a href="../katalog/">Каталог</a><a href="#sale">Распродажа</a><a href="../optom/">Оптовикам</a><a href="../blog/">Статьи</a><a href="v3/index.html#reviews">Отзывы</a><a href="#account">Личный кабинет</a><a href="#favorites">Избранное</a><a href="#compare">Сравнение</a><a href="#delivery">Доставка</a></nav>
   <div class="mobile-menu-contact"><a href="#contacts">Контакты ↗</a><a href="tel:+79612211283">+7 (961) 221-12-83</a></div>
 </dialog>
 <dialog class="cart-side" id="cart-side" aria-labelledby="cart-side-title"><div class="cart-side-head"><h2 id="cart-side-title">Корзина</h2><button type="button" class="cart-side-close" data-cart-side-close aria-label="Закрыть корзину" autofocus>×</button></div><div class="cart-side-body" data-cart-side-body></div></dialog>
@@ -841,6 +842,8 @@ body.cart-drawer-open{overflow:hidden}
   <script src="assets/storefront-data.js"></script>
   <script src="assets/catalog.js"></script>
   <script src="assets/wholesale.js"></script>
+  <script src="assets/article-data.js"></script>
+  <script src="assets/articles.js"></script>
 <script>
     (function(){
       "use strict";
@@ -856,6 +859,8 @@ body.cart-drawer-open{overflow:hidden}
       var wholesalePage=document.documentElement.dataset.wholesalePage==="true";
       var app=document.getElementById("app");
       var catalogPage=document.documentElement.dataset.catalogPage||'';
+      var articlePage=document.documentElement.dataset.articlePage||'';
+      var articleUI=HlebArticles.create({products:products,app:app,page:articlePage||'listing'});
       var catalogUI=HlebCatalog.create({products:products,app:app,pageCode:catalogPage||'all',initialShape:catalogPage?new URLSearchParams(location.search).get('shape')||'all':'all'});
       var whParams=new URLSearchParams(location.search),whInitial=HlebWholesale.normalizeItems(products,HlebDemo.read("wholesale-items",{})),whPrefill=false;
       if(wholesalePage&&products.some(p=>p.id===whParams.get("sku"))){whInitial[whParams.get("sku")]=Math.max(1,Math.min(99999,parseInt(whParams.get("qty"),10)||1));whPrefill=true;}
@@ -913,7 +918,7 @@ body.cart-drawer-open{overflow:hidden}
           '<section class="section feature-band"><div><span class="eyebrow">Для профессиональных пекарен</span><h2>Нужна партия корзинок и инструментов?</h2>'+
           '<p>Поможем определить нужные формы и подготовить предложение по вашему ассортименту. Оставьте запрос с артикулами и количеством.</p>'+
           '<a class="btn btn-light" href="../optom/">Получить оптовое предложение →</a></div><div class="feature-art" aria-hidden="true">✳</div></section>'+
-          '<section class="section"><div class="section-heading"><h2>Советы по хлебопечению</h2><a href="#articles">Все статьи →</a></div>'+articleTiles()+'</section>'+
+          '<section class="section"><div class="section-heading"><h2>Советы по хлебопечению</h2><a href="../blog/">Все статьи →</a></div>'+articleTiles()+'</section>'+
           '<section class="section"><div class="newsletter"><div><span class="eyebrow">Полезное — без лишних писем</span><h2>Новинки и советы для пекарей</h2><p class="small">Подписка появится в рабочем магазине с подтверждением email.</p></div>'+
           '<form id="newsletter-form"><input type="email" required placeholder="Ваш email" aria-label="Email для подписки"><button class="btn btn-primary">Подписаться</button></form></div></section>'+
           '</div>';
@@ -977,7 +982,7 @@ body.cart-drawer-open{overflow:hidden}
           '<div class="detail-features"><div><span>'+(basket?'Вес тестовой заготовки':'Назначение')+'</span><b>'+safe(p.weightText)+'</b></div><div><span>Размеры</span><b>'+size+'</b></div><div><span>Артикул</span><b>'+safe(p.sku)+'</b></div></div>'+pdpVariants(p)+
           '<div class="pdp-wholesale"><strong>Покупаете для пекарни?</strong><button type="button" data-action="quote" data-id="'+safe(p.id)+'">Запросить оптовую цену ↗</button></div></div></div>'+
           (basket&&bread?'<section class="pdp-story"><figure class="pdp-story-visual"><img src="'+bread+'" alt="Пример готового хлеба выбранной формы" loading="lazy" decoding="async"><figcaption>Пример выпечки · иллюстрация</figcaption></figure><div class="pdp-story-copy"><h2>Для какого хлеба подходит</h2><p>'+safe(pdpIntro(p))+'</p><p>Ротанговая корзинка поддерживает форму тестовой заготовки во время расстойки. Перед выпечкой хлеб вынимают из корзинки.</p></div></section>':'')+
-          '<section class="pdp-information"><div><h2 class="pdp-section-title">'+(basket?'Как пользоваться корзинкой':'О товаре')+'</h2>'+(basket?'<ol class="pdp-instructions">'+steps.map(function(s,i){return '<li><b>0'+(i+1)+'</b><strong>'+s[0]+'</strong><p>'+s[1]+'</p></li>';}).join('')+'</ol>':'<p>'+safe(pdpIntro(p))+'</p>')+'</div><div class="pdp-facts"><h2>Полезно знать</h2>'+(basket?'<details open><summary>Материал и уход</summary><p>Ротанг используют для расстойки благодаря его фактуре и способности поддерживать форму теста. После расстойки удалите остатки муки сухой мягкой щёткой. Дайте корзинке полностью просохнуть перед хранением. Не ставьте её в духовку.</p></details><details><summary>Как подобрать размер?</summary><p>Ориентируйтесь на вес тестовой заготовки до выпечки. '+(p.weight?'Для этой модели указан вес '+safe(p.weightText)+'.':'Вместимость этой модели уточняется.')+'</p></details>':'')+'<details><summary>Доставка и оплата</summary><p><a href="#delivery">Условия доставки и оплаты</a>. По вопросам заказа можно <a href="#contacts">связаться с магазином</a>.</p></details></div></section>'+
+          '<section class="pdp-information"><div><h2 class="pdp-section-title">'+(basket?'Как пользоваться корзинкой':'О товаре')+'</h2>'+(basket?'<ol class="pdp-instructions">'+steps.map(function(s,i){return '<li><b>0'+(i+1)+'</b><strong>'+s[0]+'</strong><p>'+s[1]+'</p></li>';}).join('')+'</ol>':'<p>'+safe(pdpIntro(p))+'</p>')+'</div><div class="pdp-facts"><h2>Полезно знать</h2>'+(basket?'<details open><summary>Материал и уход</summary><p>Ротанг используют для расстойки благодаря его фактуре и способности поддерживать форму теста. После расстойки удалите остатки муки сухой мягкой щёткой. Дайте корзинке полностью просохнуть перед хранением. Не ставьте её в духовку.</p></details><details><summary>Как подобрать размер?</summary><p>Ориентируйтесь на вес тестовой заготовки до выпечки. '+(p.weight?'Для этой модели указан вес '+safe(p.weightText)+'.':'Вместимость этой модели уточняется.')+' <a href="../blog/kak-vybrat-korzinku/">Руководство по выбору ↗</a></p></details>':'')+'<details><summary>Доставка и оплата</summary><p><a href="#delivery">Условия доставки и оплаты</a>. По вопросам заказа можно <a href="#contacts">связаться с магазином</a>.</p></details></div></section>'+
           pdpReviews(p)+
            (related.length?'<section class="section pdp-related"><div class="section-heading"><h2>'+(basket?'Другие формы и размеры':'Другие инструменты')+'</h2><a href="../katalog/">В каталог ↗</a></div><div class="products-grid">'+related.map(productCard).join('')+'</div></section>':'')+
           (accessories.length?'<section class="section pdp-related pdp-accessories"><div class="section-heading"><h2>Пригодится для выпечки</h2><a href="../katalog/">В каталог ↗</a></div><div class="products-grid">'+accessories.map(productCard).join('')+'</div></section>':'')+
@@ -1068,24 +1073,26 @@ body.cart-drawer-open{overflow:hidden}
       function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>В этом прототипе доступны основные экраны.</p><a class="btn btn-primary" href="v3/index.html">На главную</a></section></div>';}
       function route(){
         catalogUI.closeFilter(false);
-        var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(wholesalePage?"wholesale":catalogPage?"catalog":"home"));
+        var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(articlePage?"articles":wholesalePage?"wholesale":catalogPage?"catalog":"home"));
+        if(!articlePage&&slug==="articles"){location.replace(new URL("../blog/",document.baseURI).href);return;}
         if(!wholesalePage&&(slug==="wholesale"||slug==="quote-form")){location.replace(new URL("../optom/",document.baseURI).href);return;}
         if(wholesalePage&&slug==="quote-form")slug="wholesale";
         if(slug==="home"){location.replace("v3/index.html");return;} if(slug==="quote-form"){location.replace("#wholesale");return;} if(slug==="page-top"){history.replaceState(null,"",location.pathname+location.search+"#"+(app.dataset.route||"catalog"));window.scrollTo(0,0);return;} app.dataset.route=slug; var selected=slug.split("-")[0]; if(selected==="product")selected="catalog";
         document.querySelectorAll("#navigation a").forEach(function(a){
           a.removeAttribute("aria-current");
-          if(a.getAttribute("href")==="#"+selected||(selected==="catalog"&&a.getAttribute("href")==="../katalog/")||(selected==="wholesale"&&a.getAttribute("href")==="../optom/"))a.setAttribute("aria-current","page");
+          if(a.getAttribute("href")==="#"+selected||(selected==="catalog"&&a.getAttribute("href")==="../katalog/")||(selected==="wholesale"&&a.getAttribute("href")==="../optom/")||(selected==="articles"&&a.getAttribute("href")==="../blog/"))a.setAttribute("aria-current","page");
         });
         if(slug==="home"){app.innerHTML=home();}
         else if(slug==="catalog"){app.innerHTML=catalog();updateCatalog();}
         else if(slug.indexOf("product-")===0){app.innerHTML=productPage(slug.slice(8));}
         else if(slug==="wholesale"){app.innerHTML=wholesale();wholesaleUI.mount();}
         else if(slug==="checkout"){app.innerHTML=checkout();}
-        else if(["articles","delivery","contacts"].includes(slug)){app.innerHTML=infoPage(slug);}
+        else if(slug==="articles"){app.innerHTML=articleUI.render();}
+        else if(["delivery","contacts"].includes(slug)){app.innerHTML=infoPage(slug);}
         else{app.innerHTML=notFound();}
         document.dispatchEvent(new Event("hleb-route"));
         var selectedTitle=slug==="home"?"Главная":slug==="catalog"?"Каталог":slug==="wholesale"?"Оптовикам":slug==="checkout"?"Корзина":slug.startsWith("product-")?(productById(slug.slice(8))?.title||"Товар"):"Раздел";
-        if(slug==="wholesale"){document.title=HlebWholesale.meta.title;}else if(slug==="catalog"){document.title=(HlebCatalog.pages.find(p=>p.code===(catalogPage||"all"))||HlebCatalog.pages[0]).title;}else{document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";}
+        if(slug==="articles"){document.title=HlebArticles.get(articlePage)?HlebArticles.title(HlebArticles.get(articlePage)):HlebArticles.meta.title;}else if(slug==="wholesale"){document.title=HlebWholesale.meta.title;}else if(slug==="catalog"){document.title=(HlebCatalog.pages.find(p=>p.code===(catalogPage||"all"))||HlebCatalog.pages[0]).title;}else{document.title=({sale:"Распродажа",account:"Личный кабинет",favorites:"Избранное",compare:"Сравнение",delivery:"Доставка и оплата",articles:"Статьи о хлебе",contacts:"Контакты"})[slug]||selectedTitle;document.title+=" — Hleb-Forma";}
         window.scrollTo(0,0);
         if(slug==="wholesale"&&whPrefill){whPrefill=false;requestAnimationFrame(()=>document.getElementById("quote-form")?.scrollIntoView({block:"start"}));}
       }
@@ -1153,7 +1160,7 @@ body.cart-drawer-open{overflow:hidden}
     var known=Object.fromEntries(HlebDemo.products.map(p=>[p.id,{id:p.id,name:p.title,price:p.price.toLocaleString('ru-RU')+' ₽',weight:p.weightText,size:p.size}]));var favorites=new Set(HlebDemo.list('favorites')),compares=new Set(HlebDemo.list('compare').slice(0,4)),signedInDemo=false;
     var root=document.getElementById('app');
     function esc(v){return String(v==null?'':v).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
-    function current(){return decodeURIComponent(location.hash.slice(1)||(document.documentElement.dataset.wholesalePage==='true'?'wholesale':document.documentElement.dataset.catalogPage?'catalog':'home'));}
+    function current(){return decodeURIComponent(location.hash.slice(1)||(document.documentElement.dataset.articlePage?'articles':document.documentElement.dataset.wholesalePage==='true'?'wholesale':document.documentElement.dataset.catalogPage?'catalog':'home'));}
     function notify(t){var n=document.getElementById('toast');n.textContent=t;n.classList.add('show');clearTimeout(notify.timeout);notify.timeout=setTimeout(function(){n.classList.remove('show');},3200);}
     function updateCounters(){
       var f=document.getElementById('enh-fav-count'),c=document.getElementById('enh-compare-count');
@@ -1211,7 +1218,7 @@ body.cart-drawer-open{overflow:hidden}
         '<div><span class="eyebrow">Для начинающих хлебопеков</span><h2>Что такое корзинки для расстойки теста?</h2>'+
         '<p>Это формы, в которых тестовая заготовка отдыхает и поднимается перед выпечкой. Корзинка поддерживает форму хлеба и помогает получить аккуратный рисунок на поверхности.</p>'+
         '<p class="small">После расстойки заготовку перекладывают для выпечки. Корзина сама по себе не является формой для духовки.</p>'+
-        '<a class="btn btn-outline" href="#articles">Подробнее о выборе и уходе →</a></div></div>';
+        '<a class="btn btn-outline" href="../blog/">Подробнее о выборе и уходе →</a></div></div>';
       if(popular)popular.after(info);else container.appendChild(info);
       var why=document.createElement('section');why.className='section';why.id='enh-why';
       why.innerHTML='<div class="section-heading"><h2>Почему покупают у Hleb-Forma</h2></div>'+
@@ -1329,7 +1336,7 @@ body.cart-drawer-open{overflow:hidden}
   var imgs=Object.fromEntries(HlebDemo.products.map(p=>[p.id,p.image||'']));
   var root=document.getElementById("app");
   var nav=document.getElementById("navigation");
-  var articles=[["Что такое корзинки для расстойки","Что это, как выбрать и использовать"],["Как подобрать корзинку по весу теста","Вместимость от 350 до 900 граммов"],["Круглая или овальная корзинка","Форма выпечки и особенности расстойки"],["Уход за ротанговой корзинкой","Подготовка к использованию и чистка"]];
+  var articles=HlebArticles.posts.map(p=>[p.title,p.desc,p.alias]);
   var itemNames=Object.fromEntries(HlebDemo.products.map(p=>[p.id,p.title+' · '+p.sku]));
   function safe(s){return String(s||"").replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});}
   var brand=document.querySelector(".brand-mark");
@@ -1403,7 +1410,7 @@ body.cart-drawer-open{overflow:hidden}
     }).join("")+'</div>':'<p class="results-none">По такому запросу товары не найдены. Попробуйте другой размер или название.</p>';
     html+='<h3 class="search-group">Статьи <small style="font:400 13px Arial;color:#806b59">('+foundArticles.length+')</small></h3>';
     html+=foundArticles.length?'<div class="live-grid">'+foundArticles.map(function(a){
-      return '<a class="live-result" href="#articles"><span style="background:#f5e5c9;padding:18px;border-radius:10px;font-size:22px">✎</span>'+
+      return '<a class="live-result" href="../blog/'+safe(a[2])+'/"><span style="background:#f5e5c9;padding:18px;border-radius:10px;font-size:22px">✎</span>'+
       '<span><strong>'+safe(a[0])+'</strong><small>'+safe(a[1])+'</small></span></a>';
     }).join("")+'</div>':'<p class="results-none">Статей по этому запросу нет.</p>';
     results.innerHTML=html;

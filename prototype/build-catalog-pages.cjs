@@ -1,7 +1,7 @@
 /* Build static category HTML from the shared storefront template. */
 'use strict';
 const fs=require('node:fs'),path=require('node:path');
-function generate(template,catalogScript,dataScript,wholesaleScript){
+function generate(template,catalogScript,dataScript,wholesaleScript,articleData,articleScript){
   const window={matchMedia:()=>({matches:false,addEventListener(){}})};
   new Function('window',catalogScript)(window);
   const catalogue=window.HlebCatalog;
@@ -35,13 +35,29 @@ function generate(template,catalogScript,dataScript,wholesaleScript){
     if(!rendered.includes('data-wholesale-page="true"')||!rendered.includes('<h1>'+esc(page.h1)+'</h1>')||!rendered.includes('id="quote-form"'))throw Error('Could not render wholesale page');
     result.push({path:'optom/index.html',html:rendered,code:'wholesale'});
   }
+  if(articleData&&articleScript){
+    new Function('window',articleData)(window);new Function('window',articleScript)(window);
+    const articles=window.HlebArticles;
+    for(const post of [null,...articles.posts]){
+      const page=post?post.alias:'listing',dir='blog/'+(post?post.alias+'/':'');
+      const markup=articles.create({products,app:{querySelector:()=>null,addEventListener(){}},page}).render();
+      const rendered=template
+        .replace('<html lang="ru">','<html lang="ru" data-article-page="'+esc(page)+'">')
+        .replace('<meta charset="utf-8">','<meta charset="utf-8">\n  <base href="'+(post?'../../prototype/index.html':'../prototype/index.html')+'">')
+        .replace(/<title>[\s\S]*?<\/title>/,'<title>'+esc(post?articles.title(post):articles.meta.title)+'</title>')
+        .replace(/<meta name="description" content="[^"]*">/,'<meta name="description" content="'+esc(post?post.desc:articles.meta.desc)+'">\n  <link rel="canonical" href="https://web86.github.io/new_hlebforma/'+dir+'">')
+        .replace('<main id="app" class="main-space" tabindex="-1"></main>','<main id="app" class="main-space" tabindex="-1">'+markup+'</main>');
+      if(!rendered.includes('data-article-page="'+page+'"')||!rendered.includes('<h1>'+esc(post?post.title:articles.meta.h1)+'</h1>'))throw Error('Could not render article '+page);
+      result.push({path:dir+'index.html',html:rendered,code:page});
+    }
+  }
   return result;
 }
 module.exports=generate;
 if(require.main===module){
   const out=process.argv[2]||'_site';
   const base=__dirname;
-  const pages=generate(fs.readFileSync(path.join(base,'index.html'),'utf8'),fs.readFileSync(path.join(base,'assets/catalog.js'),'utf8'),fs.readFileSync(path.join(base,'assets/storefront-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/wholesale.js'),'utf8'));
+  const pages=generate(fs.readFileSync(path.join(base,'index.html'),'utf8'),fs.readFileSync(path.join(base,'assets/catalog.js'),'utf8'),fs.readFileSync(path.join(base,'assets/storefront-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/wholesale.js'),'utf8'),fs.readFileSync(path.join(base,'assets/article-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/articles.js'),'utf8'));
   for(const p of pages){const dest=path.join(out,p.path);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,p.html);}
   console.log('Generated '+pages.length+' standalone storefront pages');
 }

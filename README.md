@@ -12,6 +12,8 @@
 - [Каталог](https://web86.github.io/new_hlebforma/katalog/) и отдельные категории — общая вёрстка `prototype/index.html`, данные в `prototype/assets/storefront-data.js`, метаданные и навигация в `prototype/assets/catalog.js`.
 - [История изменений v3 и ограничения](./prototype/v3/README.md)
 
+- [Статьи и руководство по выбору корзинок](https://web86.github.io/new_hlebforma/blog/) — исторические URL и новые материалы.
+
 ### Включить GitHub Pages
 
 1. Сделать репозиторий **Public** (если это не сделано).
