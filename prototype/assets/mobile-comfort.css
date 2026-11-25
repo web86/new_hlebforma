@@ -1,0 +1,217 @@
+/* Mobile reading comfort. Keep the existing grids, photography and desktop layout. */
+@media (max-width: 640px) {
+  body { font-size:16px; line-height:1.6; }
+  .button, .btn { font-size:15px; line-height:1.35; min-height:46px; white-space:normal; }
+  .small, .breadcrumb { font-size:13px; }
+  .field label { font-size:14px; line-height:1.45; }
+  .field input, .field select, .field textarea { font-size:16px; min-height:48px; }
+  input:not([type=checkbox]):not([type=radio]):not([type=range]):not([type=file]), select, textarea { font-size:16px; }
+  .header .icon-btn, .header-v3 .header-actions .icon-btn { width:44px; height:44px; }
+  .header .icon-btn svg, .header-v3 .header-actions .icon-btn svg { width:22px; height:22px; }
+  #mobile-menu-close, .drawer-close, .cart-side-close { min-width:44px; min-height:44px; }
+  .mobile-sidebar-nav a { font-size:17px; min-height:50px; }
+  .mobile-menu-contact { font-size:15px; }
+  .mobile-menu-contact a { min-height:44px; display:flex; align-items:center; }
+  .footer a, .footer p { font-size:14px; line-height:1.65; }
+  .footer .footer-email, .footer .footer-contact-link { font-size:15px; }
+  .footer .footer-phone { min-height:44px; display:flex; align-items:center; }
+  .footer .footer-legal, .footer .footer-bottom, .footer-bank { font-size:13px; }
+  .footer .footer-up { width:44px; height:44px; }
+  .search-sub, .search-caption, .search-result small { font-size:13px; color:#625247; }
+  .search-result strong { font-size:15px; }
+  .search-close { min-width:44px; min-height:44px; }
+  .drawer-item { gap:10px; }
+  .drawer-item div { min-width:0; overflow-wrap:anywhere; }
+  .drawer-item strong { font-size:15px; line-height:1.4; }
+  .drawer-item p { font-size:14px; color:#625247; }
+  .drawer-item button { min-width:44px; min-height:44px; flex-shrink:0; }
+
+  /* Homepage: do not change the two-column product and shape grids. */
+  .wide-copy .wide-mobile-description { font-size:15px; line-height:1.55; }
+  .wide-hero .wide-links .button-light { font-size:15px; min-height:48px; }
+  .wide-hero .wide-links .wide-outline { font-size:14px; min-height:44px; }
+  .benefits-primary .benefit-copy strong, .mobile-extra-benefits .benefit-copy strong { font-size:13px; line-height:1.4; }
+  #catalog .catalog-actions .button { font-size:14px; min-height:46px; }
+  .shape-label strong { font-size:15px; line-height:1.35; }
+  .shape-label small { font-size:13px; color:#625247; line-height:1.4; }
+  .shape-label { overflow-wrap:anywhere; }
+  .v3-product-body { padding:10px; min-width:0; }
+  .v3-product-body h3 { font-size:15px; line-height:1.4; min-height:2.8em; overflow-wrap:anywhere; }
+  .v3-product-body .sku, .v3-product-body .spec, .v3-product-body .photo-analogue { font-size:13px; color:#625247; line-height:1.45; }
+  .v3-buy .price { font-size:21px; }
+  .v3-buy .old-price { font-size:13px; color:#625247; }
+  .v3-buy .buy { font-size:14px; min-height:46px; padding:8px 5px; white-space:normal; line-height:1.3; }
+  .v3-card .wish { min-width:36px; min-height:36px; }
+  #reviews .review-summary { font-size:15px; line-height:1.65; color:#625247; }
+  main .journal p { font-size:14px; line-height:1.6; }
+  .connection-newsletter p { font-size:15px; }
+  .connection-newsletter input { font-size:16px; }
+  .connection-newsletter button, .vk-community-button { font-size:14px; min-height:46px; }
+
+  /* Catalogue and offers: enlarge the information, not the images. */
+  .catalog-shop { --cat-muted:#625247; }
+  .catalog-shop .breadcrumb { font-size:13px; }
+  .cat-heading p, .cat-guide, .cat-help a { font-size:14px; }
+  .cat-category strong { font-size:13px; line-height:1.35; }
+  .cat-category small { font-size:12px; color:#625247; }
+  .cat-search input, .cat-sort select, .cat-filter-group select { font-size:16px; min-height:46px; height:auto; line-height:1.4; }
+  .cat-filter-trigger { font-size:14px; min-height:46px; }
+  .cat-filter-group label { font-size:15px; }
+  .cat-filter-group small, .cat-chip, .cat-chips .cat-text-button, .cat-text-button { font-size:13px; }
+  .cat-chip, .cat-text-button { min-height:36px; }
+  .cat-dialog-foot .btn { font-size:15px; min-height:48px; }
+  .catalog-shop .cat-card .product-card-content { padding:10px; gap:5px; }
+  .catalog-shop .cat-card h3, .promotions-shop .cat-card h3 { font-size:15px; min-height:2.7em; line-height:1.4; }
+  .catalog-shop .cat-sku { font-size:13px; color:#625247; }
+  .catalog-shop .cat-card .cat-specs, .promotions-shop .cat-card .cat-specs { font-size:13px; line-height:1.45; }
+  .catalog-shop .cat-card .photo-analogue { font-size:12px; color:#625247; }
+  .catalog-shop .cat-card .price, .promotions-shop .cat-card .price { font-size:21px; }
+  .catalog-shop .cat-card .card-prices del { font-size:13px; color:#625247; }
+  .catalog-shop .cat-card .card-buy .btn, .promotions-shop .cat-card .card-buy .btn { font-size:14px; min-height:46px; line-height:1.3; padding:8px 5px; white-space:normal; }
+  .catalog-shop .cat-card .card-tools .extra-button { width:36px; height:36px; font-size:17px; }
+  .cat-discount { font-size:12px; }
+  .cat-saving, .promotions-shop .cat-saving { font-size:12px; line-height:1.4; }
+  .pr-copy p, .pr-section-head p, .pr-help p { font-size:14px; line-height:1.5; }
+  .pr-copy .pr-tagline { font-size:19px; }
+  .pr-count, .pr-amount span, .pr-note { font-size:13px; }
+  .pr-nav strong { font-size:14px; line-height:1.35; overflow-wrap:anywhere; }
+  .pr-nav small { font-size:12px; line-height:1.4; }
+  .pr-nav>a { min-height:54px; }
+  .pr-bundle-content h3 { font-size:15px; line-height:1.4; }
+  .pr-bundle-content p, .pr-bundle-items { font-size:13px; line-height:1.45; }
+  .pr-bundle-price strong { font-size:21px; }
+  .pr-bundle-price del { font-size:13px; }
+  .pr-bundle-content .btn { min-height:46px; font-size:14px; padding:8px 5px; }
+  .pr-review-copy>p:not(.pr-note), .pr-review-steps span { font-size:14px; }
+  .pr-review-reward span, .pr-review-reward small { font-size:13px; }
+  .pr-review-copy .btn { min-height:46px; }
+
+  /* Product details, cart and checkout. */
+  .pdp-intro, .pdp-story-copy p, .pdp-facts p { font-size:15px; line-height:1.7; color:#625247; }
+  .pdp .detail-badges .meta-pill { font-size:13px; line-height:1.4; padding:6px 9px; }
+  .pdp .detail-features div { font-size:15px; gap:12px; line-height:1.45; }
+  .pdp-caption, .pdp-kicker, .pdp-variant small, .pdp-variants p, .pdp-lightbox-caption { font-size:13px; color:#625247; }
+  .pdp-thumb { font-size:12px; min-height:52px; }
+  .pdp-variant strong, .pdp-variant b { font-size:15px; }
+  .pdp .btn-row.pdp-buy { grid-template-columns:132px minmax(0,1fr); }
+  .pdp-qty { grid-template-columns:44px minmax(0,1fr) 44px; min-height:48px; }
+  .pdp-qty .quantity { font-size:16px; padding:0 2px; width:100%; min-width:0; }
+  .pdp .pdp-buy .btn, .pdp-sticky .btn { font-size:15px; min-height:48px; padding:10px 6px; }
+  .pdp .detail-summary .extra-button { min-height:44px; font-size:13px; }
+  .pdp-sticky-price { font-size:22px; }
+  .pdp-sticky-price small { font-size:12px; }
+  .pdp-facts summary { font-size:16px; }
+  .pdp-wholesale button { min-height:44px; font-size:14px; }
+  .pdp-review-jump, .pdp-review-summary, .pdp-review-note, .pdp-review-archive { font-size:14px; }
+  .pdp-review-card p { font-size:15px; line-height:1.65; }
+  .pdp-review-card small, .pdp-review-form p { font-size:13px; }
+  .pdp-review-card strong, .pdp-review-form legend, .pdp-review-form label { font-size:15px; }
+  .pdp-review-field input, .pdp-review-field textarea { font-size:16px; }
+  .pdp-rating-choices label { min-width:44px; min-height:44px; }
+  .pdp-review-write>summary { font-size:15px; }
+  .cart-item h3 { font-size:15px; line-height:1.4; }
+  .cart-item-actions { flex-wrap:wrap; }
+  .cart-item-actions button { min-width:44px; min-height:44px; font-size:14px; }
+  .cart-side-item { grid-template-columns:56px minmax(0,1fr) 44px; gap:8px; }
+  .cart-side-item img { width:56px; height:56px; }
+  .cart-side-item a { font-size:15px; line-height:1.4; }
+  .cart-side-item p, .cart-side-note { font-size:13px; color:#625247; }
+  .cart-side-item-price { font-size:16px; }
+  .cart-side-qty { grid-template-columns:44px minmax(28px,auto) 44px; }
+  .cart-side-qty button, .cart-side-remove { min-height:44px; min-width:44px; }
+  .cart-side-qty span { font-size:14px; }
+  .cart-side-continue, .cart-side-empty { font-size:15px; }
+  .checkout-summary .total { font-size:22px; }
+
+  /* Reviews: keep the compact beige cards and six-tile showcase. */
+  .rv-shop { --rv-muted:#625247; }
+  .rv-shop .breadcrumb, .rv-demo-note, .rv-gallery-demo-note { font-size:12px; line-height:1.5; }
+  .rv-hero p, .rv-section-head p, .rv-gallery .rv-section-head p, .rv-invite p, .rv-muted { font-size:14px; line-height:1.5; }
+  .rv-actions .btn { min-height:46px; font-size:15px; }
+  .rv-score p, .rv-bars>div, .rv-count { font-size:13px; }
+  .rv-tabs button { font-size:14px; min-height:44px; padding:9px 8px; }
+  .rv-tabs small { font-size:12px; }
+  .rv-person strong { font-size:15px; }
+  .rv-person small, .rv-card-rating small { font-size:12px; line-height:1.4; }
+  .rv-card-rating .rv-stars { font-size:15px; }
+  .rv-card-content>p { font-size:15px; line-height:1.65; }
+  .rv-product strong { font-size:13px; line-height:1.4; }
+  .rv-product small, .rv-photo-label { font-size:12px; }
+  .rv-product { padding:7px; }
+  .rv-text, .rv-gallery-all { font-size:14px; min-height:44px; }
+  .rv-gallery .rv-section-head { flex-wrap:wrap; }
+  .rv-gallery-all { margin-top:0; }
+  .rv-archive-tile small { font-size:12px; }
+  .rv-archive-filters button, .rv-lightbox-nav button { font-size:14px; min-height:44px; }
+  .rv-archive-total, .rv-archive-footer, .rv-gallery-caption, .rv-lightbox-nav { font-size:13px; }
+  .rv-dialog-head button { width:44px; height:44px; flex-shrink:0; }
+  .rv-dialog label, .rv-dialog legend { font-size:15px; }
+  .rv-dialog input:not([type=radio]):not([type=checkbox]):not([type=file]), .rv-dialog select, .rv-dialog textarea { font-size:16px; min-height:46px; }
+  .rv-upload input { font-size:14px; }
+  .rv-upload small, .rv-dialog [data-rv-form-status] { font-size:13px; }
+  .rv-consent input, .wh-consent input { width:20px; height:20px; flex:none; }
+
+  /* Articles and product finder. */
+  .ar-shop { --ar-muted:#625247; }
+  .ar-shop .breadcrumb, .ar-kicker, .ar-cover figcaption { font-size:13px; }
+  .ar-heading p, .ar-article-head p, .ar-feature p, .ar-end p { font-size:15px; line-height:1.65; }
+  .ar-content>section>p { font-size:17px; line-height:1.75; }
+  .ar-tile h2 { font-size:17px; line-height:1.35; }
+  .ar-tile p { font-size:14px; line-height:1.55; }
+  .ar-tile .ar-kicker { font-size:12px; }
+  .ar-tile .ar-read, .ar-read, .ar-count { font-size:14px; }
+  .ar-filters button { font-size:14px; min-height:44px; }
+  .ar-feature-cta { font-size:15px; min-height:46px; }
+  .ar-finder-fields label { font-size:14px; }
+  .ar-finder-fields input, .ar-finder-fields select { font-size:16px; min-height:46px; }
+  .ar-match, .ar-table p, .ar-source { font-size:14px; }
+  .ar-table table { font-size:14px; }
+  .ar-product strong { font-size:14px; }
+  .ar-product p, .ar-product small, .ar-product .ar-kicker { font-size:13px; }
+  .ar-price b { font-size:20px; }
+  .ar-price del { font-size:13px; }
+  .ar-product .btn { font-size:14px; min-height:44px; }
+
+  /* Wholesale: easier form entry and quantity control. */
+  .wh-shop { --wh-muted:#625247; }
+  .wh-shop .breadcrumb, .wh-eyebrow { font-size:13px; }
+  .wh-hero-copy p, .wh-section header p, .wh-section>div>p, .wh-audience-grid p, .wh-process p, .wh-contact>p, .wh-final p, .wh-faq-list details p { font-size:15px; line-height:1.6; }
+  .wh-benefits div { font-size:13px; }
+  .wh-audience-grid h3, .wh-process h3, .wh-faq-list summary { font-size:15px; }
+  .wh-shop label, .wh-form .wh-consent { font-size:14px; }
+  .wh-picker input, .wh-picker select, .wh-form input:not([type=checkbox]), .wh-form textarea { font-size:16px; min-height:46px; }
+  .wh-item-copy a { font-size:14px; }
+  .wh-item-copy a strong, .wh-item-copy small, .wh-picker-note, .wh-form-note, .wh-summary p, .wh-sticky small, .wh-result p { font-size:13px; }
+  .wh-qty { grid-template-columns:44px minmax(28px,1fr) 44px; max-width:132px; }
+  .wh-qty input { font-size:16px; }
+  .wh-qty button, .wh-remove { min-height:44px; min-width:44px; }
+  .wh-item-controls { flex-wrap:wrap; }
+  .wh-picker-row .btn, .wh-sticky .btn { font-size:14px; min-height:46px; }
+  .wh-result-items li, .wh-result-total { font-size:14px; }
+}
+/* Keep the current header arrangement on narrow phones; account stays in the menu. */
+@media (max-width: 480px) {
+  .header .header-actions a[aria-label="Личный кабинет"] { display:none; }
+}
+@media (max-width: 389px) {
+  .header .icon-btn, .header-v3 .header-actions .icon-btn { width:40px; height:44px; }
+  .header .header-content { gap:6px; }
+  .header .brand-svg { width:36px; height:36px; flex-basis:36px; }
+  .header .brand-name { font-size:14px; }
+  .header .brand-name small { font-size:14px; }
+}
+@media (max-width: 350px) {
+  .header .icon-btn, .header-v3 .header-actions .icon-btn { width:36px; height:44px; }
+  .header .brand-svg, .header-v3 .brand-svg { width:30px; height:30px; flex-basis:30px; }
+  .header .brand-name, .header-v3 .brand-name { font-size:13px; }
+  .header .brand-name small, .header-v3 .brand-name small { font-size:13px; }
+  .catalog-shop .cat-card .product-card-content, .v3-product-body { padding:8px; }
+  .catalog-shop .cat-card .card-tools .extra-button { width:32px; height:36px; }
+  .catalog-shop .cat-card .card-buy .btn, .v3-buy .buy { font-size:14px; }
+  .pdp .btn-row.pdp-buy { grid-template-columns:122px minmax(0,1fr); gap:6px; }
+  .pdp-qty { grid-template-columns:42px minmax(0,1fr) 42px; }
+  .rv-card header { flex-wrap:wrap; }
+  .rv-tabs { flex-wrap:wrap; }
+  .rv-card-content.has-photos { grid-template-columns:minmax(0,1fr) 64px; }
+  .wh-item-controls { gap:6px; }
+}
