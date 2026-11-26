@@ -30,7 +30,7 @@ window.HlebArticleData=[
       ]
     ],
     "legacy": false,
-    "imageAlt": "Тесто на кухонных весах и ротанговые корзинки разных размеров"
+    "imageAlt": "Хлебная заготовка в ротанговой корзинке с льняным чехлом на деревянном столе"
   },
   {
     "alias": "11-kak-obrabatyvat-korzinki-pered-pervym-ispolzovaniem",

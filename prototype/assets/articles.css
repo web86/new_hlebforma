@@ -40,3 +40,17 @@
  .ar-journal .ar-tile h2{font-size:23px}
  .ar-journal .ar-filters{margin-bottom:20px}
 }
+
+/* Individual articles share the editorial listing's full-bleed photo header. */
+.ar-detail-hero{min-height:clamp(360px,32vw,460px)}
+.ar-detail-hero:after{background:linear-gradient(0deg,rgba(30,20,14,.87) 0%,rgba(30,20,14,.54) 34%,rgba(30,20,14,.13) 68%,transparent 100%)}
+.ar-detail-hero h1{max-width:1050px;font-size:clamp(32px,3.8vw,54px);line-height:1.15}
+.ar-detail .ar-detail-main{padding-top:40px}
+.ar-article-lead{font-size:clamp(17px,1.5vw,21px);line-height:1.65;color:var(--ar-muted);margin:0 0 30px;max-width:75ch}
+@media(max-width:640px){
+ .ar-detail-hero{min-height:340px}
+ .ar-detail-hero .ar-journal-inner{padding-top:90px;padding-bottom:26px}
+ .ar-detail-hero h1{font-size:clamp(28px,7.4vw,38px)}
+ .ar-detail .ar-detail-main{padding-top:26px}
+ .ar-article-lead{font-size:17px;margin-bottom:24px}
+}
