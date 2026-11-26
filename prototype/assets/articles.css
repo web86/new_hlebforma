@@ -225,3 +225,29 @@
  .ar-article-actions{gap:8px}
  .ar-article-actions button,.ar-views{font-size:15px;padding:8px 9px}
 }
+
+/* Compact, swipe-like catalogue carousel. */
+.ar-sidebar-promo{padding:12px}
+.ar-promo-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:0 0 5px}
+.ar-promo-head h2{margin:0;font-size:18px}
+.ar-slider-pause{border:0;background:transparent;color:var(--ar-muted);border-radius:6px;display:grid;place-items:center;min-width:32px;min-height:32px;padding:0;font-size:15px;line-height:1;cursor:pointer}
+.ar-slider-pause:hover{background:var(--ar-paper)}
+.ar-slides{overflow:hidden;touch-action:pan-y;position:relative}
+.ar-slide{transform:translateX(0);min-width:0}
+.ar-slide[data-motion="enter-next"]{animation:ar-enter-next .46s cubic-bezier(.22,.61,.36,1) both;z-index:1}
+.ar-slide[data-motion="exit-next"]{animation:ar-exit-next .46s cubic-bezier(.22,.61,.36,1) both}
+.ar-slide[data-motion="enter-prev"]{animation:ar-enter-prev .46s cubic-bezier(.22,.61,.36,1) both;z-index:1}
+.ar-slide[data-motion="exit-prev"]{animation:ar-exit-prev .46s cubic-bezier(.22,.61,.36,1) both}
+@keyframes ar-enter-next{from{transform:translateX(105%)}to{transform:translateX(0)}}
+@keyframes ar-enter-prev{from{transform:translateX(-105%)}to{transform:translateX(0)}}
+@keyframes ar-exit-next{0%{visibility:visible;transform:translateX(0)}99%{visibility:visible;transform:translateX(-105%)}100%{visibility:hidden;transform:translateX(-105%)}}
+@keyframes ar-exit-prev{0%{visibility:visible;transform:translateX(0)}99%{visibility:visible;transform:translateX(105%)}100%{visibility:hidden;transform:translateX(105%)}}
+.ar-slide .ar-product{gap:5px}
+.ar-slide .ar-product img{height:112px}
+.ar-slide .ar-product .ar-kicker{margin:5px 0 3px}
+.ar-slide .ar-price b{font-size:20px}
+.ar-slide .ar-product .btn{min-height:40px;padding:7px 10px}
+.ar-slides a:focus-visible{outline-offset:-3px}
+@media(max-width:1000px){.ar-slider-pause{min-width:44px;min-height:44px}.ar-slide .ar-product img{height:150px}.ar-slide .ar-product .btn{min-height:44px}}
+@media(max-width:640px){.ar-slide .ar-product img{height:clamp(140px,42vw,190px)}}
+@media(prefers-reduced-motion:reduce){.ar-slide[data-motion]{animation:none!important}}
