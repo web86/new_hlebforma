@@ -83,4 +83,5 @@ if(require.main===module){
   const pages=generate(fs.readFileSync(path.join(base,'index.html'),'utf8'),fs.readFileSync(path.join(base,'assets/catalog.js'),'utf8'),fs.readFileSync(path.join(base,'assets/storefront-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/wholesale.js'),'utf8'),fs.readFileSync(path.join(base,'assets/article-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/articles.js'),'utf8'),fs.readFileSync(path.join(base,'assets/review-data.js'),'utf8'),fs.readFileSync(path.join(base,'assets/reviews.js'),'utf8'));
   for(const p of pages){const dest=path.join(out,p.path);fs.mkdirSync(path.dirname(dest),{recursive:true});fs.writeFileSync(dest,p.html);}
   console.log('Generated '+pages.length+' standalone storefront pages');
+  require('./version-assets.cjs').stampSite(out);
 }
