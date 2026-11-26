@@ -54,3 +54,14 @@
  .ar-detail .ar-detail-main{padding-top:26px}
  .ar-article-lead{font-size:17px;margin-bottom:24px}
 }
+
+/* Phone-sized screens: one editorial card per row, including related posts. */
+@media(max-width:640px){
+ .ar-shop .ar-grid{grid-template-columns:minmax(0,1fr);gap:28px}
+ .ar-shop .ar-tile .ar-thumb{aspect-ratio:16/9}
+ .ar-shop .ar-tile-copy{padding:14px 0 0}
+ .ar-shop .ar-tile h2{font-size:22px;line-height:1.3}
+ .ar-shop .ar-tile p{font-size:15px;line-height:1.6}
+ .ar-detail .ar-related .ar-tile{border:0;background:transparent;overflow:visible}
+ .ar-detail .ar-related .ar-thumb{border-radius:10px}
+}
