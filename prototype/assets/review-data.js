@@ -35,16 +35,20 @@ canvas:['Холст удобен для разделения заготовок 
 blade:['Удобно делать надрезы на сформованном хлебе.','Добавил к набору аксессуаров для домашней выпечки.','Понадобилось привыкнуть к инструменту.']
 };
 // Newly generated illustrations, used only for the demonstration gallery.
-const generated=new Set(["round","oval","baguette","heart","triangle"]);
+const generated=new Set(["round","oval","baguette","heart","triangle","roundtwo","roundthree"]);
 const illustration=shape=>generated.has(shape)?'assets/review-photos/'+shape+'.webp':'v3/assets/bread/'+shape+'.webp';
 function seed(products){
  const productReviews=products.flatMap((p,i)=>(specific[p.id]||['Интересная модель для выпечки.','Удобно сравнивать характеристики.','Хотелось бы больше примеров использования.']).map((body,j)=>({
  id:'sample-'+p.id+'-'+j,type:'product',productId:p.id,name:people[(i*3+j)%people.length],rating:j===2?(i%5===0?3:4):5,text:body,
  date:'2026-'+String(11-Math.floor((i*3+j)/25)).padStart(2,'0')+'-'+String(24-(i*3+j)%25||1).padStart(2,'0'),
- photos:j===0&&bread[p.shape]&&p.exact!==false?[illustration(bread[p.shape])]:[],demo:true
+ photos:j===0&&bread[p.shape]&&p.exact!==false?[illustration(p.id==="bn01"?"roundtwo":p.id==="bn07"?"roundthree":bread[p.shape])]:[],demo:true
  })));
- const shopReviews=shop.map(([rating,name,text,img],i)=>({id:'sample-shop-'+i,type:'shop',name,rating,text,date:'2026-11-'+String(24-i).padStart(2,'0'),photos:img?[illustration(img)]:[],demo:true}));
+ const shopReviews=shop.map(([rating,name,text,img],i)=>({id:'sample-shop-'+i,type:'shop',name,rating,text,date:'2026-11-'+String(24-i).padStart(2,'0'),photos:img?[illustration(i===4?"roundtwo":img)]:[],demo:true}));
  return [...shopReviews,...productReviews].map(r=>({...r,date:r.date.replace(/-00$/,'-01')}));
 }
-window.HlebReviewData=Object.freeze({seed,bread});
+const realPhotos={"round":["Sourdough_Bread_Loaf.jpg","Agelaia","by/4.0"],"oval":["Compleat_Wheat_Sourdough_Bâtard.jpg","Do An Ngon Qua","by-sa/4.0"],"baguette":["01_Baguettes_de_pain.jpg","Nikchick","by-sa/2.0"],"roundtwo":["Sour_dough,_round_bread,_home_baked_in_Brisbane,_08.2024.jpg","Kgbo","by-sa/4.0"],"roundthree":["Sour_dough,_round_bread,_home_baked_in_Brisbane,_2024.jpg","Kgbo","by-sa/4.0"]};
+const photoInfo=s=>realPhotos[s.match(/^assets\/review-photos\/([a-z]+)\.webp$/)?.[1]];
+const photoURL=(s,width=960)=>{const p=photoInfo(s);return p?'https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(p[0])+'?width='+width:s;};
+const credit=s=>{const p=photoInfo(s);return p?{author:p[1],source:'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(p[0]),license:'https://creativecommons.org/licenses/'+p[2]+'/',label:'CC '+p[2].replace('/',' ').toUpperCase()}:null;};
+window.HlebReviewData=Object.freeze({seed,bread,photoURL,credit,realPhotos});
 })();
