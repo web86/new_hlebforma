@@ -41,7 +41,7 @@ function seed(products){
  const productReviews=products.flatMap((p,i)=>(specific[p.id]||['Интересная модель для выпечки.','Удобно сравнивать характеристики.','Хотелось бы больше примеров использования.']).map((body,j)=>({
  id:'sample-'+p.id+'-'+j,type:'product',productId:p.id,name:people[(i*3+j)%people.length],rating:j===2?(i%5===0?3:4):5,text:body,
  date:'2026-'+String(11-Math.floor((i*3+j)/25)).padStart(2,'0')+'-'+String(24-(i*3+j)%25||1).padStart(2,'0'),
- photos:j===0&&bread[p.shape]&&p.exact!==false?[illustration(p.id==="bn01"?"roundtwo":p.id==="bn07"?"roundthree":bread[p.shape])]:[],demo:true
+ photos:j===0&&bread[p.shape]&&p.exact!==false?[illustration(p.id==="bn01"?"roundtwo":p.id==="bn27"?"roundthree":bread[p.shape])]:[],demo:true
  })));
  const shopReviews=shop.map(([rating,name,text,img],i)=>({id:'sample-shop-'+i,type:'shop',name,rating,text,date:'2026-11-'+String(24-i).padStart(2,'0'),photos:img?[illustration(i===4?"roundtwo":img)]:[],demo:true}));
  return [...shopReviews,...productReviews].map(r=>({...r,date:r.date.replace(/-00$/,'-01')}));
