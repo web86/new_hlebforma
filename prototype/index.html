@@ -764,7 +764,7 @@ body.cart-drawer-open{overflow:hidden}
 
 </style>
 <link rel="stylesheet" href="assets/catalog.css">
-<link rel="stylesheet" href="assets/articles.css?v=20261126-editorial2">
+<link rel="stylesheet" href="assets/articles.css?v=20261126-editorial3">
 <link rel="stylesheet" href="assets/reviews.css">
 <link rel="stylesheet" href="assets/wholesale.css">
 <link rel="stylesheet" href="assets/mobile-comfort.css">
@@ -844,8 +844,8 @@ body.cart-drawer-open{overflow:hidden}
   <script src="assets/storefront-data.js"></script>
   <script src="assets/catalog.js"></script>
   <script src="assets/wholesale.js"></script>
-  <script src="assets/article-data.js"></script>
-  <script src="assets/articles.js?v=20261126-editorial2"></script>
+  <script src="assets/article-data.js?v=20261126-editorial3"></script>
+  <script src="assets/articles.js?v=20261126-editorial3"></script>
   <script src="assets/review-data.js"></script>
   <script src="assets/reviews.js"></script>
 <script>
@@ -1073,6 +1073,7 @@ body.cart-drawer-open{overflow:hidden}
       function notFound(){return '<div class="container"><section class="page-head"><h1>Страница не найдена</h1><p>Возможно, адрес изменился. Перейдите на главную или в каталог.</p><a class="btn btn-primary" href="v3/index.html">На главную</a></section></div>';}
       function route(){
         catalogUI.closeFilter(false);
+        articleUI.unmount();
         var slug=decodeURIComponent(location.hash.replace(/^#/,"")||(promotionsPage?"sale":reviewsPage?"reviews":articlePage?"articles":wholesalePage?"wholesale":catalogPage?"catalog":"home"));
         var promotionAnchor=promotionsPage&&["pr-discounts","pr-clearance","pr-bundles","pr-review"].includes(slug)?slug:"";if(promotionAnchor)slug="sale";
         if(!promotionsPage&&slug==="sale"){location.replace(new URL("../akcii/",document.baseURI).href);return;}
@@ -1091,7 +1092,7 @@ body.cart-drawer-open{overflow:hidden}
         else if(slug.indexOf("product-")===0){app.innerHTML=productPage(slug.slice(8));}
         else if(slug==="wholesale"){app.innerHTML=wholesale();wholesaleUI.mount();}
         else if(slug==="checkout"){app.innerHTML=checkout();}
-        else if(slug==="articles"){app.innerHTML=articleUI.render();}
+        else if(slug==="articles"){app.innerHTML=articleUI.render();articleUI.mount();}
         else if(slug==="reviews"){app.innerHTML=reviewsUI.render();}
         else if(["delivery","contacts"].includes(slug)){app.innerHTML=infoPage(slug);}
         else{app.innerHTML=notFound();}
