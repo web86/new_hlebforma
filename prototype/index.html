@@ -768,6 +768,7 @@ body.cart-drawer-open{overflow:hidden}
 <link rel="stylesheet" href="assets/reviews.css">
 <link rel="stylesheet" href="assets/wholesale.css">
 <link rel="stylesheet" href="assets/mobile-comfort.css">
+<link rel="stylesheet" href="assets/connections.css">
 </head>
 <body id="page-top">
 <header class="header header-v3"><div class="container header-content">
@@ -783,6 +784,34 @@ body.cart-drawer-open{overflow:hidden}
   </div>
 </div></header>
 <main id="app" class="main-space" tabindex="-1"></main>
+<section class="newsletter-section" aria-labelledby="newsletter-title">
+  <div class="container"><hr class="faq-newsletter-divider"></div>
+  <div class="container connection-grid">
+    <div class="connection-newsletter">
+      <div class="newsletter-copy">
+        <span class="eyebrow">Письма только по делу</span>
+        <h2 id="newsletter-title">Новинки и советы для пекарей</h2>
+        <p>Узнавайте о новых формах, специальных предложениях и полезных советах по хлебопечению.</p>
+      </div>
+      <form id="newsletter-form"><input type="email" required aria-label="Email для подписки" placeholder="Ваш email" autocomplete="email"><button type="submit">Подписаться ↗</button></form>
+    </div>
+    <div id="community" class="connection-community" aria-labelledby="community-title">
+      <span class="eyebrow">Хлеб объединяет</span>
+      <h2 id="community-title">Наше сообщество</h2>
+      <div class="vk-community-card">
+        <div id="vk-community-widget" hidden></div>
+        <div id="vk-community-fallback">
+          <img class="vk-cover" src="v3/assets/hero-bread.webp" alt="" loading="lazy" decoding="async">
+          <div class="vk-fallback-copy">
+            <div class="vk-community-brand"><span class="vk-brand-icon"><svg viewBox="0 0 32 32" width="24" height="24" fill="none" aria-hidden="true" focusable="false"><rect x="1.5" y="1.5" width="29" height="29" rx="8" stroke="currentColor" stroke-width="1.4"/><path d="M7 10c.5 7.1 4.2 11.7 10.8 12v-5.1c2.9.3 4.5 2.4 5.4 5.1H27c-1.1-3.5-3.1-5.6-5.1-6.8 2-1.4 3.6-3.4 4.4-5.2h-3.5c-1 2.4-2.7 4.3-5 4.7V10h-3.5v8.2c-2.3-.7-3.8-3.8-4-8.2Z" fill="currentColor"/></svg></span><div><strong>HLEB-FORMA ВКонтакте</strong><p>Сообщество любителей хлебопечения</p></div></div>
+            <a id="vk-community-link" class="vk-community-button" href="https://vk.com/club175445199" target="_blank" rel="noopener noreferrer">Перейти в сообщество ВКонтакте ↗</a>
+          </div>
+        </div>
+      </div>
+      <a class="vk-direct-link" data-vk-direct hidden target="_blank" rel="noopener noreferrer">Открыть сообщество ВКонтакте ↗</a>
+    </div>
+  </div>
+</section>
 <footer class="footer" id="site-footer">
   <div class="container footer-inner">
     <div class="footer-about">

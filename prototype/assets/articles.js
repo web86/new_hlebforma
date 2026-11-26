@@ -27,7 +27,7 @@ function table(products){return '<details class="ar-table" open><summary>Таб�
 function sidebar(p,products){
  const items=p.related.map(id=>products.find(x=>x.id===id)).filter(Boolean);
  const facts=(p.facts||[]).map(f=>'<li>'+esc(f)+'</li>').join('');
- const slider=items.length?'<section class="ar-sidebar-promo" aria-labelledby="ar-promo-title"><h2 id="ar-promo-title">Из каталога</h2><div class="ar-slider" data-ar-slider aria-label="Подборка корзинок" aria-roledescription="карусель"><div class="ar-slides">'+items.map((item,i)=>'<div class="ar-slide" data-ar-slide data-active="'+(i===0)+'"'+(i===0?'':' aria-hidden="true" inert')+'>'+product(item)+'</div>').join('')+'</div>'+(items.length>1?'<div class="ar-slider-controls" data-ar-controls hidden><button type="button" data-ar-step="-1" aria-label="Предыдущий товар">‹</button><span class="ar-slider-count" data-ar-position>1 / '+items.length+'</span><button type="button" data-ar-toggle aria-label="Приостановить смену товаров">Ⅱ</button><button type="button" data-ar-step="1" aria-label="Следующий товар">›</button></div>':'')+'<span class="ar-sr-only" data-ar-slider-status role="status"></span></div></section>':'';
+ const slider=items.length?'<section class="ar-sidebar-promo" aria-labelledby="ar-promo-title"><div class="ar-slider" data-ar-slider aria-label="Подборка корзинок" aria-roledescription="карусель"><div class="ar-promo-head"><h2 id="ar-promo-title">Из каталога</h2>'+(items.length>1?'<button type="button" class="ar-slider-pause" data-ar-toggle aria-label="Приостановить смену товаров" hidden>Ⅱ</button>':'')+'</div><div class="ar-slides">'+items.map((item,i)=>'<div class="ar-slide" data-ar-slide data-active="'+(i===0)+'"'+(i===0?'':' aria-hidden="true" inert')+'>'+product(item)+'</div>').join('')+'</div><span class="ar-sr-only" data-ar-slider-status role="status"></span></div></section>':'';
  return '<aside class="ar-right-rail" aria-label="Полезные сведения и товары">'+(facts?'<section class="ar-facts"><h2>Что важно знать</h2><ul>'+facts+'</ul></section>':'')+slider+'</aside>';
 }
 function articleFooter(){
@@ -59,18 +59,22 @@ async function shareArticle(){const host=engagement;if(!host||!post)return;const
  fallback.hidden=false;const input=fallback.querySelector('[data-ar-share-url]');input.value=url;input.focus();input.select();status.textContent='Скопируйте ссылку вручную.';
 }
 app.addEventListener('click',e=>{const button=e.target.closest?.('[data-ar-like],[data-ar-share]');if(!button||!engagement||!engagement.contains(button))return;if(button.hasAttribute('data-ar-like')){loadStats();stats.liked=!stats.liked;saveStats();syncEngagement();}else return shareArticle();});
-let timer=null,slider=null,slides=[],active=0,playing=true;
-function unmount(){engagement=null;if(timer!==null)window.clearInterval(timer);timer=null;slider=null;slides=[];}
-function showSlide(index,announce=false){
- if(!slider||!slides.length)return;active=(index+slides.length)%slides.length;
- slides.forEach((el,i)=>{const on=i===active;el.dataset.active=String(on);el.toggleAttribute('inert',!on);if(on)el.removeAttribute('aria-hidden');else el.setAttribute('aria-hidden','true');});
- const counter=slider.querySelector('[data-ar-position]');if(counter)counter.textContent=(active+1)+' / '+slides.length;
+let timer=null,slider=null,slides=[],active=0,playing=true,touch=null;
+function unmount(){engagement=null;if(timer!==null)window.clearInterval(timer);timer=null;slider=null;slides=[];touch=null;}
+function showSlide(index,announce=false,direction=1,animate=true){
+ if(!slider||!slides.length)return;const previous=active;active=(index%slides.length+slides.length)%slides.length;
+ const motion=direction<0?'prev':'next',moving=animate&&previous!==active&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ slides.forEach((el,i)=>{const on=i===active;el.removeAttribute('data-motion');el.dataset.active=String(on);el.toggleAttribute('inert',!on);if(on)el.removeAttribute('aria-hidden');else el.setAttribute('aria-hidden','true');if(moving&&on)el.dataset.motion='enter-'+motion;else if(moving&&i===previous)el.dataset.motion='exit-'+motion;});
  if(announce){const status=slider.querySelector('[data-ar-slider-status]');if(status)status.textContent='Товар '+(active+1)+' из '+slides.length;}
 }
-function syncToggle(){const button=slider?.querySelector('[data-ar-toggle]');if(button){button.textContent=playing?'Ⅱ':'▶';button.setAttribute('aria-label',playing?'Приостановить смену товаров':'Возобновить смену товаров');button.title=playing?'Пауза':'Продолжить';}}
-function startTimer(){if(timer!==null)window.clearInterval(timer);timer=null;if(!playing||slides.length<2)return;timer=window.setInterval(()=>{if(!slider||!slider.isConnected){unmount();return;}if(document.hidden||slider.contains(document.activeElement)||(window.matchMedia('(hover: hover)').matches&&slider.matches(':hover')))return;const rect=slider.getBoundingClientRect();if(rect.bottom<=0||rect.top>=window.innerHeight)return;showSlide(active+1);},4000);}
-function mount(){unmount();mountEngagement();slider=app.querySelector('[data-ar-slider]');if(!slider)return;slides=Array.from(slider.querySelectorAll('[data-ar-slide]'));active=0;playing=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;const controls=slider.querySelector('[data-ar-controls]');if(controls)controls.hidden=false;showSlide(0);syncToggle();startTimer();}
-app.addEventListener('click',e=>{const button=e.target.closest?.('[data-ar-step],[data-ar-toggle]');if(!button||!slider||!slider.contains(button))return;if(button.hasAttribute('data-ar-toggle')){playing=!playing;syncToggle();}else showSlide(active+Number(button.dataset.arStep),true);startTimer();});
+function syncToggle(){const button=slider?.querySelector('[data-ar-toggle]');if(button){button.hidden=false;button.textContent=playing?'Ⅱ':'▶';button.setAttribute('aria-label',playing?'Приостановить смену товаров':'Возобновить смену товаров');button.title=playing?'Пауза':'Продолжить';}}
+function startTimer(){if(timer!==null)window.clearInterval(timer);timer=null;if(!playing||slides.length<2)return;timer=window.setInterval(()=>{if(!slider||!slider.isConnected){unmount();return;}if(document.hidden||touch||slider.contains(document.activeElement)||(window.matchMedia('(hover: hover)').matches&&slider.matches(':hover')))return;const rect=slider.getBoundingClientRect();if(rect.bottom<=0||rect.top>=window.innerHeight)return;showSlide(active+1);},5000);}
+function mount(){unmount();mountEngagement();slider=app.querySelector('[data-ar-slider]');if(!slider)return;slides=Array.from(slider.querySelectorAll('[data-ar-slide]'));active=0;playing=!window.matchMedia('(prefers-reduced-motion: reduce)').matches;showSlide(0,false,1,false);syncToggle();startTimer();}
+app.addEventListener('click',e=>{const button=e.target.closest?.('[data-ar-toggle]');if(!button||!slider||!slider.contains(button))return;playing=!playing;syncToggle();startTimer();});
+app.addEventListener('keydown',e=>{if(!slider||!slider.contains(e.target)||slides.length<2||!['ArrowLeft','ArrowRight'].includes(e.key))return;e.preventDefault();const step=e.key==='ArrowLeft'?-1:1;const focusedSlide=e.target.closest?.('[data-ar-slide]');if(focusedSlide)slider.querySelector('[data-ar-toggle]')?.focus();showSlide(active+step,true,step);startTimer();});
+app.addEventListener('touchstart',e=>{if(!slider||!slider.contains(e.target)||!e.target.closest?.('.ar-slides')||e.touches.length!==1)return;touch={x:e.touches[0].clientX,y:e.touches[0].clientY};},{passive:true});
+app.addEventListener('touchend',e=>{if(!touch)return;const from=touch;touch=null;if(!slider||slides.length<2||!e.changedTouches.length)return;const dx=e.changedTouches[0].clientX-from.x,dy=e.changedTouches[0].clientY-from.y;if(Math.abs(dx)<45||Math.abs(dx)<Math.abs(dy)*1.4)return;if(e.cancelable)e.preventDefault();const step=dx<0?1:-1;showSlide(active+step,true,step);startTimer();},{passive:false});
+app.addEventListener('touchcancel',()=>{touch=null;},{passive:true});
 return Object.freeze({render,mount,unmount});}
 window.HlebArticles=Object.freeze({posts,meta,get,title,create,recommend,capacity});
 })();
