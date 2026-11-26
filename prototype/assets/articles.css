@@ -65,3 +65,69 @@
  .ar-detail .ar-related .ar-tile{border:0;background:transparent;overflow:visible}
  .ar-detail .ar-related .ar-thumb{border-radius:10px}
 }
+
+/* Article reading layout and related editorial content. */
+.ar-detail .ar-body-grid{max-width:1120px;margin-inline:auto;grid-template-columns:minmax(0,800px) minmax(0,260px);gap:clamp(24px,4vw,60px);justify-content:space-between}
+.ar-detail .ar-content>section:not(.ar-finder){margin-bottom:34px}
+.ar-detail .ar-content>section>h2{margin-bottom:13px;line-height:1.3}
+.ar-detail .ar-content>section>p{font-size:17px;line-height:1.8;max-width:75ch}
+.ar-detail .ar-article-lead{margin-bottom:34px}
+.ar-detail .ar-aside{padding:22px;gap:14px}
+.ar-detail .ar-aside h2{font:700 20px/1.3 var(--display-font,Georgia,serif);margin-bottom:4px}
+.ar-detail .ar-aside>a{font-size:14px;line-height:1.55;color:#694a37;text-decoration:none}
+.ar-detail .ar-aside>a:hover{text-decoration:underline;text-underline-offset:4px}
+.ar-detail .ar-recommendations{margin:50px 0 0;padding:clamp(24px,4vw,48px);border-radius:12px;background:var(--ar-paper)}
+.ar-recommend-head{margin-bottom:26px}
+.ar-recommend-head h2,.ar-related-head h2{font:700 clamp(25px,3vw,36px)/1.2 var(--display-font,Georgia,serif);margin:0}
+.ar-recommend-head p{font-size:16px;line-height:1.6;color:var(--ar-muted);margin:10px 0 0}
+.ar-detail .ar-recommendations .ar-products{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(14px,2vw,28px);margin:0}
+.ar-recommendations .ar-product{padding:0;border:0;border-radius:0;background:transparent;gap:9px;min-width:0}
+.ar-recommendations .ar-product img{display:block;width:100%;height:clamp(170px,19vw,260px);object-fit:contain;border-radius:9px;background:white}
+.ar-recommendations .ar-product .ar-kicker{font-size:12px;margin:14px 0 5px}
+.ar-recommendations .ar-product strong{font-size:16px;line-height:1.45}
+.ar-recommendations .ar-product p,.ar-recommendations .ar-product small{font-size:14px;line-height:1.5}
+.ar-recommendations .ar-price{gap:9px;padding-top:4px}
+.ar-recommendations .ar-price b{font-size:24px;line-height:1.3;color:#30221d}
+.ar-recommendations .ar-price del{font-size:14px}
+.ar-recommendations .ar-product .btn{display:inline-flex;align-self:flex-start;width:auto;min-height:44px;padding:8px 0;border:0;background:transparent;color:#965326;font-size:15px;font-weight:650;text-decoration:underline;text-underline-offset:4px;box-shadow:none}
+.ar-recommendations .ar-product .btn:hover{color:#713a1e;background:transparent}
+.ar-detail .ar-related-posts{margin:64px 0 0}
+.ar-related-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin:0 0 24px}
+.ar-related-head .ar-read{font-size:15px;white-space:nowrap}
+.ar-detail .ar-related-posts .ar-grid{gap:34px 24px}
+.ar-detail .ar-related-posts .ar-tile{border:0;border-radius:0;background:transparent;overflow:visible}
+.ar-detail .ar-related-posts .ar-thumb{aspect-ratio:1.65;border-radius:10px}
+.ar-detail .ar-related-posts .ar-tile-copy{padding:16px 0 0}
+.ar-detail .ar-related-posts .ar-tile h2{font-size:clamp(21px,1.8vw,26px)}
+.ar-detail .ar-related-posts .ar-tile p{font-size:15px;line-height:1.6}
+.ar-detail .ar-related-posts .ar-read{font-size:14px}
+.ar-detail :is(a,button):focus-visible{outline:2px solid var(--ar-accent);outline-offset:4px}
+.ar-detail-hero a:focus-visible{outline-color:white}
+@media(max-width:880px){
+ .ar-detail .ar-body-grid{grid-template-columns:minmax(0,1fr);max-width:800px}
+ .ar-detail .ar-recommendations{margin-top:38px}
+ .ar-detail .ar-related-posts{margin-top:48px}
+}
+@media(max-width:640px){
+ .ar-detail .ar-content>section:not(.ar-finder){margin-bottom:28px}
+ .ar-detail .ar-content>section>p{font-size:17px;line-height:1.75}
+ .ar-detail .ar-article-lead{margin-bottom:26px}
+ .ar-detail .ar-recommendations{padding:20px 16px;margin-top:32px}
+ .ar-recommend-head{margin-bottom:20px}
+ .ar-recommend-head p{font-size:15px}
+ .ar-detail .ar-recommendations .ar-products{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}
+ .ar-recommendations .ar-product img{height:clamp(112px,32vw,190px)}
+ .ar-recommendations .ar-product strong{font-size:14px}
+ .ar-recommendations .ar-product p,.ar-recommendations .ar-product small{font-size:13px}
+ .ar-recommendations .ar-price b{font-size:21px}
+ .ar-recommendations .ar-price del{font-size:13px}
+ .ar-detail .ar-related-posts{margin-top:40px}
+ .ar-related-head{margin-bottom:20px}
+ .ar-detail .ar-related-posts .ar-grid{grid-template-columns:minmax(0,1fr);gap:28px}
+ .ar-detail .ar-related-posts .ar-thumb{aspect-ratio:16/9}
+ .ar-detail .ar-related-posts .ar-tile h2{font-size:22px;line-height:1.3}
+}
+@media(max-width:360px){
+ .ar-detail .ar-recommendations .ar-products{grid-template-columns:minmax(0,1fr)}
+ .ar-recommendations .ar-product img{height:175px}
+}
