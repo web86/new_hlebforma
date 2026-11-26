@@ -198,3 +198,30 @@
  .ar-detail .ar-related-posts{margin-top:36px}
  .ar-detail .ar-finder{padding:13px}
 }
+
+/* Quiet author signature and article actions, inside the reading column. */
+.ar-author-footer{margin-top:30px;padding-top:20px;border-top:1px solid var(--ar-line);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px 18px}
+.ar-author{display:flex;gap:11px;align-items:center;min-width:0}
+.ar-author-avatar{width:46px;height:46px;display:grid;place-items:center;flex:none;border-radius:50%;background:var(--ar-paper);color:#8d4e27;font:600 17px/1 var(--display-font,Georgia,serif)}
+.ar-author-label{display:block;font-size:12px;line-height:1.5;color:var(--ar-muted)}
+.ar-author strong{display:block;font-size:15px;line-height:1.45;color:#30221d}
+.ar-article-actions{display:flex;align-items:center;flex-wrap:wrap;gap:6px}
+.ar-article-actions button,.ar-views{display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:8px 10px;color:#725039;font:500 14px/1.4 system-ui,sans-serif;min-height:44px;white-space:nowrap}
+.ar-article-actions button{border:0;background:transparent;border-radius:7px;cursor:pointer}
+.ar-article-actions button:hover{background:var(--ar-paper)}
+.ar-article-actions button:disabled{cursor:default;opacity:.6}
+.ar-like[aria-pressed="true"]{color:var(--ar-accent);background:var(--ar-paper)}
+.ar-like[aria-pressed="true"] svg{fill:currentColor}
+.ar-engagement-note{flex-basis:100%;color:var(--ar-muted);font-size:12px;line-height:1.5;margin-top:-5px}
+.ar-share-fallback{flex-basis:100%;font-size:14px;color:#594c41}
+.ar-share-fallback input{width:100%;min-height:44px;border:1px solid var(--ar-line);border-radius:6px;padding:8px 10px;background:white;font-size:16px;margin-top:5px}
+.ar-share-status{flex-basis:100%;font-size:13px;color:var(--ar-muted)}
+.ar-share-status:empty{display:none}
+@media(max-width:640px){
+ .ar-author-footer{margin-top:26px;padding-top:18px;gap:12px}
+ .ar-author{flex-basis:100%}
+ .ar-author strong{font-size:16px}
+ .ar-author-label,.ar-engagement-note{font-size:13px}
+ .ar-article-actions{gap:8px}
+ .ar-article-actions button,.ar-views{font-size:15px;padding:8px 9px}
+}
