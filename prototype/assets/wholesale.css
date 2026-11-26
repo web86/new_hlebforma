@@ -116,3 +116,22 @@
  body:has(.wh-shop .wh-sticky:not([hidden])) .toast{bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 }
 @media(max-width:350px){.wh-unified-form{padding:12px}.wh-picker-row{grid-template-columns:80px minmax(0,1fr)}.wh-picker-row .btn{font-size:13px}.wh-qty{grid-template-columns:32px minmax(42px,1fr) 32px}}
+
+/* Equal request columns and a quiet, distinct FAQ surface. */
+.wh-unified-form{grid-template-columns:repeat(2,minmax(0,1fr))}
+.wh-benefits{padding-bottom:0}
+.wh-faq{max-width:none;background:var(--wh-paper);border-radius:12px;padding:clamp(24px,4vw,52px);margin:64px 0}
+.wh-faq h2,.wh-faq-list{max-width:840px;margin-left:auto;margin-right:auto}
+.wh-faq h2{margin-bottom:22px}
+.wh-faq-list details+details{border-top:1px solid rgba(117,104,93,.13)}
+.wh-faq-list details{padding:16px 0}
+.wh-faq-list summary{min-height:30px}
+@media(max-width:880px){
+ .wh-unified-form{grid-template-columns:minmax(0,1fr)}
+ .wh-faq{margin:48px 0}
+}
+@media(max-width:640px){
+ .wh-faq{margin:40px 0;padding:24px 18px}
+ .wh-faq-list details{padding:13px 0}
+ .wh-faq-list summary{min-height:44px}
+}
